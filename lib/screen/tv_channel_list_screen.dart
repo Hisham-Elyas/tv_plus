@@ -1,13 +1,124 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:h_tv/screen/tv2_screen.dart';
 
 import 'video_player_screen.dart';
+// import 'package:m3u_parser/m3u_parser.dart';
 
-class TVChannelListScreen extends StatelessWidget {
-  final List<Map<String, String>> channels = [
+import 'package:m3u_parser_nullsafe/m3u_parser_nullsafe.dart';
+import 'package:flutter/services.dart';
+
+Future<List<Map<String, String>>> parseM3U() async {
+  List<Map<String, String>> channels = [];
+  try {
+    final String m3uContent =
+        await rootBundle.loadString('assets/playlist.m3u');
+    final lines = m3uContent.split("\n");
+
+    String? currentTitle;
+
+    for (var line in lines) {
+      if (line.startsWith("#EXTINF")) {
+        final titleMatch = RegExp(r'#EXTINF:.*?,(.*)').firstMatch(line);
+        currentTitle = titleMatch?.group(1);
+      } else if (line.startsWith("http")) {
+        if (currentTitle != null) {
+          channels.add({"title": currentTitle, "url": line});
+          currentTitle = null;
+        }
+      }
+    }
+
+    // for (var channel in channels) {
+    //   print("Channel: ${channel['title']}, URL: ${channel['url']}");
+    // }
+  } catch (e) {
+    print("Error parsing M3U: $e");
+  }
+  return channels;
+}
+
+class TVChannelListScreen extends StatefulWidget {
+  const TVChannelListScreen({super.key});
+
+  @override
+  State<TVChannelListScreen> createState() => _TVChannelListScreenState();
+}
+
+class _TVChannelListScreenState extends State<TVChannelListScreen> {
+// Future<List<String>> parseM3UFile(String filePath) async {
+  List<Map<String, String>> channels1 = [];
+
+  UnmodifiableListView<M3uItem> channels2 = UnmodifiableListView([]);
+
+  // Future<List<String>> parseM3UFile(String filePath) async {
+  //   final String m3uContent = await rootBundle.loadString(filePath);
+  //   print('m3uContent: $m3uContent');
+  //   print('===================================');
+  //   final m3uList = await M3uList.loadFromFile(m3uContent);
+  //   channels1 = m3uList.items.map((entry) => entry.link).toList();
+  //   // for (var item in m3uList.items) {
+  //   //   print('Title: ${item.title}');
+  //   //   print('link: ${item.link}');
+  //   // }
+  //   return channels1;
+  // }
+
+  Future<M3uList> parseM3UFile2(String filePath) async {
+    final String m3uContent = await rootBundle.loadString(filePath);
+    final m3uList = await M3uList.loadFromFile(m3uContent);
+    channels2 = m3uList.items;
+    // return m3uList.items.map((entry) => entry.link).toList();
+    // for (var item in m3uList.items) {
+    //   print('Title: ${item.title}');
+    // }
+    return m3uList;
+  }
+
+  final List<Map<String, String>> channels0 = [
+    {
+      'name': 'UK: BEIN SPORTS AU 1 ᴴᴰ ◉',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/1366.png?57527',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/595835',
+    },
+    {
+      'name': '◉: beIN Sp⚽rts 1 HD',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544835',
+    },
+    {
+      'name': '◉: beIN Sp⚽rts 2 HD',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544834',
+    },
+    {
+      'name': '◉: beIN Sp⚽rts 3 HD',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544833',
+    },
     {
       'name': 'Dubai Sports 1',
       'description': '',
       'logo': 'https://i.imgur.com/Poxw8lG.png',
+      // 'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/8088.jpg?85674',
       'videoUrl':
           'https://dmidspta.cdn.mgmlcdn.com/dubaisports/smil:dubaisports.stream.smil/chunklist.m3u8',
     },
@@ -52,8 +163,18 @@ class TVChannelListScreen extends StatelessWidget {
           'https://shls-mbc5-prod-dub.shahid.net/out/v1/2720564b6a4641658fdfb6884b160da2/index.m3u8',
     },
   ];
-
-  TVChannelListScreen({super.key});
+  @override
+  void initState() {
+    // TODO: implement initState
+    // Future.delayed(Duration.zero, () async {
+    //   channels1 = await parseM3U();
+    //   setState(() {});
+    // });
+    // parseM3UFile0("assets/playlist.m3u");
+    // parseM3UFile("assets/playlist.m3u");
+    // parseM3UFile2('assets/playlist.m3u');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,30 +184,40 @@ class TVChannelListScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: ListView.builder(
-        itemCount: channels.length,
+        itemCount: channels0.length,
         itemBuilder: (context, index) {
-          final channel = channels[index];
+          final channel = channels0[index];
           return Card(
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
               leading: SizedBox(
                   width: 150,
                   child: Image.network(
+                    // channels0[2]['logo']!,
                     channel['logo']!,
                   )),
-              title: Text(channel['name']!,
+              title: Text(
+                  // channels1[index]["title"]!,
+                  channel["name"]!,
                   style: const TextStyle(fontWeight: FontWeight.bold)),
               subtitle: Text(channel['description']!),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => VideoPlayerScreen(
-                      channelName: channel['name']!,
-                      videoUrl: channel['videoUrl']!,
-                    ),
-                  ),
+                      builder: (context) =>
+                          VideoPlayerScreen2(url: channel["videoUrl"]!)),
                 );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => VideoPlayerScreen(
+                //       channelName: channels0[1]['name']!,
+                //       // videoUrl: channel['videoUrl']!,
+                //       videoUrl: channels1[index]["url"]!,
+                //     ),
+                //   ),
+                // );
               },
             ),
           );
