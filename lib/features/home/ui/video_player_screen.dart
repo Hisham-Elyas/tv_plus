@@ -6,8 +6,8 @@ import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
-  final String videoUrl;
-  const VideoPlayerScreen({super.key, required this.videoUrl});
+  final String? videoUrl;
+  const VideoPlayerScreen({super.key, this.videoUrl});
 
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
@@ -23,10 +23,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       // widget.videoUrl,
       // "https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com",
       // 'https://media.w3.org/2010/05/sintel/trailer.mp4',
-      'http://600600.org:8080/play/live.php?mac=00:1a:79:56:28:99&stream=992&extension=ts',
-
-
-
+      widget.videoUrl ??
+          'http://600600.org:8080/play/live.php?mac=00:1a:79:56:28:99&stream=992&extension=ts',
 
       hwAcc: HwAcc.full,
       autoPlay: true,
@@ -36,8 +34,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     flickManager = FlickManager(
         videoPlayerController: VideoPlayerController.networkUrl(
       Uri.parse(
-        //"https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com",
-"https://het126a.4rouwanda-shop.store/live/918454578001/index.m3u8?t=wuXgHTGcntUHx2Lj_75uhg&e=1736609535",
+        //"https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com", // alarabi apublish
+        "https://het126a.4rouwanda-shop.store/live/918454578001/index.m3u8?t=wuXgHTGcntUHx2Lj_75uhg&e=1736609535", // beIM sport 1
       ),
     ));
   }

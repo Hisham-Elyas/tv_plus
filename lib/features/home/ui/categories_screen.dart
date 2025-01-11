@@ -53,12 +53,12 @@ class CategoriesScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: ColorsManager.mainBlack,
         centerTitle: true,
+        iconTheme: const IconThemeData(
+          color: ColorsManager.white, // Change this to your desired color
+        ),
         title: const Text(
           "Categories",
           style: TextStyle(color: ColorsManager.white),
-        ),
-        iconTheme: const IconThemeData(
-          color: ColorsManager.white, // Change this to your desired color
         ),
       ),
       drawer: CustomDrawerWidget(),
@@ -124,10 +124,13 @@ class CategoriesCardWidget extends StatelessWidget {
                 ),
               ),
               verticalSpace(8),
-              Text(
-                channel["name"]!,
-                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+              FittedBox(
+                child: Text(
+                  channel["name"]!,
+                  style:
+                      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),

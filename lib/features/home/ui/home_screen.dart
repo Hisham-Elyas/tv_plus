@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:h_tv/core/theming/colors.dart';
-import 'package:h_tv/features/onboarding/widgets/logo_card_widget.dart';
+import '../../../core/theming/colors.dart';
+import '../../onboarding/widgets/logo_card_widget.dart';
 
 import 'about_us_screen.dart';
 import 'categories_screen.dart';
