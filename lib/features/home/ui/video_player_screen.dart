@@ -23,10 +23,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       // widget.videoUrl,
       // "https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com",
       // 'https://media.w3.org/2010/05/sintel/trailer.mp4',
-      //'http://600600.org:8080/play/live.php?mac=00:1a:79:56:28:99&stream=992&extension=ts',
+      'http://600600.org:8080/play/live.php?mac=00:1a:79:56:28:99&stream=992&extension=ts',
 
 
-//
+
 
       hwAcc: HwAcc.full,
       autoPlay: true,
