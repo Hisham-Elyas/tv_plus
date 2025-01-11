@@ -4,48 +4,44 @@ import 'package:h_tv/core/helpers/spacing.dart';
 import 'package:h_tv/features/home/ui/home_screen.dart';
 
 import '../../../core/theming/colors.dart';
+import 'video_player_screen.dart';
 
 class CategoriesScreen extends StatelessWidget {
   final List<Map<String, String>> channels = [
     {
-      "name": "MBC 1",
+      "name": "◉: beIN Sp⚽rts 1 HD",
       "imageUrl":
-          "https://i.imgur.com/7bRVpnu.png", // Replace with actual logo URL
+          "http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032", // Replace with actual logo URL
     },
     {
-      "name": "MBC 2",
+      "name": "◉: beIN Sp⚽rts 2 HD",
       "imageUrl":
-          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032', // Replace with actual logo URL
+          "http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032", // Replace with actual logo URL
     },
     {
-      "name": "MBC 2",
+      "name": 'Dubai Sports 1',
       "imageUrl":
-          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032', // Replace with actual logo URL
+          'https://i.imgur.com/Poxw8lG.png', // Replace with actual logo URL
     },
     {
-      "name": "MBC 2",
+      "name": 'Sky News Arabia Vertical',
       "imageUrl":
-          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032', // Replace with actual logo URL
+          'https://i.imgur.com/FjtzQQs.png', // Replace with actual logo URL
     },
     {
-      "name": "MBC 2",
+      "name": 'Al Jazeera',
       "imageUrl":
-          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032', // Replace with actual logo URL
+          'https://i.imgur.com/7bRVpnu.png', // Replace with actual logo URL
     },
     {
-      "name": "MBC 2",
+      "name": 'MBC 1',
       "imageUrl":
-          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032', // Replace with actual logo URL
+          'https://i.imgur.com/CiA3plN.png', // Replace with actual logo URL
     },
     {
-      "name": "MBC 2",
+      "name": 'MBC 4',
       "imageUrl":
-          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032', // Replace with actual logo URL
-    },
-    {
-      "name": "MBC 2",
-      "imageUrl":
-          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032', // Replace with actual logo URL
+          'https://i.imgur.com/BcXASJp.png', // Replace with actual logo URL
     },
   ];
 
@@ -96,34 +92,45 @@ class CategoriesCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(10.r),
-      elevation: 3,
-      color: ColorsManager.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(10.0.r),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                channel["imageUrl"]!,
-                width: 70.w,
-                height: 70.h,
-                fit: BoxFit.contain,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const VideoPlayerScreen(
+                    videoUrl: '',
+                  )),
+        );
+      },
+      child: Card(
+        margin: EdgeInsets.all(10.r),
+        elevation: 3,
+        color: ColorsManager.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(10.0.r),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  channel["imageUrl"]!,
+                  width: 70.w,
+                  height: 70.h,
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
-            verticalSpace(8),
-            Text(
-              channel["name"]!,
-              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ],
+              verticalSpace(8),
+              Text(
+                channel["name"]!,
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );

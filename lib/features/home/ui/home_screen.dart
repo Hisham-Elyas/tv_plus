@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:h_tv/core/theming/colors.dart';
 import 'package:h_tv/features/onboarding/widgets/logo_card_widget.dart';
 
-import '../../../core/helpers/spacing.dart';
+import 'about_us_screen.dart';
+import 'categories_screen.dart';
+import 'contact_us_screen.dart';
+import 'profile_screen.dart';
 import 'video_player_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -221,6 +225,33 @@ class CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        switch (text) {
+          case 'Home':
+            Get.off(() => const HomeScreen());
+
+            break;
+          case 'Categories':
+            Get.off(() => CategoriesScreen());
+
+            break;
+          case 'Profile':
+            Get.off(() => const ProfileScreen());
+
+            break;
+          case 'Contact us':
+            Get.off(() => const ContactUsScreen());
+
+            break;
+          case 'About us':
+            Get.off(() => const AboutUsScreen());
+
+            break;
+
+          default:
+            Get.off(() => const HomeScreen());
+        }
+      },
       leading: Icon(
         icon,
         color: ColorsManager.mainBlack,
