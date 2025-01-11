@@ -35,7 +35,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         videoPlayerController: VideoPlayerController.networkUrl(
       Uri.parse(
         //"https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com", // alarabi apublish
-        "https://het126a.4rouwanda-shop.store/live/918454578001/index.m3u8?t=wuXgHTGcntUHx2Lj_75uhg&e=1736609535", // beIM sport 1
+        widget.videoUrl ??
+            "https://het126a.4rouwanda-shop.store/live/918454578001/index.m3u8?t=wuXgHTGcntUHx2Lj_75uhg&e=1736609535", // beIM sport 1
       ),
     ));
   }

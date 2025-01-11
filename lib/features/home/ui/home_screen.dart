@@ -125,10 +125,7 @@ class MatchCardWidget extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => const VideoPlayerScreen(
-                    videoUrl: '',
-                  )),
+          MaterialPageRoute(builder: (context) => const VideoPlayerScreen()),
         );
       },
       child: Card(

@@ -98,7 +98,8 @@ class CategoriesCardWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => const VideoPlayerScreen(
-                    videoUrl: '',
+                    videoUrl:
+                        'https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com',
                   )),
         );
       },
