@@ -36,7 +36,8 @@ https://het126a.4rouwanda-shop.store/live/918454578001/index.m3u8?t=wuXgHTGcntUH
     flickManager = FlickManager(
         videoPlayerController: VideoPlayerController.networkUrl(
       Uri.parse(
-        "https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com",
+        //"https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com",
+"https://het126a.4rouwanda-shop.store/live/918454578001/index.m3u8?t=wuXgHTGcntUHx2Lj_75uhg&e=1736609535",
       ),
     ));
   }
