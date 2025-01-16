@@ -37,6 +37,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     ));
 SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+//setAllOrientationsTolandscape();
   }
 
   @override
@@ -46,7 +47,10 @@ SystemChrome.setPreferredOrientations(
     flickManager.dispose();
     super.dispose();
   }
-
+Future setAllOrientationsTolandscape() async {
+await SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+}
   Future setAllOrientations() async {
     await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
     await SystemChrome.setPreferredOrientations([
