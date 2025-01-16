@@ -115,6 +115,105 @@ class _TVChannelListScreenState extends State<TVChannelListScreen> {
           'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544833',
     },
     {
+      'name': '◉: beIN Sp⚽rts 4 HD',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544832',
+    },
+    {
+      'name': '◉: beIN Sp⚽rts 5 HD',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544831',
+    },
+    {
+      'name': '◉: beIN Sp⚽rts 6 HD',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544830',
+    },
+    {
+      'name': '◉: beIN Sp⚽rts 7 HD',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544829',
+    },
+    {
+      'name': '◉: beIN Sp⚽rts 8 HD',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544828',
+    },
+    {
+      'name': '◉: beIN Sp⚽rts 9 HD',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544827',
+    },
+    {
+      'name': 'SCC 1 ᴴᴰ',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/844321',
+    },
+    {
+      'name': 'SCC 2 ᴴᴰ',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/844320',
+    },
+    {
+      'name': 'SCC 3 ᴴᴰ',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/844319',
+    },
+    {
+      'name': 'SCC 4 ᴴᴰ',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/844318',
+    },
+    {
+      'name': 'SCC 5 ᴴᴰ',
+      'description': '',
+      // 'logo': 'https://i.imgur.com/Poxw8lG.png',
+      'logo':
+          'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
+      'videoUrl':
+          'http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/844317',
+    },
+    {
       'name': 'Dubai Sports 1',
       'description': '',
       'logo': 'https://i.imgur.com/Poxw8lG.png',

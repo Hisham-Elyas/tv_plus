@@ -33,7 +33,7 @@ class IntroScreen extends GetView<OnboardingController> {
               buttonWidth: 317,
               borderRadius: 152,
               buttonText: "إبدء",
-              onPressed: () => Get.to(() => OnboardingScreen()),
+              onPressed: () => Get.to(() => const OnboardingScreen()),
               textStyle: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w700,

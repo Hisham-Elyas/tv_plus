@@ -3,49 +3,50 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:h_tv/core/helpers/spacing.dart';
 import 'package:h_tv/features/home/ui/home_screen.dart';
 
+import '../../../core/helpers/constants.dart';
 import '../../../core/theming/colors.dart';
 import 'video_player_screen.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  final List<Map<String, String>> channels = [
-    {
-      "name": "◉: beIN Sp⚽rts 1 HD",
-      "imageUrl":
-          "http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032", // Replace with actual logo URL
-    },
-    {
-      "name": "◉: beIN Sp⚽rts 2 HD",
-      "imageUrl":
-          "http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032", // Replace with actual logo URL
-    },
-    {
-      "name": 'Dubai Sports 1',
-      "imageUrl":
-          'https://i.imgur.com/Poxw8lG.png', // Replace with actual logo URL
-    },
-    {
-      "name": 'Sky News Arabia Vertical',
-      "imageUrl":
-          'https://i.imgur.com/FjtzQQs.png', // Replace with actual logo URL
-    },
-    {
-      "name": 'Al Jazeera',
-      "imageUrl":
-          'https://i.imgur.com/7bRVpnu.png', // Replace with actual logo URL
-    },
-    {
-      "name": 'MBC 1',
-      "imageUrl":
-          'https://i.imgur.com/CiA3plN.png', // Replace with actual logo URL
-    },
-    {
-      "name": 'MBC 4',
-      "imageUrl":
-          'https://i.imgur.com/BcXASJp.png', // Replace with actual logo URL
-    },
-  ];
+  // final List<Map<String, String>> channels = [
+  //   {
+  //     "name": "◉: beIN Sp⚽rts 1 HD",
+  //     "imageUrl":
+  //         "http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032", // Replace with actual logo URL
+  //   },
+  //   {
+  //     "name": "◉: beIN Sp⚽rts 2 HD",
+  //     "imageUrl":
+  //         "http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032", // Replace with actual logo URL
+  //   },
+  //   {
+  //     "name": 'Dubai Sports 1',
+  //     "imageUrl":
+  //         'https://i.imgur.com/Poxw8lG.png', // Replace with actual logo URL
+  //   },
+  //   {
+  //     "name": 'Sky News Arabia Vertical',
+  //     "imageUrl":
+  //         'https://i.imgur.com/FjtzQQs.png', // Replace with actual logo URL
+  //   },
+  //   {
+  //     "name": 'Al Jazeera',
+  //     "imageUrl":
+  //         'https://i.imgur.com/7bRVpnu.png', // Replace with actual logo URL
+  //   },
+  //   {
+  //     "name": 'MBC 1',
+  //     "imageUrl":
+  //         'https://i.imgur.com/CiA3plN.png', // Replace with actual logo URL
+  //   },
+  //   {
+  //     "name": 'MBC 4',
+  //     "imageUrl":
+  //         'https://i.imgur.com/BcXASJp.png', // Replace with actual logo URL
+  //   },
+  // ];
 
-  CategoriesScreen({super.key});
+  const CategoriesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +72,9 @@ class CategoriesScreen extends StatelessWidget {
             crossAxisSpacing: 1, // Spacing between columns
             mainAxisSpacing: 1, // Spacing between rows
           ),
-          itemCount: channels.length,
+          itemCount: beINandCSSchannels.length,
           itemBuilder: (context, index) {
-            final channel = channels[index];
+            final channel = beINandCSSchannels[index];
             return CategoriesCardWidget(channel: channel);
           },
         ),
@@ -97,9 +98,8 @@ class CategoriesCardWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const VideoPlayerScreen(
-                    videoUrl:
-                        'https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com',
+              builder: (context) => VideoPlayerScreen(
+                    videoUrl: channel["videoUrl"]!,
                   )),
         );
       },
@@ -118,7 +118,7 @@ class CategoriesCardWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  channel["imageUrl"]!,
+                  channel["logo"]!,
                   width: 70.w,
                   height: 70.h,
                   fit: BoxFit.contain,

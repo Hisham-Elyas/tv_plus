@@ -36,7 +36,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       Uri.parse(
         //"https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com", // alarabi apublish
         widget.videoUrl ??
-            "https://het126a.4rouwanda-shop.store/live/918454578001/index.m3u8?t=wuXgHTGcntUHx2Lj_75uhg&e=1736609535", // beIM sport 1
+            "http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544835", // beIM sport 1
       ),
     ));
   }
