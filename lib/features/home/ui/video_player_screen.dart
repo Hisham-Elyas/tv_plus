@@ -20,12 +20,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void initState() {
     super.initState();
     _vlcController = VlcPlayerController.network(
-      // widget.videoUrl,
-      // "https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com",
-      // 'https://media.w3.org/2010/05/sintel/trailer.mp4',
       widget.videoUrl ??
-          'http://600600.org:8080/play/live.php?mac=00:1a:79:56:28:99&stream=992&extension=ts',
-
+          "http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544835",
       hwAcc: HwAcc.full,
       autoPlay: true,
       options: VlcPlayerOptions(),
@@ -59,32 +55,39 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FlickVideoPlayer(
-      flickManager: flickManager,
-      preferredDeviceOrientationFullscreen: const [
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ],
-      wakelockEnabledFullscreen: true,
-      systemUIOverlay: const [SystemUiOverlay.bottom],
-      systemUIOverlayFullscreen: const [SystemUiOverlay.bottom],
-      preferredDeviceOrientation: const [
-        DeviceOrientation.landscapeLeft,
-        DeviceOrientation.landscapeRight,
-      ],
-      flickVideoWithControls: FlickVideoWithControls(
-        controls: FlickPortraitControls(
-          iconSize: 40,
-          progressBarSettings: FlickProgressBarSettings(
-            height: 5,
-            handleRadius: 8,
-            playedColor: Colors.red,
-          ),
-        ),
-        iconThemeData: const IconThemeData(
-          color: Colors.grey,
-        ),
-      ),
+    return VlcPlayer(
+      virtualDisplay: false,
+      controller: _vlcController,
+      aspectRatio: 16 / 9,
+      placeholder: const Center(child: CircularProgressIndicator()),
     );
+
+    //  FlickVideoPlayer(
+    //   flickManager: flickManager,
+    //   preferredDeviceOrientationFullscreen: const [
+    //     DeviceOrientation.landscapeLeft,
+    //     DeviceOrientation.landscapeRight,
+    //   ],
+    //   wakelockEnabledFullscreen: true,
+    //   systemUIOverlay: const [SystemUiOverlay.bottom],
+    //   systemUIOverlayFullscreen: const [SystemUiOverlay.bottom],
+    //   preferredDeviceOrientation: const [
+    //     DeviceOrientation.landscapeLeft,
+    //     DeviceOrientation.landscapeRight,
+    //   ],
+    //   flickVideoWithControls: FlickVideoWithControls(
+    //     controls: FlickPortraitControls(
+    //       iconSize: 40,
+    //       progressBarSettings: FlickProgressBarSettings(
+    //         height: 5,
+    //         handleRadius: 8,
+    //         playedColor: Colors.red,
+    //       ),
+    //     ),
+    //     iconThemeData: const IconThemeData(
+    //       color: Colors.grey,
+    //     ),
+    //   ),
+    // );
   }
 }
