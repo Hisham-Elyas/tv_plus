@@ -35,6 +35,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             "http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544835", // beIM sport 1
       ),
     ));
+SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
   }
 
   @override
