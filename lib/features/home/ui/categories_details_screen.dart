@@ -40,14 +40,16 @@ class CategoriesDetailsScreen extends StatelessWidget {
             return ChannelCardWidget(
               channel: channel,
               onTap: () {
-            //    Get.to(() => //VideoPlayerScreen(
-           //           videoUrl: //channel.videoUrl,
-                  //  ));
-Navigator.push(
-context,
-MaterialPageRoute (builder:
-(context) => const VideoPlayerScreen(videoUrl: channel.videoUrl,)),
-);
+                Get.to(() => VideoPlayerScreen(
+                      videoUrl: channel.videoUrl,
+                    ));
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => VideoPlayerScreen(
+                //             videoUrl: channel.videoUrl,
+                //           )),
+                // );
               },
             );
           },

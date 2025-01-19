@@ -2,6 +2,7 @@ import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
+import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final String? videoUrl;
@@ -25,14 +26,14 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       options: VlcPlayerOptions(),
     );
 
-    // flickManager = FlickManager(
-    //     videoPlayerController: VideoPlayerController.networkUrl(
-    //   Uri.parse(
-    //     //"https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com", // alarabi apublish
-    //     widget.videoUrl ??
-    //         "http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544835", // beIM sport 1
-    //   ),
-    // ));
+    flickManager = FlickManager(
+        videoPlayerController: VideoPlayerController.networkUrl(
+      Uri.parse(
+        //"https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com", // alarabi apublish
+        widget.videoUrl ??
+            "http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544835", // beIM sport 1
+      ),
+    ));
     Future.delayed(
       Duration.zero,
       () async {
@@ -43,7 +44,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   void dispose() async {
-    await setAllOrientations();
+    setAllOrientations();
     flickManager.dispose();
     _vlcController.dispose();
     super.dispose();

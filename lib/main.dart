@@ -40,6 +40,9 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: isOnBordingView ? const LoginScreen() : const IntroScreen(),
+        // home: MatchScreen(
+        //   matches: sampleMatches,
+        // ),
         // home: OnboardingScreen(),
         // home: const SingupScreen(),
         // home: const LoginScreen(),

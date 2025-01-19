@@ -40,9 +40,11 @@ class ChannelCardWidget extends StatelessWidget {
                   fit: BoxFit.contain,
                   imageUrl: channel.logo,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(
-                          color: ColorsManager.mainBlue,
-                          value: downloadProgress.progress),
+                      Center(
+                    child: CircularProgressIndicator(
+                        color: ColorsManager.mainBlue,
+                        value: downloadProgress.progress),
+                  ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),

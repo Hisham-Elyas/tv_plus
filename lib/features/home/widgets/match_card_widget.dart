@@ -18,12 +18,11 @@ class MatchCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-      //  Get.to(() => const //VideoPlayerScreen());
-Navigator.push(
-context,
-MaterialPageRoute (builder:
-(context) => const VideoPlayerScreen()),
-);
+        Get.to(() => const VideoPlayerScreen());
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => const VideoPlayerScreen()),
+        // );
       },
       child: Card(
         margin: const EdgeInsets.all(10),
@@ -80,10 +79,11 @@ MaterialPageRoute (builder:
                         fit: BoxFit.contain,
                         imageUrl: event["team2Logo"],
                         progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                                CircularProgressIndicator(
-                                    color: ColorsManager.mainBlue,
-                                    value: downloadProgress.progress),
+                            (context, url, downloadProgress) => Center(
+                          child: CircularProgressIndicator(
+                              color: ColorsManager.mainBlue,
+                              value: downloadProgress.progress),
+                        ),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
                       ),
