@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:h_tv/core/helpers/spacing.dart';
 
+import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/colors.dart';
 import '../controllers/today_matches_controller.dart';
 import '../data/models/match_model.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:h_tv/core/theming/colors.dart';
+
+import '../theming/colors.dart';
 
 void showCustomSnackBar(
     {required String message,
