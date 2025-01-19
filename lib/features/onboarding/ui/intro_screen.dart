@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'package:h_tv/core/helpers/spacing.dart';
-import 'package:h_tv/core/theming/colors.dart';
+import '../../../core/helpers/spacing.dart';
+import '../../../core/theming/colors.dart';
 
 import '../../../core/widgets/app_text_button.dart';
 import '../controller/onboarding_controller.dart';

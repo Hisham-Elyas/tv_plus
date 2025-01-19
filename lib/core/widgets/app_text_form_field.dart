@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:h_tv/core/theming/colors.dart';
 
-import '../theming/styles.dart';
+import '../theming/colors.dart';
 
 // class AppTextFormField extends StatelessWidget {
 //   final EdgeInsetsGeometry? contentPadding;

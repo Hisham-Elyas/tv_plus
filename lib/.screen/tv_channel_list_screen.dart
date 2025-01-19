@@ -2,13 +2,11 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:h_tv/screen/tv2_screen.dart';
-
-import 'video_player_screen.dart';
 // import 'package:m3u_parser/m3u_parser.dart';
 
 import 'package:m3u_parser_nullsafe/m3u_parser_nullsafe.dart';
-import 'package:flutter/services.dart';
+
+import 'tv2_screen.dart';
 
 Future<List<Map<String, String>>> parseM3U() async {
   List<Map<String, String>> channels = [];
@@ -35,7 +33,7 @@ Future<List<Map<String, String>>> parseM3U() async {
     //   print("Channel: ${channel['title']}, URL: ${channel['url']}");
     // }
   } catch (e) {
-    print("Error parsing M3U: $e");
+    debugPrint("Error parsing M3U: $e");
   }
   return channels;
 }
@@ -264,7 +262,6 @@ class _TVChannelListScreenState extends State<TVChannelListScreen> {
   ];
   @override
   void initState() {
-    // TODO: implement initState
     // Future.delayed(Duration.zero, () async {
     //   channels1 = await parseM3U();
     //   setState(() {});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:h_tv/core/helpers/shared_pref_helper.dart';
+import '../../../core/helpers/shared_pref_helper.dart';
 
 import '../../../core/helpers/constants.dart';
 import '../../auth/login/ui/login_screen.dart';

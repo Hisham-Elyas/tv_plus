@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:h_tv/core/helpers/spacing.dart';
-import 'package:h_tv/core/widgets/app_text_form_field.dart';
+import '../../../../core/helpers/spacing.dart';
+import '../../../../core/widgets/app_text_form_field.dart';
 
 import '../../../../core/helpers/constants.dart';
 import '../../../../core/theming/colors.dart';
@@ -51,7 +51,9 @@ class OTPScreen extends StatelessWidget {
                         AppTextFormField(
                           controller: TextEditingController(),
                           hintText: "رمز التحقق",
-                          validator: (p0) {},
+                          validator: (p0) {
+                            return null;
+                          },
                         ),
                         verticalSpace(20),
                         AppTextButton(

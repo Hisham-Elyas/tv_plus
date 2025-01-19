@@ -46,6 +46,7 @@ dependencies:
   avatar_glow: ^3.0.1
   flick_video_player: ^0.9.0
   get: ^4.6.6
+  cached_network_image: ^3.4.1
   # wakelock: ^0.4.0
   # appinio_video_player: ^1.2.2
 

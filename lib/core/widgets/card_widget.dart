@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:h_tv/core/theming/colors.dart';
+import '../theming/colors.dart';
 
 class CardWidget extends StatelessWidget {
   final Widget child;

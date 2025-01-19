@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../core/helpers/constants.dart';
 import '../../../core/theming/colors.dart';
 import '../data/models/channel_category_model.dart';
-import '../widgets/categories_card_widget.dart';
-import '../widgets/custom_drawer_widget.dart';
-import 'categories_details_screen.dart';
+import '../widgets/channel_card_widget.dart';
+import 'video_player_screen.dart';
 
-class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key});
+class CategoriesDetailsScreen extends StatelessWidget {
+  final ChannelCategory category;
+  const CategoriesDetailsScreen({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +20,11 @@ class CategoriesScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: ColorsManager.white, // Change this to your desired color
         ),
-        title: const Text(
-          "Categories",
-          style: TextStyle(color: ColorsManager.white),
+        title: Text(
+          category.categoryName,
+          style: const TextStyle(color: ColorsManager.white),
         ),
       ),
-      drawer: CustomDrawerWidget(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
@@ -36,13 +34,15 @@ class CategoriesScreen extends StatelessWidget {
             crossAxisSpacing: 1, // Spacing between columns
             mainAxisSpacing: 1, // Spacing between rows
           ),
-          itemCount: channels.length,
+          itemCount: category.channels.length,
           itemBuilder: (context, index) {
-            final ChannelCategory chCategory = channelCategories[index];
-            return CategoriesCardWidget(
-              category: chCategory,
+            final Channel channel = category.channels[index];
+            return ChannelCardWidget(
+              channel: channel,
               onTap: () {
-                Get.to(() => CategoriesDetailsScreen(category: chCategory));
+                Get.to(() => VideoPlayerScreen(
+                      videoUrl: channel.videoUrl,
+                    ));
               },
             );
           },

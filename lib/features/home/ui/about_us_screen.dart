@@ -1,9 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../core/theming/colors.dart';
-import 'home_screen.dart';
+import '../widgets/custom_drawer_widget.dart';
 
 class AboutUsScreen extends StatelessWidget {
   const AboutUsScreen({super.key});
