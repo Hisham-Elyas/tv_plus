@@ -18,7 +18,12 @@ class MatchCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(() => const VideoPlayerScreen());
+      //  Get.to(() => const //VideoPlayerScreen());
+Navigator.push(
+context,
+MaterialPageRoute (builder:
+(context) => const VideoPlayerScreen()),
+);
       },
       child: Card(
         margin: const EdgeInsets.all(10),
