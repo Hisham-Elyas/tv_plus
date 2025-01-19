@@ -20,7 +20,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     super.initState();
     _vlcController = VlcPlayerController.network(
       widget.videoUrl ??
-          "https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com", // alarabi apublish
+          "http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544835", // alarabi apublish
       hwAcc: HwAcc.full,
       autoPlay: true,
       options: VlcPlayerOptions(),
