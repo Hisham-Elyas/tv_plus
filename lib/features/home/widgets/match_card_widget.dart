@@ -2,22 +2,25 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:h_tv/core/helpers/spacing.dart';
 
 import '../../../core/theming/colors.dart';
+import '../controllers/today_matches_controller.dart';
+import '../data/models/match_model.dart';
 import '../ui/video_player_screen.dart';
 
-class MatchCardWidget extends StatelessWidget {
+class MatchCardWidget extends GetView<TodayMatchesController> {
   const MatchCardWidget({
     super.key,
     required this.event,
   });
 
-  final Map<String, dynamic> event;
+  final MatchModel event;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
         Get.to(() => const VideoPlayerScreen());
         // Navigator.push(
         //   context,
@@ -44,11 +47,11 @@ class MatchCardWidget extends StatelessWidget {
                         width: 80.w,
                         height: 80.h,
                         fit: BoxFit.contain,
-                        imageUrl: event["team1Logo"],
+                        imageUrl: event.homeTeamLogo,
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) => Center(
                           child: CircularProgressIndicator(
-                              color: ColorsManager.mainBlue,
+                              color: ColorsManager.lightBlue,
                               value: downloadProgress.progress),
                         ),
                         errorWidget: (context, url, error) =>
@@ -56,20 +59,39 @@ class MatchCardWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        event["team1"],
+                        event.homeTeam,
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
-                  Text(
-                    event["status"],
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: event["status"] == "جارية الآن"
-                          ? Colors.green
-                          : Colors.black,
-                    ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CachedNetworkImage(
+                        width: 50.w,
+                        height: 50.h,
+                        fit: BoxFit.contain,
+                        imageUrl: event.leagueLogo,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) => Center(
+                          child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: ColorsManager.lightBlue,
+                              value: downloadProgress.progress),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
+                      verticalSpace(20.h),
+                      Text(
+                        event.matchTime,
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: ColorsManager.lightBlue,
+                        ),
+                      ),
+                    ],
                   ),
                   Column(
                     children: [
@@ -77,11 +99,11 @@ class MatchCardWidget extends StatelessWidget {
                         width: 80.w,
                         height: 80.h,
                         fit: BoxFit.contain,
-                        imageUrl: event["team2Logo"],
+                        imageUrl: event.awayTeamLogo,
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) => Center(
                           child: CircularProgressIndicator(
-                              color: ColorsManager.mainBlue,
+                              color: ColorsManager.lightBlue,
                               value: downloadProgress.progress),
                         ),
                         errorWidget: (context, url, error) =>
@@ -89,7 +111,7 @@ class MatchCardWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        event["team2"],
+                        event.awayTeam,
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -97,22 +119,40 @@ class MatchCardWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    event["league"],
-                    style: TextStyle(color: Colors.grey[600]),
-                  ),
-                  const Icon(Icons.mic, color: Colors.grey),
-                  const Icon(Icons.tv, color: Colors.grey),
-                  Text(
-                    event["channel"],
-                    style: const TextStyle(color: Colors.blue),
-                  ),
-                ],
-              ),
+              verticalSpace(8.h),
+              if (event.channelsAndCommentators.isNotEmpty) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      event.channelsAndCommentators.first.commentator,
+                      style: const TextStyle(color: ColorsManager.lightBlue),
+                    ),
+                    const Icon(Icons.mic, color: Colors.grey),
+                    const Icon(Icons.tv, color: Colors.grey),
+                    Text(
+                      event.channelsAndCommentators.first.channel,
+                      style: const TextStyle(color: ColorsManager.lightBlue),
+                    ),
+                  ],
+                ),
+              ] else ...[
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'Unknown',
+                      style: TextStyle(color: ColorsManager.lightBlue),
+                    ),
+                    Icon(Icons.mic, color: Colors.grey),
+                    Icon(Icons.tv, color: Colors.grey),
+                    Text(
+                      'Unknown',
+                      style: TextStyle(color: ColorsManager.lightBlue),
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
         ),

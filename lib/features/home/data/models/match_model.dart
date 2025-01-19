@@ -25,15 +25,15 @@ class MatchModel {
 
   factory MatchModel.fromJson(Map<String, dynamic> json) {
     return MatchModel(
-      league: json['league'],
-      leagueLogo: json['leagueLogo'],
-      homeTeam: json['homeTeam'],
-      awayTeam: json['awayTeam'],
-      homeTeamLogo: json['homeTeamLogo'],
-      awayTeamLogo: json['awayTeamLogo'],
-      matchDate: json['matchDate'],
-      matchTime: json['matchTime'],
-      channelsAndCommentators: (json['channelsAndCommentators'] as List)
+      league: json['league'] ?? '',
+      leagueLogo: json['leagueLogo'] ?? '',
+      homeTeam: json['homeTeam'] ?? '',
+      awayTeam: json['awayTeam'] ?? '',
+      homeTeamLogo: json['homeTeamLogo'] ?? '',
+      awayTeamLogo: json['awayTeamLogo'] ?? '',
+      matchDate: json['matchDate'] ?? '',
+      matchTime: json['matchTime'] ?? '',
+      channelsAndCommentators: (json['channelsAndCommentators'] as List? ?? [])
           .map((item) => ChannelAndCommentator.fromJson(item))
           .toList(),
     );

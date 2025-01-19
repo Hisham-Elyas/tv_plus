@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:h_tv/features/home/controllers/today_matches_controller.dart';
 
-import '../../../core/helpers/constants.dart';
+import '../../../core/helpers/enums.dart';
 import '../../../core/theming/colors.dart';
 import '../../onboarding/widgets/logo_card_widget.dart';
 import '../widgets/custom_drawer_widget.dart';
@@ -22,13 +24,22 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       drawer: CustomDrawerWidget(),
-      body: ListView.builder(
-        padding: EdgeInsets.only(top: 10.h),
-        itemCount: events.length,
-        itemBuilder: (context, index) {
-          final event = events[index];
-          return MatchCardWidget(event: event);
-        },
+      body: GetBuilder<TodayMatchesController>(
+        builder: (controller) => controller.statusReq == StatusRequest.loading
+            ? const Center(child: CircularProgressIndicator())
+            : RefreshIndicator(
+                onRefresh: () async {
+                  controller.getAllTodayMatches();
+                },
+                child: ListView.builder(
+                  padding: EdgeInsets.only(top: 10.h),
+                  itemCount: controller.matches.length,
+                  itemBuilder: (context, index) {
+                    final event = controller.matches[index];
+                    return MatchCardWidget(event: event);
+                  },
+                ),
+              ),
       ),
     );
   }

@@ -20,7 +20,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     super.initState();
     _vlcController = VlcPlayerController.network(
       widget.videoUrl ??
-          "http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544835",
+          "https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com", // alarabi apublish
       hwAcc: HwAcc.full,
       autoPlay: true,
       options: VlcPlayerOptions(),
@@ -29,9 +29,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     flickManager = FlickManager(
         videoPlayerController: VideoPlayerController.networkUrl(
       Uri.parse(
-        //"https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com", // alarabi apublish
-        widget.videoUrl ??
-            "http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544835", // beIM sport 1
+        "https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com", // alarabi apublish
+        // widget.videoUrl ??
+        // "http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544835", // beIM sport 1
       ),
     ));
     Future.delayed(

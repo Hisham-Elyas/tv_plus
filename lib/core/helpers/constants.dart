@@ -1126,6 +1126,7 @@ final List<Map<String, dynamic>> matches = [
 
 List<MatchModel> matchesList =
     matches.map((match) => MatchModel.fromJson(match)).toList();
+
 List<LeagueModel> leaguesList = matchesList
     .fold<Map<String, LeagueModel>>({}, (Map<String, LeagueModel> map, match) {
       if (!map.containsKey(match.league)) {

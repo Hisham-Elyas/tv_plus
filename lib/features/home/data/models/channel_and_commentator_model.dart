@@ -9,8 +9,8 @@ class ChannelAndCommentator {
 
   factory ChannelAndCommentator.fromJson(Map<String, dynamic> json) {
     return ChannelAndCommentator(
-      channel: json['Channel'],
-      commentator: json['Commentator'],
+      channel: json['Channel'] ?? '',
+      commentator: json['Commentator'] ?? '',
     );
   }
 
