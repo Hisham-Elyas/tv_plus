@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/colors.dart';
+import '../../../core/widgets/custom_snackbar.dart';
 import '../controllers/today_matches_controller.dart';
 import '../data/models/match_model.dart';
 import '../ui/video_player_screen.dart';
@@ -21,7 +22,23 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        Get.to(() => const VideoPlayerScreen());
+        if (event.channelsAndCommentators.isEmpty) {
+          showCustomSnackBar(
+              message: "Channel Unknown",
+              title: "Channel not found",
+              isError: true);
+          return;
+        }
+        try {
+          final channel = controller
+              .findChannelByName(event.channelsAndCommentators.first.channel);
+          Get.to(() => VideoPlayerScreen(videoUrl: channel.videoUrl));
+          print('Found: ${channel.name}, Video URL: ${channel.videoUrl}');
+        } catch (e) {
+          print(e); // Handle exception
+        }
+
+        // Get.to(() => const VideoPlayerScreen());
         // Navigator.push(
         //   context,
         //   MaterialPageRoute(builder: (context) => const VideoPlayerScreen()),

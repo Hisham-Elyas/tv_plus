@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/foundation.dart';
+
 import 'channel_and_commentator_model.dart';
 
 class MatchModel {
@@ -52,5 +55,33 @@ class MatchModel {
       'channelsAndCommentators':
           channelsAndCommentators.map((item) => item.toJson()).toList(),
     };
+  }
+
+  @override
+  bool operator ==(covariant MatchModel other) {
+    if (identical(this, other)) return true;
+
+    return other.league == league &&
+        other.leagueLogo == leagueLogo &&
+        other.homeTeam == homeTeam &&
+        other.awayTeam == awayTeam &&
+        other.homeTeamLogo == homeTeamLogo &&
+        other.awayTeamLogo == awayTeamLogo &&
+        other.matchDate == matchDate &&
+        other.matchTime == matchTime &&
+        listEquals(other.channelsAndCommentators, channelsAndCommentators);
+  }
+
+  @override
+  int get hashCode {
+    return league.hashCode ^
+        leagueLogo.hashCode ^
+        homeTeam.hashCode ^
+        awayTeam.hashCode ^
+        homeTeamLogo.hashCode ^
+        awayTeamLogo.hashCode ^
+        matchDate.hashCode ^
+        matchTime.hashCode ^
+        channelsAndCommentators.hashCode;
   }
 }

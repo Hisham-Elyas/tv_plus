@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class ChannelAndCommentator {
   final String channel;
   final String commentator;
@@ -20,4 +21,14 @@ class ChannelAndCommentator {
       'Commentator': commentator,
     };
   }
+
+  @override
+  bool operator ==(covariant ChannelAndCommentator other) {
+    if (identical(this, other)) return true;
+
+    return other.channel == channel && other.commentator == commentator;
+  }
+
+  @override
+  int get hashCode => channel.hashCode ^ commentator.hashCode;
 }

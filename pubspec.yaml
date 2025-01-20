@@ -49,6 +49,7 @@ dependencies:
   cached_network_image: ^3.4.1
   dartz: ^0.10.1
   intl: ^0.20.1
+  string_similarity: ^2.1.1
   # wakelock: ^0.4.0
   # appinio_video_player: ^1.2.2
 

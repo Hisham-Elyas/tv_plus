@@ -1,3 +1,7 @@
+import 'package:flutter/foundation.dart';
+
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 class ChannelCategory {
   final String categoryName;
   final String logo; // New property for the logo
@@ -21,6 +25,18 @@ class ChannelCategory {
       channels: channelList,
     );
   }
+
+  @override
+  bool operator ==(covariant ChannelCategory other) {
+    if (identical(this, other)) return true;
+
+    return other.categoryName == categoryName &&
+        other.logo == logo &&
+        listEquals(other.channels, channels);
+  }
+
+  @override
+  int get hashCode => categoryName.hashCode ^ logo.hashCode ^ channels.hashCode;
 }
 
 class Channel {
@@ -51,4 +67,16 @@ class Channel {
       'videoUrl': videoUrl,
     };
   }
+
+  @override
+  bool operator ==(covariant Channel other) {
+    if (identical(this, other)) return true;
+
+    return other.name == name &&
+        other.logo == logo &&
+        other.videoUrl == videoUrl;
+  }
+
+  @override
+  int get hashCode => name.hashCode ^ logo.hashCode ^ videoUrl.hashCode;
 }
