@@ -8,7 +8,6 @@ import '../../../core/theming/colors.dart';
 import '../../../core/widgets/custom_snackbar.dart';
 import '../controllers/today_matches_controller.dart';
 import '../data/models/match_model.dart';
-import '../ui/video_player_screen.dart';
 
 class MatchCardWidget extends GetView<TodayMatchesController> {
   const MatchCardWidget({
@@ -32,7 +31,7 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
         try {
           final channel = controller
               .findChannelByName(event.channelsAndCommentators.first.channel);
-          Get.to(() => VideoPlayerScreen(videoUrl: channel.videoUrl));
+          // Get.to(() => VideoPlayerScreen(videoUrl: channel.videoUrl));
           print('Found: ${channel.name}, Video URL: ${channel.videoUrl}');
         } catch (e) {
           print(e); // Handle exception

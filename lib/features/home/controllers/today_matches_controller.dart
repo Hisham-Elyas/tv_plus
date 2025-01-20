@@ -72,8 +72,9 @@ class TodayMatchesController extends GetxController {
     double highestSimilarity = 0.0;
 
     for (var channel in channels) {
-      double similarity =
-          StringSimilarity.compareTwoStrings(channel.name, channelName);
+      double similarity = StringSimilarity.compareTwoStrings(
+          channel.name.trim().toLowerCase().toString(),
+          channelName.trim().toLowerCase().toString());
       if (similarity > highestSimilarity) {
         highestSimilarity = similarity;
         bestMatch = channel;

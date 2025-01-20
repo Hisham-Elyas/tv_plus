@@ -109,7 +109,7 @@ final Map<String, List<Map<String, String>>> channels = {
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544827',
     },
     {
-      'name': 'beIN Sports Xtra 3',
+      'name': 'beIN Sports Xtra 1',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544826',
