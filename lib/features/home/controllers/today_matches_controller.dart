@@ -8,13 +8,34 @@ import '../../../core/helpers/enums.dart';
 import '../../../core/theming/colors.dart';
 import '../../../core/widgets/custom_snackbar.dart';
 import '../data/models/channel_category_model.dart';
+import '../data/models/league_model.dart';
 import '../data/models/match_model.dart';
 import '../data/repos/today_matches_repo.dart';
 
 class TodayMatchesController extends GetxController {
-  final TodayMatchesRepoImpHttp todayMatchesRepo = Get.find();
   late StatusRequest statusReq;
   List<MatchModel> matches = [];
+  List<LeagueModel> leaguesList = [];
+  final TodayMatchesRepoImpHttp todayMatchesRepo = Get.find();
+  List<LeagueModel> convorToLeagueModel() {
+    leaguesList = matches
+        .fold<Map<String, LeagueModel>>({},
+            (Map<String, LeagueModel> map, match) {
+          if (!map.containsKey(match.league)) {
+            map[match.league] = LeagueModel(
+              league: match.league,
+              leagueLogo: match.leagueLogo,
+              matches: [],
+            );
+          }
+          map[match.league]!.matches.add(match);
+          return map;
+        })
+        .values
+        .toList();
+    return leaguesList;
+  }
+
   @override
   void onInit() async {
     super.onInit();
@@ -33,7 +54,7 @@ class TodayMatchesController extends GetxController {
       /////
       matches.clear();
       matches.addAll(r);
-
+      convorToLeagueModel();
       statusReq = StatusRequest.success;
 
       update();

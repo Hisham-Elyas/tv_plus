@@ -98,8 +98,9 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CachedNetworkImage(
-                        width: 50.w,
-                        height: 50.h,
+                        width: 30.w,
+                        height: 30.h,
+                        // color: ColorsManager.lightBlue,
                         fit: BoxFit.contain,
                         imageUrl: event.leagueLogo,
                         progressIndicatorBuilder:
@@ -153,15 +154,25 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      event.channelsAndCommentators.first.commentator,
-                      style: const TextStyle(color: ColorsManager.lightBlue),
+                    FittedBox(
+                      child: Text(
+                        event.channelsAndCommentators.first.commentator,
+                        style: TextStyle(
+                          color: ColorsManager.lightBlue,
+                          fontSize: 12.sp,
+                        ),
+                      ),
                     ),
-                    const Icon(Icons.mic, color: Colors.grey),
-                    const Icon(Icons.tv, color: Colors.grey),
-                    Text(
-                      event.channelsAndCommentators.first.channel,
-                      style: const TextStyle(color: ColorsManager.lightBlue),
+                    Icon(Icons.mic, color: Colors.grey, size: 20.dm),
+                    Icon(Icons.tv, color: Colors.grey, size: 20.dm),
+                    FittedBox(
+                      child: Text(
+                        event.channelsAndCommentators.first.channel,
+                        style: TextStyle(
+                          color: ColorsManager.lightBlue,
+                          fontSize: 12.sp,
+                        ),
+                      ),
                     ),
                   ],
                 ),

@@ -8,6 +8,7 @@ import '../ui/about_us_screen.dart';
 import '../ui/categories_screen.dart';
 import '../ui/contact_us_screen.dart';
 import '../ui/home_screen.dart';
+import '../ui/home_test_screen.dart';
 import '../ui/profile_screen.dart';
 
 class CustomDrawerWidget extends StatelessWidget {
@@ -17,6 +18,7 @@ class CustomDrawerWidget extends StatelessWidget {
 
   final List<Map<String, dynamic>> drawerItems = [
     {'icon': Icons.home, 'text': 'Home'},
+    {'icon': Icons.home, 'text': 'Home2'},
     {'icon': Icons.list, 'text': 'Categories'},
     {'icon': Icons.email, 'text': 'Contact us'},
     {'icon': Icons.info, 'text': 'About us'},
@@ -69,6 +71,10 @@ class CustomListTile extends StatelessWidget {
         switch (text) {
           case 'Home':
             Get.off(() => const HomeScreen());
+
+            break;
+          case 'Home2':
+            Get.off(() => HomeScreen2());
 
             break;
           case 'Categories':

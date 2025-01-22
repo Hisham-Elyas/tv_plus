@@ -4,9 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'core/di/dependency_injection.dart';
-import 'core/helpers/constants.dart';
-import 'features/home/ui/home_screen.dart';
-import 'features/onboarding/ui/intro_screen.dart';
+import 'features/home/ui/home_test_screen.dart';
 
 void main() async {
   // await parseM3UFile0("assets/playlist.m3u");
@@ -39,10 +37,10 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: isOnBordingView ? const HomeScreen() : const IntroScreen(),
-        // home: MatchScreen(
-        //   matches: sampleMatches,
-        // ),
+        // home: isOnBordingView ? const HomeScreen() : const IntroScreen(),
+        home: HomeScreen2(
+            // matches: sampleMatches,
+            ),
         // home: OnboardingScreen(),
         // home: const SingupScreen(),
         // home: const LoginScreen(),
