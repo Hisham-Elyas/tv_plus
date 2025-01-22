@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../features/auth/login/controllers/login_controller.dart';
 import '../../features/auth/singup/controllers/singup_controller.dart';
 import '../../features/home/controllers/today_matches_controller.dart';
+import '../../features/home/controllers/video_player_conteroller.dart';
 import '../../features/home/data/local/today_matches_local_date.dart';
 import '../../features/home/data/remote/today_matches_remote_date.dart';
 import '../../features/home/data/repos/today_matches_repo.dart';
@@ -30,4 +31,5 @@ Future<void> setupGetIt() async {
           ),
       fenix: true);
   Get.lazyPut(() => TodayMatchesController(), fenix: true);
+  Get.lazyPut(() => VideoPlayerConteroller(), fenix: true);
 }

@@ -50,6 +50,7 @@ dependencies:
   dartz: ^0.10.1
   intl: ^0.20.1
   string_similarity: ^2.1.1
+  modern_player: ^0.1.0
   # wakelock: ^0.4.0
   # appinio_video_player: ^1.2.2
 

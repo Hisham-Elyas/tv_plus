@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../core/theming/colors.dart';
+import '../controllers/video_player_conteroller.dart';
 import '../data/models/channel_category_model.dart';
 import '../widgets/channel_card_widget.dart';
 import 'video_player_screen.dart';
@@ -39,10 +40,17 @@ class CategoriesDetailsScreen extends StatelessWidget {
             final Channel channel = category.channels[index];
             return ChannelCardWidget(
               channel: channel,
-              onTap: () {
+              onTap: () async {
                 Get.to(() => VideoPlayerScreen(
                       videoUrl: channel.videoUrl,
                     ));
+                // Future.delayed(
+                //   const Duration(seconds: 1),
+                //   () async {
+                await Get.find<VideoPlayerConteroller>()
+                    .setAllOrientationsToLandscape();
+                //   },
+                // );
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(

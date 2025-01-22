@@ -1,75 +1,70 @@
-import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_vlc_player/flutter_vlc_player.dart';
-import 'package:video_player/video_player.dart';
+import 'package:get/get.dart';
+import 'package:h_tv/features/home/controllers/video_player_conteroller.dart';
+import 'package:modern_player/modern_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
-  final String? videoUrl;
-  const VideoPlayerScreen({super.key, this.videoUrl});
+  final String videoUrl;
+  const VideoPlayerScreen({
+    super.key,
+    required this.videoUrl,
+  });
 
   @override
-  _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
+  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
-  late VlcPlayerController _vlcController;
-  late FlickManager flickManager;
-  @override
-  void initState() {
-    super.initState();
-    _vlcController = VlcPlayerController.network(
-      widget.videoUrl ??
-          "http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544835", // alarabi apublish
-      hwAcc: HwAcc.full,
-      autoPlay: true,
-      options: VlcPlayerOptions(),
-    );
-
-    flickManager = FlickManager(
-        videoPlayerController: VideoPlayerController.networkUrl(
-      Uri.parse(
-        "https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8?checkedby:iptvcat.com", // alarabi apublish
-        // widget.videoUrl ??
-        // "http://plots95882.cdngold.me:80/5f64535c9e59/75309ce8fa/544835", // beIM sport 1
-      ),
-    ));
-    Future.delayed(
-      Duration.zero,
-      () async {
-        await setAllOrientationsTolandscape();
-      },
-    );
-  }
-
   @override
   void dispose() async {
-    setAllOrientations();
-    flickManager.dispose();
-    _vlcController.dispose();
     super.dispose();
-  }
-
-  Future setAllOrientationsTolandscape() async {
-    await SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-  }
-
-  Future setAllOrientations() async {
-    await SystemChrome.setPreferredOrientations(DeviceOrientation.values);
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
+    await Get.find<VideoPlayerConteroller>().setAllOrientationsTopPrtrait();
   }
 
   @override
   Widget build(BuildContext context) {
-    return VlcPlayer(
-      virtualDisplay: false,
-      controller: _vlcController,
-      aspectRatio: 16 / 9,
-      placeholder: const Center(child: CircularProgressIndicator()),
+    return Scaffold(
+      body: GetBuilder<VideoPlayerConteroller>(
+          builder: (controller) => ModernPlayer.createPlayer(
+              video: ModernPlayerVideo.multiple([
+                ModernPlayerVideoData.network(
+                  label: "1080p",
+                  url: widget.videoUrl,
+                ),
+                ModernPlayerVideoData.network(
+                    label: "720p", url: widget.videoUrl),
+                ModernPlayerVideoData.network(
+                    label: "480p", url: widget.videoUrl),
+              ]),
+              callbackOptions: ModernPlayerCallbackOptions(
+                onBackPressed: () async {
+                  await controller.disposevlcController();
+                },
+                onMenuPressed: () {},
+              ),
+              controlsOptions: ModernPlayerControlsOptions(
+                showBackbutton: true,
+                // showBottomBar: true,
+                doubleTapToSeek: false,
+                // showMenu: false,
+              ),
+              subtitles: [],
+              audioTracks: [],
+              themeOptions: ModernPlayerThemeOptions(),
+              translationOptions:
+                  ModernPlayerTranslationOptions.menu(qualityHeaderText: ''),
+              options: ModernPlayerOptions(
+                  allowScreenSleep: false,
+                  autoVisibilityPause: false,
+                  videoStartAt: 5000 // in milliseconds
+                  ))
+          // VlcPlayer(
+          //   // virtualDisplay: false,
+          //   controller: controller.vlcController,
+          //   aspectRatio: 16 / 9,
+          //   placeholder: const Center(child: CircularProgressIndicator()),
+          // ),
+          ),
     );
 
     //  FlickVideoPlayer(

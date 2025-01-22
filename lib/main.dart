@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import 'core/di/dependency_injection.dart';
 import 'core/helpers/constants.dart';
-import 'features/auth/login/ui/login_screen.dart';
+import 'features/home/ui/home_screen.dart';
 import 'features/onboarding/ui/intro_screen.dart';
 
 void main() async {
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: isOnBordingView ? const LoginScreen() : const IntroScreen(),
+        home: isOnBordingView ? const HomeScreen() : const IntroScreen(),
         // home: MatchScreen(
         //   matches: sampleMatches,
         // ),
