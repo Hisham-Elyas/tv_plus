@@ -43,9 +43,9 @@ class CustomDrawerWidget extends StatelessWidget {
               itemCount: drawerItems.length,
               itemBuilder: (context, index) {
                 return CustomListTile(
-                  icon: drawerItems[index]['icon'],
-                  text: drawerItems[index]['text'],
-                );
+                    icon: drawerItems[index]['icon'],
+                    text: drawerItems[index]['text'],
+                    index: index);
               },
             ),
           ),
@@ -85,34 +85,36 @@ class CustomDrawerWidget extends StatelessWidget {
 class CustomListTile extends StatelessWidget {
   final IconData icon;
   final String text;
+  final int index;
 
   const CustomListTile({
     required this.icon,
     required this.text,
     super.key,
+    required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        switch (text) {
-          case 'Home':
+        switch (index) {
+          case 0:
             Get.off(() => const MainNavigationScreen());
             break;
-          case 'Categories':
+          case 1:
             Get.off(() => const CategoriesScreen());
 
             break;
-          case 'Profile':
+          case 2:
             Get.off(() => const ProfileScreen());
 
             break;
-          case 'Contact us':
+          case 3:
             Get.off(() => const ContactUsScreen());
 
             break;
-          case 'About us':
+          case 4:
             Get.off(() => const AboutUsScreen());
 
             break;
