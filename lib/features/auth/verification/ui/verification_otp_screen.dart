@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/localization/constants.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/widgets/app_text_button.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
@@ -50,7 +52,7 @@ class OTPScreen extends StatelessWidget {
                       children: [
                         AppTextFormField(
                           controller: TextEditingController(),
-                          hintText: "رمز التحقق",
+                          hintText: VerificationCode.tr,
                           validator: (p0) {
                             return null;
                           },
@@ -61,7 +63,7 @@ class OTPScreen extends StatelessWidget {
                           buttonHeight: 40,
                           buttonWidth: 271,
                           borderRadius: 152,
-                          buttonText: "فتح حساب",
+                          buttonText: LOGIN.tr,
                           onPressed: () {},
                           textStyle: TextStyle(
                               fontSize: 12.sp,

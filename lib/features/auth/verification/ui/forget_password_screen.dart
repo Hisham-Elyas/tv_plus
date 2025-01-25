@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/localization/constants.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/widgets/app_text_button.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
@@ -50,7 +52,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                       children: [
                         AppTextFormField(
                           controller: TextEditingController(),
-                          hintText: "رقم الهاتف",
+                          hintText: Phone_number.tr,
                           validator: (p0) {
                             return null;
                           },
@@ -61,7 +63,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                           buttonHeight: 40,
                           buttonWidth: 271,
                           borderRadius: 152,
-                          buttonText: "طلب الرمز",
+                          buttonText: GetCode.tr,
                           onPressed: () {},
                           textStyle: TextStyle(
                               fontSize: 12.sp,
@@ -82,7 +84,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                       children: [
                         AppTextFormField(
                           controller: TextEditingController(),
-                          hintText: "رمز التأكيد",
+                          hintText: Enter_Verification_Code.tr,
                           validator: (p0) {
                             return null;
                           },
@@ -93,7 +95,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                           buttonHeight: 40,
                           buttonWidth: 271,
                           borderRadius: 152,
-                          buttonText: "تحقق من الرمز",
+                          buttonText: Verify.tr,
                           onPressed: () {},
                           textStyle: TextStyle(
                               fontSize: 12.sp,

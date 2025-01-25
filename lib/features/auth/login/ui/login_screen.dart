@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/localization/constants.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/widgets/app_text_button.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
@@ -56,13 +57,13 @@ class LoginScreen extends GetView<LoginController> {
                         children: [
                           AppTextFormField(
                             onSaved: (val) => controller.setuserName = val,
-                            hintText: "اسم المستخدم",
+                            hintText: UserName.tr,
                             validator: controller.userNamevalidator,
                           ),
                           verticalSpace(15),
                           AppTextFormField(
                             onSaved: (val) => controller.setPassword = val,
-                            hintText: "كلمة السر",
+                            hintText: Enter_your_password.tr,
                             validator: controller.passwordvalidator,
                           ),
                           verticalSpace(10),
@@ -70,7 +71,7 @@ class LoginScreen extends GetView<LoginController> {
                             onPressed: () =>
                                 Get.to(() => const ForgetPasswordScreen()),
                             child: Text(
-                              " نسيت كلمة المرور؟",
+                              Forgot_Your_Password.tr,
                               style: TextStyle(
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w700,
@@ -84,7 +85,7 @@ class LoginScreen extends GetView<LoginController> {
                                 onPressed: () =>
                                     Get.to(() => const SingupScreen()),
                                 child: Text(
-                                  "سجل الآن",
+                                  Sign_Up.tr,
                                   style: TextStyle(
                                       fontSize: 15.sp,
                                       fontWeight: FontWeight.w900,
@@ -94,7 +95,7 @@ class LoginScreen extends GetView<LoginController> {
                                 ),
                               ),
                               Text(
-                                "ليس لديك حساب؟",
+                                Dont_have_an_account.tr,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     color:
@@ -108,7 +109,7 @@ class LoginScreen extends GetView<LoginController> {
                             buttonHeight: 50,
                             buttonWidth: 302,
                             borderRadius: 152,
-                            buttonText: "تسجيل الدخول",
+                            buttonText: LOGIN.tr,
                             onPressed: controller.login,
                             textStyle: TextStyle(
                                 fontSize: 12.sp,

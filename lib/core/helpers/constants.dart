@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+import 'package:h_tv/core/localization/constants.dart';
+
 import '../../features/home/data/models/channel_category_model.dart';
 import '../../features/home/data/models/league_model.dart';
 import '../../features/home/data/models/match_model.dart';
@@ -17,9 +20,9 @@ class ImageAssets {
 }
 
 final List onBoardingListDescription = [
-  "شاهد مبارياتك المفضلة بلا انقطاع",
-  "جميع الدوريات العالمية والمحلية بضغطة زر واحدة",
-  "اشتراك سنوي وشهري متميز",
+  WatchYourFavouriteMatches.tr,
+  All_international_and_local_leagues_with_one_click_of_a_button.tr,
+  Premium_annual_and_monthly_subscription.tr,
 ];
 final List<Map<String, dynamic>> events = [
   {

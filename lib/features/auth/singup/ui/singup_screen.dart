@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/helpers/constants.dart';
 import '../../../../core/helpers/spacing.dart';
+import '../../../../core/localization/constants.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/widgets/app_text_button.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
@@ -53,32 +54,32 @@ class SingupScreen extends GetView<SingupController> {
                         children: [
                           AppTextFormField(
                             onSaved: (val) => controller.setuserName = val,
-                            hintText: "اسم المستخدم",
+                            hintText: UserName.tr,
                             validator: controller.userNamevalidator,
                           ),
                           verticalSpace(15),
                           AppTextFormField(
                             onSaved: (val) => controller.setEmail = val,
-                            hintText: "البريد الإلكتروني",
+                            hintText: Enter_your_email.tr,
                             validator: controller.emailvalidator,
                           ),
                           verticalSpace(15),
                           AppTextFormField(
                             onSaved: (val) => controller.setPassword = val,
-                            hintText: "كلمة السر",
+                            hintText: Enter_your_password.tr,
                             validator: controller.passwordvalidator,
                           ),
                           verticalSpace(15),
                           AppTextFormField(
                             onSaved: (val) =>
                                 controller.setconfirmPassword = val,
-                            hintText: "تأكيد كلمة السر",
+                            hintText: Confirm_password.tr,
                             validator: controller.passwordvalidator,
                           ),
                           verticalSpace(15),
                           AppTextFormField(
                             onSaved: (val) => controller.setphoneNumber = val,
-                            hintText: "رقم الهاتف",
+                            hintText: Phone_number.tr,
                             validator: controller.phonevalidator,
                           ),
                           verticalSpace(20),
@@ -87,7 +88,7 @@ class SingupScreen extends GetView<SingupController> {
                             buttonHeight: 40,
                             buttonWidth: 271,
                             borderRadius: 152,
-                            buttonText: "فتح حساب",
+                            buttonText: Sign_Up.tr,
                             onPressed: controller.singUp,
                             textStyle: TextStyle(
                                 fontSize: 12.sp,

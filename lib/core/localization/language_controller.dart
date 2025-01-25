@@ -77,8 +77,8 @@ class LanguageController extends GetxController {
                 ],
               ),
             ),
-            _buildLanguageOption('en', 'English', ImageAssets.usFlags),
-            _buildLanguageOption('ar', 'العربية', ImageAssets.saFlags),
+            _buildLanguageOption('en', English.tr, ImageAssets.usFlags),
+            _buildLanguageOption('ar', Arabic.tr, ImageAssets.saFlags),
             verticalSpace(20)
           ],
         ),

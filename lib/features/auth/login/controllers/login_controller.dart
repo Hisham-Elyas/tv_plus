@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/localization/constants.dart';
 import '../../../home/ui/home_screen.dart';
 
 class LoginController extends GetxController {
@@ -20,9 +21,9 @@ class LoginController extends GetxController {
 
   String? userNamevalidator(val) {
     if (val.isEmpty) {
-      return "Type_your_Name";
+      return Type_your_Name.tr;
     } else if (val.length < 4) {
-      return "Name_can_not_be_less_than_4_characters";
+      return Name_can_not_be_less_than_4_characters.tr;
     } else {
       return null;
     }
@@ -31,9 +32,9 @@ class LoginController extends GetxController {
   String? passwordvalidator(val) {
     update();
     if (val.isEmpty) {
-      return "Enter_your_password";
+      return Enter_your_password.tr;
     } else if (val.length < 6) {
-      return "Password_can_not_be_less_than_six_characters";
+      return Password_can_not_be_less_than_six_characters.tr;
     } else {
       return null;
     }

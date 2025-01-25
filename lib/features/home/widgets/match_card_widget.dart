@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../core/helpers/spacing.dart';
+import '../../../core/localization/constants.dart';
 import '../../../core/widgets/custom_snackbar.dart';
 import '../controllers/today_matches_controller.dart';
 import '../controllers/video_player_conteroller.dart';
@@ -26,8 +27,8 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
       onTap: () async {
         if (event.channelsAndCommentators.isEmpty) {
           showCustomSnackBar(
-              message: "Channel Unknown",
-              title: "Channel not found",
+              message: ChannelUnknown.tr,
+              title: Channel_not_found.tr,
               isError: true);
           return;
         }

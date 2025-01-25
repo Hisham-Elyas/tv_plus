@@ -20,11 +20,11 @@ class CustomDrawerWidget extends StatelessWidget {
 
   final List<Map<String, dynamic>> drawerItems = [
     {'icon': Icons.home, 'text': Home.tr},
-    {'icon': Icons.list, 'text': 'Categories'},
-    {'icon': Icons.email, 'text': 'Contact us'},
-    {'icon': Icons.info, 'text': 'About us'},
-    {'icon': Icons.person, 'text': 'Profile'},
-    {'icon': Icons.logout_outlined, 'text': 'Logout'},
+    {'icon': Icons.list, 'text': Categories.tr},
+    {'icon': Icons.email, 'text': ContactUs.tr},
+    {'icon': Icons.info, 'text': AboutUs.tr},
+    {'icon': Icons.person, 'text': Profile.tr},
+    {'icon': Icons.logout_outlined, 'text': Logout.tr},
   ];
 
   @override
@@ -51,7 +51,7 @@ class CustomDrawerWidget extends StatelessWidget {
           ),
           GetBuilder<ThemeController>(
             builder: (controller) => SwitchListTile(
-              title: Text('Dark Mode',
+              title: Text(DarkMode.tr,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 18.sp,
