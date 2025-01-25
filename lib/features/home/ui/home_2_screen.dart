@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/enums.dart';
 import '../../../core/helpers/spacing.dart';
@@ -52,13 +53,18 @@ class HomeScreen2 extends StatelessWidget {
               onRefresh: () async {
                 controller.getAllTodayMatches();
               },
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 15.h),
-                itemCount: controller.filteredLeaguesList.length,
-                itemBuilder: (context, index) {
-                  return LeagueSectionWidget(
-                      league: controller.filteredLeaguesList[index]);
-                },
+              child: Skeletonizer(
+                enabled: false,
+                enableSwitchAnimation: true,
+                child: ListView.builder(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 15.h),
+                  itemCount: controller.filteredLeaguesList.length,
+                  itemBuilder: (context, index) {
+                    return LeagueSectionWidget(
+                        league: controller.filteredLeaguesList[index]);
+                  },
+                ),
               ),
             ),
     ));
