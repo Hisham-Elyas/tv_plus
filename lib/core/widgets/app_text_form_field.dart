@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../theming/colors.dart';
-
 // class AppTextFormField extends StatelessWidget {
 //   final EdgeInsetsGeometry? contentPadding;
 //   final InputBorder? focusedBorder;
@@ -42,7 +40,7 @@ import '../theming/colors.dart';
 //         focusedBorder: focusedBorder ??
 //             OutlineInputBorder(
 //               borderSide: const BorderSide(
-//                 color: ColorsManager.mainBlue,
+//                 color: Theme.of(context).colorScheme.primary,
 //                 width: 1.3,
 //               ),
 //               borderRadius: BorderRadius.circular(16.0),
@@ -160,7 +158,8 @@ class AppTextFormField extends StatelessWidget {
             EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
         filled: true,
         counterStyle: const TextStyle(color: Color(0xffFF5C5C)),
-        fillColor: Get.isDarkMode ? null : ColorsManager.white,
+        fillColor:
+            Get.isDarkMode ? null : Theme.of(context).colorScheme.surface,
         hintText: hintText,
         hintStyle: const TextStyle(color: Color(0xffa1a8b0)),
         labelText: hintText,
@@ -173,7 +172,7 @@ class AppTextFormField extends StatelessWidget {
                 prefixIconImg!,
                 height: 24.h,
                 width: 24.w,
-                color: isvalid ? ColorsManager.mainBlue : null,
+                color: isvalid ? Theme.of(context).colorScheme.primary : null,
               ),
         suffixIcon: suffixIconImg == null
             ? null
@@ -185,13 +184,14 @@ class AppTextFormField extends StatelessWidget {
                   height: 24.h,
                   width: 24.w,
                   color: isValidsuffixIcon
-                      ? ColorsManager.mainBlue
+                      ? Theme.of(context).colorScheme.primary
                       : suffixIconImgcolor,
                 ),
               ),
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-                width: 1.5.w, color: ColorsManager.mainBlue.withOpacity(0.5)),
+                width: 1.5.w,
+                color: Theme.of(context).colorScheme.primary.withOpacity(0.5)),
             borderRadius: BorderRadius.circular(24.r)),
         enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 1.w, color: const Color(0xffE5E7EB)),

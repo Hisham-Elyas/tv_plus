@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../core/helpers/constants.dart';
-import '../../../core/theming/colors.dart';
 import '../data/models/channel_category_model.dart';
 import '../widgets/categories_card_widget.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer_widget.dart';
 import 'categories_details_screen.dart';
 
@@ -15,16 +15,8 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorsManager.mainBlack,
-        centerTitle: true,
-        iconTheme: const IconThemeData(
-          color: ColorsManager.white, // Change this to your desired color
-        ),
-        title: const Text(
-          "Categories",
-          style: TextStyle(color: ColorsManager.white),
-        ),
+      appBar: const CustomAppBar(
+        title: "Categories",
       ),
       drawer: CustomDrawerWidget(),
       body: Padding(

@@ -1,10 +1,11 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../core/helpers/spacing.dart';
-import '../../../core/theming/colors.dart';
 import '../../../core/widgets/custom_snackbar.dart';
 import '../controllers/today_matches_controller.dart';
 import '../controllers/video_player_conteroller.dart';
@@ -45,9 +46,9 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
               .setAllOrientationsToLandscape();
           // },
           // );
-          print('Found: ${channel.name}, Video URL: ${channel.videoUrl}');
+          log('Found: ${channel.name}, Video URL: ${channel.videoUrl}');
         } catch (e) {
-          print(e); // Handle exception
+          log(e.toString()); // Handle exception
         }
 
         // Get.to(() => const VideoPlayerScreen());
@@ -59,7 +60,7 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
       child: Card(
         margin: const EdgeInsets.all(10),
         elevation: 3,
-        color: ColorsManager.white,
+        color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -80,7 +81,7 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) => Center(
                           child: CircularProgressIndicator(
-                              color: ColorsManager.lightBlue,
+                              color: Theme.of(context).colorScheme.secondary,
                               value: downloadProgress.progress),
                         ),
                         errorWidget: (context, url, error) =>
@@ -100,14 +101,14 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
                       CachedNetworkImage(
                         width: 30.w,
                         height: 30.h,
-                        // color: ColorsManager.lightBlue,
+                        // color: Theme.of(context).colorScheme.secondary,
                         fit: BoxFit.contain,
                         imageUrl: event.leagueLogo,
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) => Center(
                           child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              color: ColorsManager.lightBlue,
+                              color: Theme.of(context).colorScheme.secondary,
                               value: downloadProgress.progress),
                         ),
                         errorWidget: (context, url, error) =>
@@ -118,7 +119,7 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
                         event.matchTime,
                         style: TextStyle(
                           fontSize: 16.sp,
-                          color: ColorsManager.lightBlue,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ],
@@ -133,7 +134,7 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) => Center(
                           child: CircularProgressIndicator(
-                              color: ColorsManager.lightBlue,
+                              color: Theme.of(context).colorScheme.secondary,
                               value: downloadProgress.progress),
                         ),
                         errorWidget: (context, url, error) =>
@@ -158,7 +159,7 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
                       child: Text(
                         event.channelsAndCommentators.first.commentator,
                         style: TextStyle(
-                          color: ColorsManager.lightBlue,
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 12.sp,
                         ),
                       ),
@@ -169,7 +170,7 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
                       child: Text(
                         event.channelsAndCommentators.first.channel,
                         style: TextStyle(
-                          color: ColorsManager.lightBlue,
+                          color: Theme.of(context).colorScheme.secondary,
                           fontSize: 12.sp,
                         ),
                       ),
@@ -177,18 +178,20 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
                   ],
                 ),
               ] else ...[
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
                       'Unknown',
-                      style: TextStyle(color: ColorsManager.lightBlue),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary),
                     ),
-                    Icon(Icons.mic, color: Colors.grey),
-                    Icon(Icons.tv, color: Colors.grey),
+                    const Icon(Icons.mic, color: Colors.grey),
+                    const Icon(Icons.tv, color: Colors.grey),
                     Text(
                       'Unknown',
-                      style: TextStyle(color: ColorsManager.lightBlue),
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary),
                     ),
                   ],
                 ),

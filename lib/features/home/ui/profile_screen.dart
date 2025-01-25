@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/theming/colors.dart';
+import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -9,16 +9,11 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("My profile", style: TextStyle(color: Colors.white)),
-        backgroundColor: ColorsManager.mainBlack,
-        centerTitle: true,
-        iconTheme: const IconThemeData(
-          color: ColorsManager.white, // Change this to your desired color
-        ),
+      appBar: CustomAppBar(
+        title: "My profile",
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.black),
+            icon: const Icon(Icons.search),
             onPressed: () {},
           ),
         ],

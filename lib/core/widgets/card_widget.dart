@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../theming/colors.dart';
 
 class CardWidget extends StatelessWidget {
   final Widget child;
@@ -28,7 +27,7 @@ class CardWidget extends StatelessWidget {
             height: height,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.r),
-                color: ColorsManager.white),
+                color: Theme.of(context).colorScheme.surface),
             child: child));
   }
 }

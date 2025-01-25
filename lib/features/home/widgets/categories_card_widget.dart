@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/helpers/spacing.dart';
-import '../../../core/theming/colors.dart';
 import '../data/models/channel_category_model.dart';
 
 class CategoriesCardWidget extends StatelessWidget {
@@ -20,7 +19,7 @@ class CategoriesCardWidget extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.all(10.r),
         elevation: 3,
-        color: ColorsManager.white,
+        color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r),
         ),
@@ -39,7 +38,7 @@ class CategoriesCardWidget extends StatelessWidget {
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
                       Center(
                     child: CircularProgressIndicator(
-                        color: ColorsManager.mainBlue,
+                        color: Theme.of(context).colorScheme.primary,
                         value: downloadProgress.progress),
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),

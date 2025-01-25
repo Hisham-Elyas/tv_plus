@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../core/theming/colors.dart';
 import '../controllers/video_player_conteroller.dart';
 import '../data/models/channel_category_model.dart';
 import '../widgets/channel_card_widget.dart';
+import '../widgets/custom_app_bar.dart';
 import 'video_player_screen.dart';
 
 class CategoriesDetailsScreen extends StatelessWidget {
@@ -15,16 +15,8 @@ class CategoriesDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorsManager.mainBlack,
-        centerTitle: true,
-        iconTheme: const IconThemeData(
-          color: ColorsManager.white, // Change this to your desired color
-        ),
-        title: Text(
-          category.categoryName,
-          style: const TextStyle(color: ColorsManager.white),
-        ),
+      appBar: CustomAppBar(
+        title: category.categoryName,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

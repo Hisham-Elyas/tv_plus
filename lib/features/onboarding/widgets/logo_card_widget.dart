@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/helpers/constants.dart';
-import '../../../core/theming/colors.dart';
 
 class LogoCardWidget extends StatelessWidget {
   final double? width;
@@ -18,7 +17,7 @@ class LogoCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(20.r),
-      elevation: 10,
+      elevation: 5,
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: 35.h,
@@ -27,7 +26,7 @@ class LogoCardWidget extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.r),
-            color: ColorsManager.white),
+            color: Theme.of(context).colorScheme.surface),
         child: Image.asset(ImageAssets.logo, fit: BoxFit.contain),
       ),
     );

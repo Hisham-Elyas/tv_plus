@@ -12,6 +12,8 @@ class SharedPrefKeys {
 class ImageAssets {
   static const String logo = 'assets/images/Tv Channel.png';
   static const String bgImage = 'assets/images/bg_image.png';
+  static const String saFlags = 'assets/images/sa.png';
+  static const String usFlags = 'assets/images/us.png';
 }
 
 final List onBoardingListDescription = [

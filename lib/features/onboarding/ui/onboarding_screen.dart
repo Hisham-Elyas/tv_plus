@@ -1,13 +1,13 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/spacing.dart';
-import '../../../core/theming/colors.dart';
 import '../controller/onboarding_controller.dart';
 import '../widgets/logo_card_widget.dart';
-import 'package:avatar_glow/avatar_glow.dart';
 
 class OnboardingScreen extends GetView<OnboardingController> {
   const OnboardingScreen({super.key});
@@ -34,17 +34,20 @@ class OnboardingScreen extends GetView<OnboardingController> {
                   width: 333.w,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30.r),
-                      color: ColorsManager.lightBlue.withOpacity(0.52)),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .secondary
+                          .withOpacity(0.52)),
                   child: Column(
                     children: [
                       SmoothPageIndicator(
                         controller: controller.pageController, // PageController
                         count: onBoardingListDescription.length,
-                        effect: const ScaleEffect(
-                          dotColor: ColorsManager.white,
+                        effect: ScaleEffect(
+                          dotColor: Theme.of(context).colorScheme.surface,
                           dotHeight: 12,
                           dotWidth: 12,
-                          activeDotColor: ColorsManager.mainBlue,
+                          activeDotColor: Theme.of(context).colorScheme.primary,
                         ), // your preferred effect
                       ),
                       verticalSpace(40),
@@ -59,9 +62,12 @@ class OnboardingScreen extends GetView<OnboardingController> {
                                     onBoardingListDescription[index],
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontSize: 24.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: ColorsManager.mainBlack),
+                                      fontSize: 24.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                    ),
                                   ),
                                 )),
                       ),
@@ -70,7 +76,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                         onTap: controller.nextPage,
                         child: AvatarGlow(
                           glowCount: 2,
-                          glowColor: ColorsManager.white,
+                          glowColor: Theme.of(context).colorScheme.surface,
                           glowRadiusFactor: 0.5,
                           duration: const Duration(milliseconds: 2000),
                           repeat: true,
@@ -78,15 +84,16 @@ class OnboardingScreen extends GetView<OnboardingController> {
                           child: Container(
                             height: 68.h,
                             width: 68.w,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: ColorsManager.white),
+                                color: Theme.of(context).colorScheme.surface),
                             alignment: Alignment.center,
                             child: Text("استمر",
                                 style: TextStyle(
                                     fontSize: 13.sp,
                                     fontWeight: FontWeight.w700,
-                                    color: ColorsManager.mainBlue)),
+                                    color:
+                                        Theme.of(context).colorScheme.primary)),
                           ),
                         ),
                       ),

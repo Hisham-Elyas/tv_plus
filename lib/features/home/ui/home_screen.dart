@@ -3,10 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../core/helpers/enums.dart';
-import '../../../core/theming/colors.dart';
-import '../../onboarding/widgets/logo_card_widget.dart';
 import '../controllers/today_matches_controller.dart';
-import '../widgets/custom_drawer_widget.dart';
 import '../widgets/match_card_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,16 +12,32 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorsManager.mainBlack,
-        centerTitle: true,
-        title: const LogoCardWidget(width: 150, height: 53),
-        iconTheme: const IconThemeData(
-          color: ColorsManager.white, // Change this to your desired color
-        ),
-      ),
-      drawer: CustomDrawerWidget(),
+      // appBar: AppBar(
+      //   backgroundColor: ColorsManager.mainBlack,
+      //   centerTitle: true,
+      //   title: LogoCardWidget(width: 150.w, height: 53.h),
+      //   iconTheme: const IconThemeData(
+      //     color: Theme.of(context).colorScheme.surface, // Change this to your desired color
+      //   ),
+      //   actions: [
+      //     GetBuilder<TodayMatchesController>(
+      //       builder: (controller) {
+      //         return IconButton(
+      //           icon: Badge(
+      //             isLabelVisible: controller.selectedLeagues.isNotEmpty,
+      //             label: Text(controller.selectedLeagues.length.toString()),
+      //             child: const Icon(Icons.filter_list_alt,
+      //                 color: Theme.of(context).colorScheme.surface),
+      //           ),
+      //           onPressed: () => showFilterBottomSheet(context),
+      //         );
+      //       },
+      //     ),
+      //   ],
+      // ),
+      // drawer: CustomDrawerWidget(),
       body: GetBuilder<TodayMatchesController>(
+        // init: TodayMatchesController(),
         builder: (controller) => controller.statusReq == StatusRequest.loading
             ? const Center(child: CircularProgressIndicator())
             : RefreshIndicator(
@@ -33,9 +46,9 @@ class HomeScreen extends StatelessWidget {
                 },
                 child: ListView.builder(
                   padding: EdgeInsets.only(top: 10.h),
-                  itemCount: controller.matches.length,
+                  itemCount: controller.filteredMatches.length,
                   itemBuilder: (context, index) {
-                    final event = controller.matches[index];
+                    final event = controller.filteredMatches[index];
                     return MatchCardWidget(event: event);
                   },
                 ),
@@ -44,3 +57,93 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+// void showFilterBottomSheet(BuildContext context) {
+//   final controllers = Get.find<TodayMatchesController>();
+//   Get.bottomSheet(
+//     Container(
+//       decoration: const BoxDecoration(
+//         color: Theme.of(context).colorScheme.surface,
+//         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+//       ),
+//       child: Column(
+//         children: [
+//           Padding(
+//             padding: const EdgeInsets.all(16.0),
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 Text(
+//                   'Filter Leagues',
+//                   style: TextStyle(
+//                     fontSize: 20.sp,
+//                     fontWeight: FontWeight.bold,
+//                     color: ColorsManager.mainBlack,
+//                   ),
+//                 ),
+//                 IconButton(
+//                   icon: const Icon(Icons.close),
+//                   onPressed: () => Get.back(),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           Expanded(
+//             child: GetBuilder<TodayMatchesController>(
+//               builder: (controller) => ListView.builder(
+//                 itemCount: controller.leaguesList.length,
+//                 itemBuilder: (context, index) {
+//                   final league = controller.leaguesList[index];
+//                   return CheckboxListTile(
+//                     controlAffinity: ListTileControlAffinity.trailing,
+//                     contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+//                     title: Text(league.league),
+//                     secondary: CachedNetworkImage(
+//                       width: 40,
+//                       height: 40,
+//                       imageUrl: league.leagueLogo,
+//                       placeholder: (context, url) =>
+//                           const CircularProgressIndicator(
+//                         color: Theme.of(context).colorScheme.secondary,
+//                         strokeWidth: 2,
+//                       ),
+//                       errorWidget: (context, url, error) => const Icon(
+//                         Icons.sports_soccer,
+//                         color: Theme.of(context).colorScheme.secondary,
+//                       ),
+//                     ),
+//                     value: controller.selectedLeagues.contains(league.league),
+//                     onChanged: (_) =>
+//                         controller.toggleLeagueSelection(league.league),
+//                     activeColor: Theme.of(context).colorScheme.secondary,
+//                     checkboxShape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                   );
+//                 },
+//               ),
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.all(16.0),
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//               children: [
+//                 ElevatedButton(
+//                   onPressed: controllers.clearFilters,
+//                   child: const Text('Clear Filters'),
+//                 ),
+//                 ElevatedButton(
+//                   onPressed: () {
+//                     Get.back();
+//                   },
+//                   child: const Text('Apply Filters'),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     ),
+//   );
+// }

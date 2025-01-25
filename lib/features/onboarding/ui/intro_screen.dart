@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/colors.dart';
-
 import '../../../core/widgets/app_text_button.dart';
 import '../controller/onboarding_controller.dart';
 import '../widgets/logo_card_widget.dart';
@@ -37,7 +36,7 @@ class IntroScreen extends GetView<OnboardingController> {
               textStyle: TextStyle(
                   fontSize: 24.sp,
                   fontWeight: FontWeight.w700,
-                  color: ColorsManager.white),
+                  color: Theme.of(context).colorScheme.surface),
             )
           ],
         ),

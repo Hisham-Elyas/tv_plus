@@ -17,6 +17,37 @@ class TodayMatchesController extends GetxController {
   List<MatchModel> matches = [];
   List<LeagueModel> leaguesList = [];
   final TodayMatchesRepoImpHttp todayMatchesRepo = Get.find();
+
+  List<String> selectedLeagues = [];
+
+  void toggleLeagueSelection(String league) {
+    if (selectedLeagues.contains(league)) {
+      selectedLeagues.remove(league);
+    } else {
+      selectedLeagues.add(league);
+    }
+    update(); // Add unique tag for targeted update
+  }
+
+  void clearFilters() {
+    selectedLeagues.clear();
+    update();
+  }
+
+  List<LeagueModel> get filteredLeaguesList {
+    if (selectedLeagues.isEmpty) return leaguesList;
+    return leaguesList
+        .where((league) => selectedLeagues.contains(league.league))
+        .toList();
+  }
+
+  List<MatchModel> get filteredMatches {
+    if (selectedLeagues.isEmpty) return matches;
+    return matches
+        .where((match) => selectedLeagues.contains(match.league))
+        .toList();
+  }
+
   List<LeagueModel> convorToLeagueModel() {
     leaguesList = matches
         .fold<Map<String, LeagueModel>>({},
@@ -70,7 +101,7 @@ class TodayMatchesController extends GetxController {
 
     if (DateTime.now().isBefore(matchDateTime)) {
       status = event.matchTime;
-      color = ColorsManager.lightBlue;
+      color = Theme.of(Get.context!).colorScheme.secondary;
     } else if (DateTime.now().isAfter(matchEndTime)) {
       status = 'Match Ended';
       color = ColorsManager.mainRed;

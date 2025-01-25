@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../core/helpers/spacing.dart';
-import '../../../../core/widgets/app_text_form_field.dart';
 
 import '../../../../core/helpers/constants.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/widgets/app_text_button.dart';
+import '../../../../core/widgets/app_text_form_field.dart';
 import '../../../../core/widgets/card_widget.dart';
 import '../../../onboarding/widgets/logo_card_widget.dart';
 
@@ -66,7 +66,7 @@ class OTPScreen extends StatelessWidget {
                           textStyle: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w700,
-                              color: ColorsManager.white),
+                              color: Theme.of(context).colorScheme.surface),
                         )
                       ],
                     ),

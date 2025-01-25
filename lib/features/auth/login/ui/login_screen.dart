@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../core/helpers/spacing.dart';
-import '../../../../core/widgets/app_text_form_field.dart';
 
 import '../../../../core/helpers/constants.dart';
+import '../../../../core/helpers/spacing.dart';
 import '../../../../core/theming/colors.dart';
 import '../../../../core/widgets/app_text_button.dart';
+import '../../../../core/widgets/app_text_form_field.dart';
 import '../../../../core/widgets/card_widget.dart';
 import '../../../onboarding/widgets/logo_card_widget.dart';
 import '../../singup/ui/singup_screen.dart';
@@ -88,14 +88,17 @@ class LoginScreen extends GetView<LoginController> {
                                   style: TextStyle(
                                       fontSize: 15.sp,
                                       fontWeight: FontWeight.w900,
-                                      color: ColorsManager.mainBlue),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
                                 ),
                               ),
                               Text(
                                 "ليس لديك حساب؟",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
-                                    color: ColorsManager.mainBlack,
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
                                     fontSize: 15.sp),
                               ),
                             ],
@@ -110,7 +113,7 @@ class LoginScreen extends GetView<LoginController> {
                             textStyle: TextStyle(
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w700,
-                                color: ColorsManager.white),
+                                color: Theme.of(context).colorScheme.surface),
                           )
                         ],
                       ),
