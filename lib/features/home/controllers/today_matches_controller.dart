@@ -117,8 +117,10 @@ class TodayMatchesController extends GetxController {
     // Set a similarity threshold (e.g., 0.9 means 90% similarity)
 
     const double threshold = 0.9;
-    final List<Channel> channels =
-        channelCategories[0].channels + channelCategories[1].channels;
+    final List<Channel> channels = channelCategories
+        .map((category) => category.channels)
+        .expand((e) => e)
+        .toList();
     // Find the best match based on similarity
     Channel? bestMatch;
     double highestSimilarity = 0.0;

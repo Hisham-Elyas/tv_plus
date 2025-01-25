@@ -934,13 +934,13 @@ final Map<String, List<Map<String, String>>> channels = {
     {
       "logo":
           "http://icon-tmdb.me/stalker_portal/misc/logos/320/13656.png?ver=86715",
-      "name": "AD SPORTS PREMIUM 1",
+      "name": "AD Sports Premium 1",
       'videoUrl': "http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/987087"
     },
     {
       "logo":
           "http://icon-tmdb.me/stalker_portal/misc/logos/320/13656.png?ver=86715",
-      "name": "AD SPORTS PREMIUM 2",
+      "name": "AD Sports Premium 2",
       'videoUrl': "http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/987086"
     },
     {
@@ -1935,105 +1935,3 @@ List<LeagueModel> leaguesList = matchesList
 List<ChannelCategory> channelCategories = channels.entries.map((entry) {
   return ChannelCategory.fromMap(entry.key, entry.value);
 }).toList();
-final List<Map<String, String>> beINandCSSchannels = [
-  {
-    'name': 'beIN Sport 1',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544835',
-  },
-  {
-    'name': 'beIN Sport 2',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544834',
-  },
-  {
-    'name': 'beIN Sport 3',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544833',
-  },
-  {
-    'name': 'beIN Sport 4',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544832',
-  },
-  {
-    'name': 'beIN Sport 5',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544831',
-  },
-  {
-    'name': 'beIN Sport 6',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544830',
-  },
-  {
-    'name': 'beIN Sport 7',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544829',
-  },
-  {
-    'name': 'beIN Sport 8',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544828',
-  },
-  {
-    'name': 'beIN Sport 9',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544827',
-  },
-  {
-    'name': 'beIN Sport XTRA 1',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544826',
-  },
-  {
-    'name': 'beIN Sport XTRA 2',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544825',
-  },
-  {
-    'name': 'beIN Sport XTRA 3',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/12782.png?95032',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544824',
-  },
-  {
-    'name': 'SCC 1 ᴴᴰ',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844321',
-  },
-  {
-    'name': 'SCC 2 ᴴᴰ',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844320',
-  },
-  {
-    'name': 'SCC 3 ᴴᴰ',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844319',
-  },
-  {
-    'name': 'SCC 4 ᴴᴰ',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844318',
-  },
-  {
-    'name': 'SCC 5 ᴴᴰ',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844317',
-  },
-  {
-    'name': 'SS XTRAC  1 ᴴᴰ',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844316',
-  },
-  {
-    'name': 'SS XTRAC  2 ᴴᴰ',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844315',
-  },
-  {
-    'name': 'SS XTRAC  3 ᴴᴰ',
-    'logo': 'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-    'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844314',
-  },
-];
