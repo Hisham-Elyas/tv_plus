@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:h_tv/core/localization/constants.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../features/home/data/models/channel_and_commentator_model.dart';
 import '../../features/home/data/models/channel_category_model.dart';
 import '../../features/home/data/models/league_model.dart';
 import '../../features/home/data/models/match_model.dart';
@@ -1935,3 +1937,129 @@ List<LeagueModel> leaguesList = matchesList
 List<ChannelCategory> channelCategories = channels.entries.map((entry) {
   return ChannelCategory.fromMap(entry.key, entry.value);
 }).toList();
+
+List<LeagueModel> dummyleaguesList = [
+  LeagueModel(
+    league: BoneMock.name,
+    leagueLogo: BoneMock.name,
+    matches: [
+      MatchModel(
+          league: BoneMock.name,
+          leagueLogo: BoneMock.name,
+          homeTeam: BoneMock.name,
+          awayTeam: BoneMock.name,
+          homeTeamLogo: BoneMock.name,
+          awayTeamLogo: BoneMock.name,
+          matchDate: '   ',
+          matchTime: '   ',
+          channelsAndCommentators: [
+            ChannelAndCommentator(
+              channel: BoneMock.name,
+              commentator: BoneMock.name,
+            )
+          ]),
+      MatchModel(
+          league: BoneMock.name,
+          leagueLogo: BoneMock.name,
+          homeTeam: BoneMock.name,
+          awayTeam: BoneMock.name,
+          homeTeamLogo: BoneMock.name,
+          awayTeamLogo: BoneMock.name,
+          matchDate: '   ',
+          matchTime: '   ',
+          channelsAndCommentators: [
+            ChannelAndCommentator(
+              channel: BoneMock.name,
+              commentator: BoneMock.name,
+            )
+          ]),
+      MatchModel(
+          league: BoneMock.name,
+          leagueLogo: BoneMock.name,
+          homeTeam: BoneMock.name,
+          awayTeam: BoneMock.name,
+          homeTeamLogo: BoneMock.name,
+          awayTeamLogo: BoneMock.name,
+          matchDate: '   ',
+          matchTime: '   ',
+          channelsAndCommentators: [
+            ChannelAndCommentator(
+              channel: BoneMock.name,
+              commentator: BoneMock.name,
+            )
+          ]),
+    ],
+  ),
+  LeagueModel(
+    league: BoneMock.name,
+    leagueLogo: BoneMock.name,
+    matches: [
+      MatchModel(
+          league: BoneMock.name,
+          leagueLogo: BoneMock.name,
+          homeTeam: BoneMock.name,
+          awayTeam: BoneMock.name,
+          homeTeamLogo: BoneMock.name,
+          awayTeamLogo: BoneMock.name,
+          matchDate: '   ',
+          matchTime: '   ',
+          channelsAndCommentators: [
+            ChannelAndCommentator(
+              channel: BoneMock.name,
+              commentator: BoneMock.name,
+            )
+          ]),
+      MatchModel(
+          league: BoneMock.name,
+          leagueLogo: BoneMock.name,
+          homeTeam: BoneMock.name,
+          awayTeam: BoneMock.name,
+          homeTeamLogo: BoneMock.name,
+          awayTeamLogo: BoneMock.name,
+          matchDate: '   ',
+          matchTime: '   ',
+          channelsAndCommentators: [
+            ChannelAndCommentator(
+              channel: BoneMock.name,
+              commentator: BoneMock.name,
+            )
+          ]),
+    ],
+  ),
+  LeagueModel(
+    league: BoneMock.name,
+    leagueLogo: BoneMock.name,
+    matches: [
+      MatchModel(
+          league: BoneMock.name,
+          leagueLogo: BoneMock.name,
+          homeTeam: BoneMock.name,
+          awayTeam: BoneMock.name,
+          homeTeamLogo: BoneMock.name,
+          awayTeamLogo: BoneMock.name,
+          matchDate: '   ',
+          matchTime: '   ',
+          channelsAndCommentators: [
+            ChannelAndCommentator(
+              channel: BoneMock.name,
+              commentator: BoneMock.name,
+            )
+          ]),
+      MatchModel(
+          league: BoneMock.name,
+          leagueLogo: BoneMock.name,
+          homeTeam: BoneMock.name,
+          awayTeam: BoneMock.name,
+          homeTeamLogo: BoneMock.name,
+          awayTeamLogo: BoneMock.name,
+          matchDate: '   ',
+          matchTime: '   ',
+          channelsAndCommentators: [
+            ChannelAndCommentator(
+              channel: BoneMock.name,
+              commentator: BoneMock.name,
+            )
+          ]),
+    ],
+  ),
+];

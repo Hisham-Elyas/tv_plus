@@ -16,6 +16,7 @@ class TodayMatchesController extends GetxController {
   late StatusRequest statusReq;
   List<MatchModel> matches = [];
   List<LeagueModel> leaguesList = [];
+  List<LeagueModel> leaguesListdummyData = dummyleaguesList;
   final TodayMatchesRepoImpHttp todayMatchesRepo = Get.find();
 
   List<String> selectedLeagues = [];
@@ -35,10 +36,14 @@ class TodayMatchesController extends GetxController {
   }
 
   List<LeagueModel> get filteredLeaguesList {
-    if (selectedLeagues.isEmpty) return leaguesList;
-    return leaguesList
-        .where((league) => selectedLeagues.contains(league.league))
-        .toList();
+    if (statusReq == StatusRequest.loading) {
+      return leaguesListdummyData;
+    } else {
+      if (selectedLeagues.isEmpty) return leaguesList;
+      return leaguesList
+          .where((league) => selectedLeagues.contains(league.league))
+          .toList();
+    }
   }
 
   List<MatchModel> get filteredMatches {

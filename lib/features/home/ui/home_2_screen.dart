@@ -46,28 +46,27 @@ class HomeScreen2 extends StatelessWidget {
         // ),
         // drawer: CustomDrawerWidget(),
         body: GetBuilder<TodayMatchesController>(
-      // init: TodayMatchesController(),
-      builder: (controller) => controller.statusReq == StatusRequest.loading
-          ? const Center(child: CircularProgressIndicator())
-          : RefreshIndicator(
-              onRefresh: () async {
-                controller.getAllTodayMatches();
-              },
-              child: Skeletonizer(
-                enabled: false,
-                enableSwitchAnimation: true,
-                child: ListView.builder(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.w, vertical: 15.h),
-                  itemCount: controller.filteredLeaguesList.length,
-                  itemBuilder: (context, index) {
-                    return LeagueSectionWidget(
-                        league: controller.filteredLeaguesList[index]);
-                  },
-                ),
-              ),
-            ),
-    ));
+            // init: TodayMatchesController(),
+            builder: (controller) {
+      return RefreshIndicator(
+        onRefresh: () async {
+          controller.getAllTodayMatches();
+        },
+        child: Skeletonizer(
+          enabled: controller.statusReq == StatusRequest.loading,
+          // enabled: true,
+          enableSwitchAnimation: true,
+          child: ListView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 15.h),
+            itemCount: controller.filteredLeaguesList.length,
+            itemBuilder: (context, index) {
+              return LeagueSectionWidget(
+                  league: controller.filteredLeaguesList[index]);
+            },
+          ),
+        ),
+      );
+    }));
   }
 }
 
@@ -100,10 +99,12 @@ class LeagueSectionWidget extends StatelessWidget {
                     fit: BoxFit.contain,
                     imageUrl: league.leagueLogo,
                     progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Center(
-                      child: CircularProgressIndicator(
-                          color: Theme.of(context).colorScheme.secondary,
-                          value: downloadProgress.progress),
+                        (context, url, downloadProgress) => Skeletonizer(
+                      enableSwitchAnimation: true,
+                      enabled: true,
+                      child: SizedBox(
+                        width: 25.w,
+                      ),
                     ),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
@@ -118,8 +119,10 @@ class LeagueSectionWidget extends StatelessWidget {
                   ),
                 ),
                 horizontalSpace(15),
-                Icon(Icons.emoji_events,
-                    color: Colors.yellow.shade500, size: 15.dm),
+                Skeleton.shade(
+                  child: Icon(Icons.emoji_events,
+                      color: Colors.yellow.shade500, size: 15.dm),
+                ),
               ],
             ),
           ),
@@ -201,10 +204,12 @@ class MatchCardWidget2 extends GetView<TodayMatchesController> {
                     fit: BoxFit.contain,
                     imageUrl: event.homeTeamLogo,
                     progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Center(
-                      child: CircularProgressIndicator(
-                          color: Theme.of(context).colorScheme.secondary,
-                          value: downloadProgress.progress),
+                        (context, url, downloadProgress) => Skeletonizer(
+                      enableSwitchAnimation: true,
+                      enabled: true,
+                      child: SizedBox(
+                        width: 25.w,
+                      ),
                     ),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
@@ -232,11 +237,14 @@ class MatchCardWidget2 extends GetView<TodayMatchesController> {
                     fit: BoxFit.contain,
                     imageUrl: event.awayTeamLogo,
                     progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Center(
-                      child: CircularProgressIndicator(
-                          color: Theme.of(context).colorScheme.secondary,
-                          value: downloadProgress.progress),
+                        (context, url, downloadProgress) => Skeletonizer(
+                      enableSwitchAnimation: true,
+                      enabled: true,
+                      child: SizedBox(
+                        width: 25.w,
+                      ),
                     ),
+
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -265,7 +273,9 @@ class MatchCardWidget2 extends GetView<TodayMatchesController> {
                         ),
                       ),
                       horizontalSpace(5),
-                      Icon(Icons.mic, color: Colors.grey, size: 15.dm),
+                      Skeleton.shade(
+                          child:
+                              Icon(Icons.mic, color: Colors.grey, size: 15.dm)),
                       const Spacer(),
                       FittedBox(
                         child: Text(
@@ -277,8 +287,10 @@ class MatchCardWidget2 extends GetView<TodayMatchesController> {
                         ),
                       ),
                       horizontalSpace(5),
-                      Icon(Icons.live_tv_outlined,
-                          color: Colors.grey, size: 15.dm),
+                      Skeleton.shade(
+                        child: Icon(Icons.live_tv_outlined,
+                            color: Colors.grey, size: 15.dm),
+                      ),
                     ],
                   ),
                 ),
@@ -298,7 +310,9 @@ class MatchCardWidget2 extends GetView<TodayMatchesController> {
                         ),
                       ),
                       horizontalSpace(5),
-                      Icon(Icons.mic, color: Colors.grey, size: 15.dm),
+                      Skeleton.shade(
+                          child:
+                              Icon(Icons.mic, color: Colors.grey, size: 15.dm)),
                       const Spacer(),
                       FittedBox(
                         child: Text(
@@ -310,8 +324,10 @@ class MatchCardWidget2 extends GetView<TodayMatchesController> {
                         ),
                       ),
                       horizontalSpace(5),
-                      Icon(Icons.live_tv_outlined,
-                          color: Colors.grey, size: 15.dm),
+                      Skeleton.shade(
+                        child: Icon(Icons.live_tv_outlined,
+                            color: Colors.grey, size: 15.dm),
+                      ),
                     ],
                   ),
                 ),

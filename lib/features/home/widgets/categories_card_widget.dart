@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../data/models/channel_category_model.dart';
@@ -36,10 +37,13 @@ class CategoriesCardWidget extends StatelessWidget {
                   fit: BoxFit.contain,
                   imageUrl: category.logo,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                    child: CircularProgressIndicator(
-                        color: Theme.of(context).colorScheme.primary,
-                        value: downloadProgress.progress),
+                      Skeletonizer(
+                    enableSwitchAnimation: true,
+                    enabled: true,
+                    child: SizedBox(
+                      width: 70.w,
+                      height: 70.h,
+                    ),
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
