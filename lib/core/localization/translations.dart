@@ -92,10 +92,12 @@ class MyTranslations extends Translations {
           FilterLeagues: FilterLeagues,
           Clear: Clear,
           Apply: Apply,
+          TryAgain:TryAgain
 
           ///
         },
         "ar": {
+          TryAgain:"اعد المحاولة",
           FilterLeagues: "فلترة الدوريات",
           Clear: "مسح",
           Apply: "تطبيق",

@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                               onPressed: () {
                                 controller.getAllTodayMatches();
                               },
-                              child: const Text('Try Again'))
+                              child: Text(TryAgain.tr))
                         ],
                       ),
                     )

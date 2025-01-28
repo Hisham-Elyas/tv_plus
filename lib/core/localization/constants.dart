@@ -19,7 +19,7 @@ const String All_international_and_local_leagues_with_one_click_of_a_button =
     "All international and local leagues with one click of a button";
 const String WatchYourFavouriteMatches =
     "Watch your favorite matches without interruption.";
-
+const String TryAgain = "Try Again";
 const String Select_language = "Select language";
 const String Errors = "Error";
 const String Ckeck_your_Internet = "Ckeck your Internet ";
