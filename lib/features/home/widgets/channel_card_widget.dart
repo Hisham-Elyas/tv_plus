@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/spacing.dart';
+import '../../../core/theming/colors.dart';
 import '../data/models/channel_category_model.dart';
 
 class ChannelCardWidget extends StatelessWidget {
@@ -22,6 +23,7 @@ class ChannelCardWidget extends StatelessWidget {
       onTap: onTap,
       child: Card(
         margin: EdgeInsets.all(10.r),
+        shadowColor: ColorsManager.lightSecondary,
         elevation: 3,
         color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(

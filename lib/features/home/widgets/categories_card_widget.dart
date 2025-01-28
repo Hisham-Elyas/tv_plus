@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/spacing.dart';
+import '../../../core/theming/colors.dart';
 import '../data/models/channel_category_model.dart';
 
 class CategoriesCardWidget extends StatelessWidget {
@@ -18,6 +19,7 @@ class CategoriesCardWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(10.r),
       onTap: onTap,
       child: Card(
+        shadowColor: ColorsManager.lightSecondary,
         margin: EdgeInsets.all(10.r),
         elevation: 3,
         color: Theme.of(context).colorScheme.surface,

@@ -69,7 +69,6 @@ dev_dependencies:
 launcher_name:
   default: "Faisal TV"
 flutter_native_splash:
-  color: "080d32"
   background_image: "assets/images/logo.png"
   android: true
   ios: true
