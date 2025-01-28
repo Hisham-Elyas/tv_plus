@@ -1,6 +1,10 @@
 // ignore_for_file: constant_identifier_names
 
 const String Home = "Home";
+const String FilterLeagues = 'Filter Leagues';
+const String Clear = 'Clear';
+const String Apply = 'Apply';
+
 const String Categories = 'Categories';
 const String ContactUs = 'Contact us';
 const String AboutUs = 'About us';
@@ -78,3 +82,22 @@ const String Didnt_receive_the_code = 'Didn’t receive the code?';
 const String UserName = "User Name";
 const String ChannelUnknown = "Channel Unknown";
 const String Channel_not_found = "Channel not found";
+/////////////  Settings  Screen
+///
+const String Settings = 'Settings';
+const String FAQs = 'FAQs';
+const String Dark_Mode = "Dark Mode";
+const String Report_a_Problem_Or_Leave_Feedback =
+    "Report a Problem Or Leave Feedback";
+const String feeedback = 'Feedback';
+const String Provide_feedback = 'Provide feedback';
+const String How_feedback_it_work = '# How does it work?\n'
+    '1. Just press the `Provide feedback` or Icon button.\n'
+    '2. The feedback view opens. '
+    'You can choose between draw and navigation mode. '
+    'When in navigate mode, you can freely navigate in the '
+    'app. Try it by opening the navigation drawer  '
+    'drawing mode just press the `Draw` button on the right '
+    'side. Now you can draw on the screen.\n'
+    '3. To finish your feedback just write a message '
+    'below and send it by pressing the `Submit` button.';

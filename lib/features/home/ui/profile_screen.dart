@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../controllers/profile_controller.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer_widget.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends GetView<ProfileController> {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: "My profile",
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {},
-          ),
+          // IconButton(
+          //   icon: const Icon(Icons.search),
+          //   onPressed: () {},
+          // ),
         ],
       ),
       drawer: CustomDrawerWidget(),
@@ -24,26 +26,26 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 40,
                   child: Icon(Icons.person),
                   // backgroundImage:
                   //     AssetImage('assets/avatar.jpg'), // Add your image here
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Mohamed',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      controller.userInf.userName!,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      'mohamed@mail.com',
-                      style: TextStyle(color: Colors.grey),
+                      controller.userInf.email,
+                      style: const TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),

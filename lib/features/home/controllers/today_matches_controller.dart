@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 import 'package:string_similarity/string_similarity.dart';
 
 import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/enums.dart';
+import '../../../core/localization/constants.dart';
 import '../../../core/theming/colors.dart';
 import '../../../core/widgets/custom_snackbar.dart';
 import '../data/models/channel_category_model.dart';
@@ -152,6 +156,100 @@ class TodayMatchesController extends GetxController {
           'No sufficiently similar channel found for: $channelName');
     }
   }
+}
+
+void showFilterBottomSheet(BuildContext context) {
+  final controllers = Get.find<TodayMatchesController>();
+  Get.bottomSheet(
+    Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 3.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  FilterLeagues.tr,
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () => Get.back(),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: GetBuilder<TodayMatchesController>(
+              builder: (controller) => ListView.builder(
+                itemCount: controller.leaguesList.length,
+                itemBuilder: (context, index) {
+                  final league = controller.leaguesList[index];
+                  return Card(
+                    elevation: 5,
+                    shadowColor: ColorsManager.lightSecondary,
+                    child: CheckboxListTile(
+                      controlAffinity: ListTileControlAffinity.platform,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
+                      title: Text(league.league),
+                      secondary: CachedNetworkImage(
+                        width: 25.w,
+                        height: 25.h,
+                        imageUrl: league.leagueLogo,
+                        placeholder: (context, url) => Skeletonizer(
+                          enableSwitchAnimation: true,
+                          enabled: true,
+                          child: Icon(Icons.ac_unit, size: 25.dm),
+                        ),
+                        errorWidget: (context, url, error) => Icon(
+                          Icons.sports_soccer,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                      ),
+                      value: controller.selectedLeagues.contains(league.league),
+                      onChanged: (_) =>
+                          controller.toggleLeagueSelection(league.league),
+                      activeColor: Theme.of(context).colorScheme.secondary,
+                      checkboxShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(1.0.dm),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: controllers.clearFilters,
+                  child: Text(Clear.tr),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Text(Apply.tr),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }
 
 class MatchStatus {

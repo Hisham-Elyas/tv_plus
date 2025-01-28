@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '/features/home/ui/home_screen.dart';
 import '../../../../core/helpers/app_regex.dart';
+import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
-import '../../../home/ui/home_screen.dart';
+import '../../models/sinup_model.dart';
+import '../../repos/auth_repo.dart';
 
 class SingupController extends GetxController {
   late String email;
@@ -12,8 +15,8 @@ class SingupController extends GetxController {
   late String confirmPassword;
   late String phoneNumber;
   final GlobalKey<FormState> singUpformKey = GlobalKey();
-
-  void singUp() {
+  final AuthRepoImpFirebase authRepo = Get.find();
+  void singUp() async {
     Get.focusScope!.unfocus();
     if (!singUpformKey.currentState!.validate()) {
       // Invalid!
@@ -21,7 +24,20 @@ class SingupController extends GetxController {
     }
     singUpformKey.currentState!.save();
     debugPrint('SingUp =>  userName : $userName');
-    Get.offAll(() => const HomeScreen());
+    showOverlay(
+      asyncFunction: () async {
+        final isSuccess = await authRepo.signUp(
+            sinupModel: SinupModel(
+                email: email,
+                password: confirmPassword,
+                phone: phoneNumber,
+                userName: userName));
+
+        if (isSuccess) {
+          Get.offAll(() => const HomeScreen());
+        }
+      },
+    );
   }
 
   String? emailvalidator(val) {

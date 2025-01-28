@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "24632069950",
+    "project_id": "faisal-tv-dac7d",
+    "storage_bucket": "faisal-tv-dac7d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24632069950:android:e34a25771350f1eb60e66f",
+        "android_client_info": {
+          "package_name": "com.example.h_tv"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwvLgN5hh_YpIOdSbLdKvIaqX3d0wq4d8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

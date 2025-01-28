@@ -43,10 +43,8 @@ class ChannelCardWidget extends StatelessWidget {
                       Skeletonizer(
                     enableSwitchAnimation: true,
                     enabled: true,
-                    child: SizedBox(
-                      width: 70.w,
-                      height: 70.h,
-                    ),
+                    child: Skeleton.shade(
+                        child: Icon(Icons.live_tv_outlined, size: 60.dm)),
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),

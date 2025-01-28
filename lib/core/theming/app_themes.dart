@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:h_tv/core/theming/colors.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
+import 'colors.dart';
 
 class AppThemes {
   static final lightTheme = ThemeData(
@@ -8,6 +9,7 @@ class AppThemes {
       SkeletonizerConfigData(), // default constructor has light theme config
     ],
     useMaterial3: true,
+    fontFamily: 'Cairo',
     colorScheme: const ColorScheme.light(
       primary: ColorsManager.lightPrimary,
       secondary: ColorsManager.lightSecondary,
@@ -22,6 +24,7 @@ class AppThemes {
       SkeletonizerConfigData.dark(), // dark theme config
     ],
     useMaterial3: true,
+    fontFamily: 'Cairo',
     colorScheme: const ColorScheme.dark(
       primary: ColorsManager.darkPrimary,
       secondary: ColorsManager.darkSecondary,

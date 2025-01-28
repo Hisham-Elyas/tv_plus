@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:h_tv/features/home/controllers/video_player_conteroller.dart';
 import 'package:modern_player/modern_player.dart';
+
+import '../controllers/video_player_conteroller.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final String videoUrl;

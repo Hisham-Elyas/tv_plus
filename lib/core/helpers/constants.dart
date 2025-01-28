@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:h_tv/core/localization/constants.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../features/home/data/models/channel_and_commentator_model.dart';
 import '../../features/home/data/models/channel_category_model.dart';
 import '../../features/home/data/models/league_model.dart';
 import '../../features/home/data/models/match_model.dart';
+import '../localization/constants.dart';
 
 bool isLoggedInUser = false;
 bool isOnBordingView = false;

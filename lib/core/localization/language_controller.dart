@@ -4,11 +4,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:h_tv/core/helpers/spacing.dart';
-import 'package:h_tv/core/localization/constants.dart';
 
 import '../helpers/constants.dart';
 import '../helpers/shared_pref_helper.dart';
+import '../helpers/spacing.dart';
+import 'constants.dart';
 
 class LanguageController extends GetxController {
   final String _languageKey = 'appLanguage';
@@ -27,6 +27,7 @@ class LanguageController extends GetxController {
     String languageCode = await SharedPrefHelper.getString(_languageKey);
     log('languageCode===========>: $languageCode');
     _appLocale = languageCode != '' ? Locale(languageCode) : const Locale('en');
+
     Get.updateLocale(_appLocale);
     update();
   }

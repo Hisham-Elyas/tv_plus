@@ -3,15 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../core/localization/constants.dart';
-import '../../../core/localization/language_controller.dart';
-import '../../../core/theming/theme_controller.dart';
 import '../../onboarding/widgets/logo_card_widget.dart';
+import '../controllers/profile_controller.dart';
 import '../ui/about_us_screen.dart';
 import '../ui/categories_screen.dart';
 import '../ui/contact_us_screen.dart';
 import '../ui/home_screen.dart';
-import '../ui/main_navigation_screen.dart';
 import '../ui/profile_screen.dart';
+import '../ui/settings_screen.dart';
 
 class CustomDrawerWidget extends StatelessWidget {
   CustomDrawerWidget({
@@ -24,7 +23,7 @@ class CustomDrawerWidget extends StatelessWidget {
     {'icon': Icons.email, 'text': ContactUs.tr},
     {'icon': Icons.info, 'text': AboutUs.tr},
     {'icon': Icons.person, 'text': Profile.tr},
-    {'icon': Icons.logout_outlined, 'text': Logout.tr},
+    {'icon': Icons.settings, 'text': Settings.tr},
   ];
 
   @override
@@ -49,33 +48,6 @@ class CustomDrawerWidget extends StatelessWidget {
               },
             ),
           ),
-          GetBuilder<ThemeController>(
-            builder: (controller) => SwitchListTile(
-              title: Text(DarkMode.tr,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  )),
-              value: controller.themeMode == ThemeMode.dark,
-              onChanged: (value) => controller.toggleTheme(value),
-            ),
-          ),
-          GetBuilder<LanguageController>(
-            builder: (controller) => ListTile(
-              leading: Icon(
-                Icons.language,
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
-              title: Text(Language.tr,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurface,
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                  )),
-              onTap: Get.find<LanguageController>().showLanguageBottomSheet,
-            ),
-          )
         ],
       ),
     );
@@ -100,22 +72,26 @@ class CustomListTile extends StatelessWidget {
       onTap: () {
         switch (index) {
           case 0:
-            Get.off(() => const MainNavigationScreen());
+            Get.off(() => const HomeScreen());
             break;
           case 1:
             Get.off(() => const CategoriesScreen());
 
             break;
           case 2:
-            Get.off(() => const ProfileScreen());
-
+            Get.off(() => const ContactUsScreen());
             break;
           case 3:
-            Get.off(() => const ContactUsScreen());
+            Get.off(() => const AboutUsScreen());
 
             break;
           case 4:
-            Get.off(() => const AboutUsScreen());
+            Get.find<ProfileController>();
+            Get.off(() => const ProfileScreen());
+
+            break;
+          case 5:
+            Get.off(() => const SettingsScreen());
 
             break;
 

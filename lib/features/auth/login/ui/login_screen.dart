@@ -56,9 +56,9 @@ class LoginScreen extends GetView<LoginController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AppTextFormField(
-                            onSaved: (val) => controller.setuserName = val,
-                            hintText: UserName.tr,
-                            validator: controller.userNamevalidator,
+                            onSaved: (val) => controller.setuEmail = val,
+                            hintText: Enter_your_email.tr,
+                            validator: controller.emailvalidator,
                           ),
                           verticalSpace(15),
                           AppTextFormField(

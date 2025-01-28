@@ -78,10 +78,45 @@ class MyTranslations extends Translations {
           VerificationCode: VerificationCode,
           ChannelUnknown: ChannelUnknown,
           Channel_not_found: Channel_not_found,
+          /////      Settings Screen
+          Settings: Settings,
+
+          Report_a_Problem_Or_Leave_Feedback:
+              Report_a_Problem_Or_Leave_Feedback,
+
+          FAQs: FAQs,
+          ////  Feedback  Screen
+          feeedback: feeedback,
+          Provide_feedback: Provide_feedback,
+          How_feedback_it_work: How_feedback_it_work,
+          FilterLeagues: FilterLeagues,
+          Clear: Clear,
+          Apply: Apply,
 
           ///
         },
         "ar": {
+          FilterLeagues: "فلترة الدوريات",
+          Clear: "مسح",
+          Apply: "تطبيق",
+          /////      Settings Screen
+          Settings: 'الضبط',
+          FAQs: 'الأسئلة الشائعة',
+          Report_a_Problem_Or_Leave_Feedback: 'الإبلاغ عن مشكلة أو أترك تعليق',
+          ////  Feedback  Screen
+          feeedback: " أترك تعليق",
+          Provide_feedback: "تقديم تعليق",
+          How_feedback_it_work: '# كيف يعمل؟\n'
+              '1. ما عليك سوى الضغط على زر "تقديم التعليقات" أو زر الرمز.\n'
+              '2. يتم فتح عرض الملاحظات. '
+              'يمكنك الاختيار بين وضع الرسم والتنقل. '
+              'عندما تكون في وضع التنقل، يمكنك التنقل بحرية في'
+              'برنامج. جربه عن طريق فتح درج التنقل '
+              " وضع الرسم فقط اضغط على زر الرسم الموجود على اليمين"
+              '  جانب . يمكنك الآن الرسم على الشاشة. \n '
+              '3. لإنهاء ملاحظاتك فقط قم بكتابة رسالة '
+              'أدناه وأرسله بالضغط على زر إرسال',
+
           /// login screen
           UserName: "اسم المستخدم",
           ////

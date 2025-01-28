@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
+import '../../../home/controllers/today_matches_controller.dart';
 import '../../../home/ui/home_screen.dart';
+import '../../models/login_model.dart';
+import '../../repos/auth_repo.dart';
 
 class LoginController extends GetxController {
   final GlobalKey<FormState> loginformKey = GlobalKey();
-  late String userName;
+  late String email;
   late String password;
+  final AuthRepoImpFirebase authRepo = Get.find();
+
   void login() {
     Get.focusScope!.unfocus();
     if (!loginformKey.currentState!.validate()) {
@@ -15,18 +21,23 @@ class LoginController extends GetxController {
       return;
     }
     loginformKey.currentState!.save();
-    debugPrint('logIn =>  userName : $userName');
-    Get.offAll(() => const HomeScreen());
-  }
 
-  String? userNamevalidator(val) {
-    if (val.isEmpty) {
-      return Type_your_Name.tr;
-    } else if (val.length < 4) {
-      return Name_can_not_be_less_than_4_characters.tr;
-    } else {
-      return null;
-    }
+    showOverlay(
+      asyncFunction: () async {
+        final isSuccess = await authRepo.logIn(
+            loginModel: LoginModel(
+          email: email,
+          password: password,
+        ));
+
+        if (isSuccess) {
+          /// save  user
+
+          Get.offAll(() => const HomeScreen());
+          Get.find<TodayMatchesController>();
+        }
+      },
+    );
   }
 
   String? passwordvalidator(val) {
@@ -40,11 +51,21 @@ class LoginController extends GetxController {
     }
   }
 
+  String? emailvalidator(val) {
+    if (val.isEmpty) {
+      return Type_your_email_adress.tr;
+    } else if (!GetUtils.isEmail(val)) {
+      return Type_in_valid_email_adress.tr;
+    } else {
+      return null;
+    }
+  }
+
   set setPassword(val) {
     password = val;
   }
 
-  set setuserName(val) {
-    userName = val;
+  set setuEmail(val) {
+    email = val;
   }
 }
