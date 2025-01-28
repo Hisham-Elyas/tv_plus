@@ -8,7 +8,7 @@ import '../../auth/models/user_model.dart';
 import 'settings_controller.dart';
 
 class ProfileController extends GetxController {
-  late UserModel userInf;
+  UserModel userInf = UserModel(email: '', userName: '');
 
   @override
   void onInit() async {
@@ -16,7 +16,6 @@ class ProfileController extends GetxController {
     if (userdata != null) {
       userInf = UserModel.fromMap(jsonDecode(userdata));
     } else {
-      userInf = UserModel(email: '', userName: '');
       Get.find<SettingsController>().authRepo.logeOut();
       Get.offAll(() => const LoginScreen());
     }
