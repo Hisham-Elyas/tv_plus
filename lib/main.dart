@@ -41,45 +41,46 @@ class MyApp extends StatelessWidget {
       init: ThemeController(),
       builder: (themeController) => GetBuilder<LanguageController>(
         init: LanguageController(),
-        builder: (langController) => ScreenUtilInit(
-            designSize: const Size(390, 844),
-            builder: (context, child) => BetterFeedback(
+        builder: (langController) => BetterFeedback(
                   theme: themeController.feedbackTheme,
                   localeOverride: langController.appLocale,
-                  child: GetMaterialApp(
-                    theme: AppThemes.lightTheme,
-                    darkTheme: AppThemes.darkTheme,
-                    themeMode: themeController.themeMode,
-                    debugShowCheckedModeBanner: false,
-                    translations: MyTranslations(),
-                    locale: langController.appLocale,
-                    title: 'TV-App',
-                    // theme: ThemeData(
-                    //   fontFamily: 'Cairo',
-                    //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                    //   useMaterial3: true,
-                    // ),
-                    home: isOnBordingView
-                        ? firebaseAuth.currentUser != null
-                            ? const HomeScreen()
-                            : const LoginScreen()
-                        : const IntroScreen(),
-
-                    // home: HomeScreen2(
-                    //     // matches: sampleMatches,
-                    //     ),
-                    // home: OnboardingScreen(),
-                    // home: const SingupScreen(),
-                    // home: const LoginScreen(),
-                    // home: const OTPScreen(),
-                    // home: const ForgetPasswordScreen(),
-                    // home: const HomeScreen(),
-                    // home: CategoriesScreen(),
-                    // home: const VideoPlayerScreen(
-                    //   videoUrl: '',
-                    // ),
+          child: ScreenUtilInit(
+              designSize: const Size(390, 844),
+              builder: (context, child) =>  GetMaterialApp(
+                      theme: AppThemes.lightTheme,
+                      darkTheme: AppThemes.darkTheme,
+                      themeMode: themeController.themeMode,
+                      debugShowCheckedModeBanner: false,
+                      translations: MyTranslations(),
+                      locale: langController.appLocale,
+                      title: 'TV-App',
+                      // theme: ThemeData(
+                      //   fontFamily: 'Cairo',
+                      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                      //   useMaterial3: true,
+                      // ),
+                      home: isOnBordingView
+                          ? firebaseAuth.currentUser != null
+                              ? const HomeScreen()
+                              : const LoginScreen()
+                          : const IntroScreen(),
+          
+                      // home: HomeScreen2(
+                      //     // matches: sampleMatches,
+                      //     ),
+                      // home: OnboardingScreen(),
+                      // home: const SingupScreen(),
+                      // home: const LoginScreen(),
+                      // home: const OTPScreen(),
+                      // home: const ForgetPasswordScreen(),
+                      // home: const HomeScreen(),
+                      // home: CategoriesScreen(),
+                      // home: const VideoPlayerScreen(
+                      //   videoUrl: '',
+                      // ),
+                    ),
                   ),
-                )),
+        ),
       ),
     );
   }
