@@ -159,7 +159,8 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
                 ],
               ),
               verticalSpace(2.h),
-              if (event.channelsAndCommentators.isNotEmpty) ...[
+              if (event.channelsAndCommentators.isNotEmpty &&
+                  event.channelsAndCommentators.first.channel != 'Referee') ...[
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.w),
                   child: Row(
