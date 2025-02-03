@@ -47,7 +47,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 showBackbutton: true,
                 // showBottomBar: true,
                 doubleTapToSeek: false,
-                // showMenu: false,
+                showMenu: false,
               ),
               subtitles: [],
               audioTracks: [],

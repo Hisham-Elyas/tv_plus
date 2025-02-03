@@ -24,7 +24,7 @@ class ChannelCardWidget extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.all(10.r),
         shadowColor: ColorsManager.lightSecondary,
-        elevation: 3,
+        elevation: 6,
         color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r),
@@ -35,7 +35,7 @@ class ChannelCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(8.r),
                 child: CachedNetworkImage(
                   width: 70.w,
                   height: 70.h,

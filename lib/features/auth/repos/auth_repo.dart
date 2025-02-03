@@ -8,11 +8,13 @@ import '../../../core/networking/exception.dart';
 import '../models/login_model.dart';
 import '../models/login_response_model.dart';
 import '../models/sinup_model.dart';
+import '../models/user_model.dart';
 import '../remote/auth_remotdata.dart';
 
 abstract class AuthRepo {
   Future signUp({required SinupModel sinupModel});
   Future logIn({required LoginModel loginModel});
+  Future getUserInfo();
   Future logeOut();
 }
 
@@ -44,6 +46,22 @@ class AuthRepoImpFirebase implements AuthRepo {
     } else {
       showNetworkError();
       return false;
+    }
+  }
+
+  @override
+  Future<Either<StatusRequest, UserModel>> getUserInfo() async {
+    if (await checkInternet()) {
+      try {
+        final response = await authRemotData.getUserInfo();
+
+        return right(response);
+      } on ServerException catch (_) {
+        return left(StatusRequest.serverFailure);
+      }
+    } else {
+      showNetworkError();
+      return left(StatusRequest.serverFailure);
     }
   }
 }
@@ -91,5 +109,10 @@ class AuthRepoImpHttp implements AuthRepo {
 
       return false;
     }
+  }
+
+  @override
+  Future<UserModel> getUserInfo() {
+    throw UnimplementedError();
   }
 }

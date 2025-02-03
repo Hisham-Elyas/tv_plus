@@ -6,6 +6,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/spacing.dart';
+import '../../../core/localization/constants.dart';
 import '../controller/onboarding_controller.dart';
 import '../widgets/logo_card_widget.dart';
 
@@ -88,7 +89,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                                 shape: BoxShape.circle,
                                 color: Theme.of(context).colorScheme.surface),
                             alignment: Alignment.center,
-                            child: Text("استمر",
+                            child: Text(Go.tr,
                                 style: TextStyle(
                                     fontSize: 13.sp,
                                     fontWeight: FontWeight.w700,

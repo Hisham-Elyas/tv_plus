@@ -11,7 +11,6 @@ import '../../../../core/widgets/app_text_form_field.dart';
 import '../../../../core/widgets/card_widget.dart';
 import '../../../onboarding/widgets/logo_card_widget.dart';
 import '../../singup/ui/singup_screen.dart';
-import '../../verification/ui/forget_password_screen.dart';
 import '../controllers/login_controller.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -47,14 +46,21 @@ class LoginScreen extends GetView<LoginController> {
                   verticalSpace(35),
                   CardWidget(
                     horizontal: 32.w,
-                    vertical: 17.h,
+                    vertical: 32.h,
                     width: 335.w,
-                    height: 473.h,
+                    // height: 473.h,
                     child: Form(
                       key: controller.loginformKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Text(LOGIN.tr,
+                              style: TextStyle(
+                                  fontSize: 26.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface)),
+                          verticalSpace(15),
                           AppTextFormField(
                             onSaved: (val) => controller.setuEmail = val,
                             hintText: Enter_your_email.tr,
@@ -64,23 +70,32 @@ class LoginScreen extends GetView<LoginController> {
                           AppTextFormField(
                             onSaved: (val) => controller.setPassword = val,
                             hintText: Enter_your_password.tr,
+                            obscureText: true,
                             validator: controller.passwordvalidator,
                           ),
                           verticalSpace(10),
-                          TextButton(
-                            onPressed: () =>
-                                Get.to(() => const ForgetPasswordScreen()),
-                            child: Text(
-                              Forgot_Your_Password.tr,
-                              style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorsManager.mainRed),
-                            ),
-                          ),
+                          // TextButton(
+                          //   onPressed: () =>
+                          //       Get.to(() => const ForgetPasswordScreen()),
+                          //   child: Text(
+                          //     Forgot_Your_Password.tr,
+                          //     style: TextStyle(
+                          //         fontSize: 15.sp,
+                          //         fontWeight: FontWeight.w700,
+                          //         color: ColorsManager.mainRed),
+                          //   ),
+                          // ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Text(
+                                Dont_have_an_account.tr,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                    fontSize: 15.sp),
+                              ),
                               TextButton(
                                 onPressed: () =>
                                     Get.to(() => const SingupScreen()),
@@ -93,14 +108,6 @@ class LoginScreen extends GetView<LoginController> {
                                           .colorScheme
                                           .primary),
                                 ),
-                              ),
-                              Text(
-                                Dont_have_an_account.tr,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
-                                    fontSize: 15.sp),
                               ),
                             ],
                           ),

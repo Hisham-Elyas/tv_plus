@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../onboarding/widgets/logo_card_widget.dart';
+import '../../../core/helpers/constants.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
@@ -23,7 +23,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               style: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,
                   fontWeight: FontWeight.bold))
-          : LogoCardWidget(width: 150.w, height: 53.h),
+          // : LogoCardWidget(width: 150.w, height: 53.h),
+          : Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 35.h,
+              ),
+              width: 250.h,
+              height: 20.w,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.r),
+                  color: Theme.of(context).colorScheme.surface),
+              child: Image.asset(ImageAssets.textTvChannellogo,
+                  fit: BoxFit.contain),
+            ),
       iconTheme: IconThemeData(
         color: Theme.of(context)
             .colorScheme

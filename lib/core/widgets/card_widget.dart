@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../theming/colors.dart';
+
 class CardWidget extends StatelessWidget {
   final Widget child;
   final double? horizontal;
@@ -20,6 +22,7 @@ class CardWidget extends StatelessWidget {
     return Material(
         borderRadius: BorderRadius.circular(15.r),
         elevation: 10,
+        shadowColor: ColorsManager.lightSecondary,
         child: Container(
             padding: EdgeInsets.symmetric(
                 horizontal: horizontal ?? 0, vertical: vertical ?? 0),

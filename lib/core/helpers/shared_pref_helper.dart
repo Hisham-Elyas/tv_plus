@@ -66,7 +66,7 @@ class SharedPrefHelper {
   }
 
   /// Gets an String value from SharedPreferences with given [key].
-  static getString(String key) async {
+  static Future<String> getString(String key) async {
     debugPrint('SharedPrefHelper : getString with key : $key');
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getString(key) ?? '';

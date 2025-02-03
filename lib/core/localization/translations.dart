@@ -7,6 +7,8 @@ class MyTranslations extends Translations {
   Map<String, Map<String, String>> get keys => {
         "en": {
           Home: Home,
+          Soon: Soon,
+          Go: Go,
           Categories: Categories,
           ContactUs: ContactUs,
           AboutUs: AboutUs,
@@ -92,12 +94,16 @@ class MyTranslations extends Translations {
           FilterLeagues: FilterLeagues,
           Clear: Clear,
           Apply: Apply,
-          TryAgain:TryAgain
+          TryAgain: TryAgain,
+          Start: Start,
 
           ///
         },
         "ar": {
-          TryAgain:"اعد المحاولة",
+          TryAgain: "اعد المحاولة",
+          Start: "إبدء",
+          Go: "استمر",
+          Soon: "قريباََ",
           FilterLeagues: "فلترة الدوريات",
           Clear: "مسح",
           Apply: "تطبيق",

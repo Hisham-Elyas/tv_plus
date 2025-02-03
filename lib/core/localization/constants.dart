@@ -4,6 +4,8 @@ const String Home = "Home";
 const String FilterLeagues = 'Filter Leagues';
 const String Clear = 'Clear';
 const String Apply = 'Apply';
+const String Soon = 'Soon';
+const String Start = 'Start';
 
 const String Categories = 'Categories';
 const String ContactUs = 'Contact us';
@@ -12,6 +14,7 @@ const String Profile = "Profile";
 const String Language = "Language";
 const String DarkMode = 'Dark Mode';
 const String Logout = "Logout";
+const String Go = "Go";
 
 const String Premium_annual_and_monthly_subscription =
     "Premium annual and monthly subscription";

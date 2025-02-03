@@ -50,6 +50,49 @@ class TodayMatchesController extends GetxController {
     }
   }
 
+  // The currently selected date (initialize with today)
+  DateTime selectedDate = DateTime.now();
+  String get selectedDateformat {
+    return DateFormat("EEEE, dd/MM/yyyy").format(selectedDate);
+  }
+
+  // Function to parse a match's date string into DateTime
+  DateTime parseMatchDate(String dateString) {
+    final DateFormat formatter = DateFormat("EEEE dd-MM-yyyy");
+    try {
+      return formatter.parse(dateString);
+    } catch (e) {
+      debugPrint("Error parsing date: $e");
+      return DateTime.now();
+    }
+  }
+
+  void nextDay() {
+    selectedDate = selectedDate.add(const Duration(days: 1));
+    update();
+  }
+
+  void previousDay() {
+    selectedDate = selectedDate.subtract(const Duration(days: 1));
+    update();
+  }
+
+  // Filter matches by the selected date
+  List<LeagueModel> get getFilteredMatchesByDate {
+    // Flatten all matches from all leagues into a single list.
+    final allMatches =
+        filteredLeaguesList.expand((league) => league.matches).toList();
+    debugPrint(allMatches.length.toString());
+    // Filter matches whose parsed matchDate is equal to the selected date.
+    final List<MatchModel> filteredMatchesByDate = allMatches.where((match) {
+      final DateTime matchDateTime = parseMatchDate(match.matchDate);
+      return matchDateTime.year == selectedDate.year &&
+          matchDateTime.month == selectedDate.month &&
+          matchDateTime.day == selectedDate.day;
+    }).toList();
+    return convorToLeagueModel(matches: filteredMatchesByDate);
+  }
+
   List<MatchModel> get filteredMatches {
     if (selectedLeagues.isEmpty) return matches;
     return matches
@@ -57,7 +100,7 @@ class TodayMatchesController extends GetxController {
         .toList();
   }
 
-  List<LeagueModel> convorToLeagueModel() {
+  List<LeagueModel> convorToLeagueModel({required List<MatchModel> matches}) {
     leaguesList = matches
         .fold<Map<String, LeagueModel>>({},
             (Map<String, LeagueModel> map, match) {
@@ -94,7 +137,7 @@ class TodayMatchesController extends GetxController {
       /////
       matches.clear();
       matches.addAll(r);
-      convorToLeagueModel();
+      convorToLeagueModel(matches: matches);
       statusReq = StatusRequest.success;
 
       update();
@@ -102,24 +145,30 @@ class TodayMatchesController extends GetxController {
   }
 
   MatchStatus getMatchStatusWithColor(MatchModel event) {
-    DateTime matchDateTime = DateFormat('EEEE dd-MM-yyyy hh:mm a')
-        .parse('${event.matchDate} ${event.matchTime}');
-    DateTime matchEndTime = matchDateTime.add(const Duration(hours: 2));
     String status;
     Color color;
+    try {
+      DateTime matchDateTime = DateFormat('EEEE dd-MM-yyyy hh:mm a')
+          .parse('${event.matchDate} ${event.matchTime}');
+      DateTime matchEndTime = matchDateTime.add(const Duration(hours: 2));
 
-    if (DateTime.now().isBefore(matchDateTime)) {
+      if (DateTime.now().isBefore(matchDateTime)) {
+        status = event.matchTime;
+        color = Theme.of(Get.context!).colorScheme.secondary;
+      } else if (DateTime.now().isAfter(matchEndTime)) {
+        status = 'Ended';
+        color = ColorsManager.mainRed;
+      } else {
+        status = 'Running';
+        color = ColorsManager.green;
+      }
+
+      return MatchStatus(status: status, color: color);
+    } catch (e) {
       status = event.matchTime;
       color = Theme.of(Get.context!).colorScheme.secondary;
-    } else if (DateTime.now().isAfter(matchEndTime)) {
-      status = 'Match Ended';
-      color = ColorsManager.mainRed;
-    } else {
-      status = 'Match Running';
-      color = ColorsManager.green;
+      return MatchStatus(status: status, color: color);
     }
-
-    return MatchStatus(status: status, color: color);
   }
 
   Channel findChannelByName(String channelName) {

@@ -101,7 +101,7 @@ class CustomListTile extends StatelessWidget {
       },
       leading: Icon(
         icon,
-        color: Theme.of(context).colorScheme.onSurface,
+        color: Theme.of(context).colorScheme.primary,
       ),
       title: Text(
         text,

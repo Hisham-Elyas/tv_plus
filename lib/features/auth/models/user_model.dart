@@ -18,7 +18,7 @@ class UserModel {
     return <String, dynamic>{
       'User_Name': userName,
       'User_Id': userId,
-      'User_Email': email,
+      'User_Phone': phone,
     };
   }
 
@@ -27,6 +27,7 @@ class UserModel {
       userId: map['User_Id'] != null ? map['User_Id'] as String : null,
       userName: map['User_Name'] != null ? map['User_Name'] as String : null,
       email: map['User_Email'] as String,
+      phone: map['User_Phone'] != null ? map['User_Name'] as String : null,
     );
   }
 

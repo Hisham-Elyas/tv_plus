@@ -16,7 +16,6 @@ import 'features/home/ui/home_screen.dart';
 import 'features/onboarding/ui/intro_screen.dart';
 
 void main() async {
-  // await parseM3UFile0("assets/playlist.m3u");
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
@@ -24,10 +23,6 @@ void main() async {
   ]);
   await ScreenUtil.ensureScreenSize();
   await setupGetIt();
-  // final String m3uContent = await rootBundle.loadString('assets/playlist.m3u');
-  // await parseM3U();
-  // print(m3uContent);
-
   runApp(const MyApp());
 }
 
@@ -42,44 +37,44 @@ class MyApp extends StatelessWidget {
       builder: (themeController) => GetBuilder<LanguageController>(
         init: LanguageController(),
         builder: (langController) => BetterFeedback(
-                  theme: themeController.feedbackTheme,
-                  localeOverride: langController.appLocale,
+          theme: themeController.feedbackTheme,
+          localeOverride: langController.appLocale,
           child: ScreenUtilInit(
-              designSize: const Size(390, 844),
-              builder: (context, child) =>  GetMaterialApp(
-                      theme: AppThemes.lightTheme,
-                      darkTheme: AppThemes.darkTheme,
-                      themeMode: themeController.themeMode,
-                      debugShowCheckedModeBanner: false,
-                      translations: MyTranslations(),
-                      locale: langController.appLocale,
-                      title: 'TV-App',
-                      // theme: ThemeData(
-                      //   fontFamily: 'Cairo',
-                      //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                      //   useMaterial3: true,
-                      // ),
-                      home: isOnBordingView
-                          ? firebaseAuth.currentUser != null
-                              ? const HomeScreen()
-                              : const LoginScreen()
-                          : const IntroScreen(),
-          
-                      // home: HomeScreen2(
-                      //     // matches: sampleMatches,
-                      //     ),
-                      // home: OnboardingScreen(),
-                      // home: const SingupScreen(),
-                      // home: const LoginScreen(),
-                      // home: const OTPScreen(),
-                      // home: const ForgetPasswordScreen(),
-                      // home: const HomeScreen(),
-                      // home: CategoriesScreen(),
-                      // home: const VideoPlayerScreen(
-                      //   videoUrl: '',
-                      // ),
-                    ),
-                  ),
+            designSize: const Size(390, 844),
+            builder: (context, child) => GetMaterialApp(
+              theme: AppThemes.lightTheme,
+              darkTheme: AppThemes.darkTheme,
+              themeMode: themeController.themeMode,
+              debugShowCheckedModeBanner: false,
+              translations: MyTranslations(),
+              locale: langController.appLocale,
+              title: 'TV-App',
+              // theme: ThemeData(
+              //   fontFamily: 'Cairo',
+              //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              //   useMaterial3: true,
+              // ),
+              home: isOnBordingView
+                  ? firebaseAuth.currentUser != null
+                      ? const HomeScreen()
+                      : const LoginScreen()
+                  : const IntroScreen(),
+
+              // home: HomeScreen2(
+              //     // matches: sampleMatches,
+              //     ),
+              // home: OnboardingScreen(),
+              // home: const SingupScreen(),
+              // home: const LoginScreen(),
+              // home: const OTPScreen(),
+              // home: const ForgetPasswordScreen(),
+              // home: const HomeScreen(),
+              // home: CategoriesScreen(),
+              // home: const VideoPlayerScreen(
+              //   videoUrl: '',
+              // ),
+            ),
+          ),
         ),
       ),
     );

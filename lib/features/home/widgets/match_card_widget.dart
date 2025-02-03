@@ -4,9 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/localization/constants.dart';
+import '../../../core/theming/colors.dart';
 import '../../../core/widgets/custom_snackbar.dart';
 import '../controllers/today_matches_controller.dart';
 import '../controllers/video_player_conteroller.dart';
@@ -59,142 +61,177 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
         // );
       },
       child: Card(
-        margin: const EdgeInsets.all(10),
+        // margin: const EdgeInsets.all(10),
         elevation: 3,
+        shadowColor: ColorsManager.lightSecondary,
         color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(10.r),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    children: [
-                      CachedNetworkImage(
-                        width: 80.w,
-                        height: 80.h,
-                        fit: BoxFit.contain,
-                        imageUrl: event.homeTeamLogo,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) => Center(
-                          child: CircularProgressIndicator(
-                              color: Theme.of(context).colorScheme.secondary,
-                              value: downloadProgress.progress),
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
+                  SizedBox(
+                    width: 85.w,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
                         event.homeTeam,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CachedNetworkImage(
-                        width: 30.w,
-                        height: 30.h,
-                        // color: Theme.of(context).colorScheme.secondary,
-                        fit: BoxFit.contain,
-                        imageUrl: event.leagueLogo,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) => Center(
-                          child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Theme.of(context).colorScheme.secondary,
-                              value: downloadProgress.progress),
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                      ),
-                      verticalSpace(20.h),
-                      Text(
-                        event.matchTime,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 16.sp,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
+                            fontSize: 12.sp, fontWeight: FontWeight.w800),
                       ),
-                    ],
+                    ),
                   ),
-                  Column(
-                    children: [
-                      CachedNetworkImage(
-                        width: 80.w,
-                        height: 80.h,
-                        fit: BoxFit.contain,
-                        imageUrl: event.awayTeamLogo,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) => Center(
-                          child: CircularProgressIndicator(
-                              color: Theme.of(context).colorScheme.secondary,
-                              value: downloadProgress.progress),
-                        ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                  horizontalSpace(5),
+                  CachedNetworkImage(
+                    width: 25.w,
+                    // height: 25.h,
+                    fit: BoxFit.contain,
+                    imageUrl: event.homeTeamLogo,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Skeletonizer(
+                      enableSwitchAnimation: true,
+                      enabled: true,
+                      child: SizedBox(
+                        width: 25.w,
                       ),
-                      const SizedBox(height: 5),
-                      Text(
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
+                  horizontalSpace(5),
+                  Card(
+                    elevation: 3,
+                    shadowColor: ColorsManager.lightSecondary,
+                    color: Theme.of(context).colorScheme.surface,
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.w, vertical: 1.h),
+                      child: Text(
+                        controller.getMatchStatusWithColor(event).status,
+                        style: TextStyle(
+                            fontSize: 12.sp,
+                            color:
+                                controller.getMatchStatusWithColor(event).color,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  horizontalSpace(5),
+                  CachedNetworkImage(
+                    width: 25.w,
+                    // height: 80.h,
+                    fit: BoxFit.contain,
+                    imageUrl: event.awayTeamLogo,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Skeletonizer(
+                      enableSwitchAnimation: true,
+                      enabled: true,
+                      child: SizedBox(
+                        width: 25.w,
+                      ),
+                    ),
+
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
+                  horizontalSpace(5),
+                  SizedBox(
+                    width: 85.w,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
                         event.awayTeam,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        // softWrap: true,
+                        style: TextStyle(
+                            fontSize: 12.sp, fontWeight: FontWeight.w800),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-              verticalSpace(8.h),
+              verticalSpace(2.h),
               if (event.channelsAndCommentators.isNotEmpty) ...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    FittedBox(
-                      child: Text(
-                        event.channelsAndCommentators.first.commentator,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 12.sp,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      FittedBox(
+                        child: Text(
+                          event.channelsAndCommentators.first.commentator,
+                          style: TextStyle(
+                              color: ColorsManager.lightSecondary,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ),
-                    Icon(Icons.mic, color: Colors.grey, size: 20.dm),
-                    Icon(Icons.tv, color: Colors.grey, size: 20.dm),
-                    FittedBox(
-                      child: Text(
-                        event.channelsAndCommentators.first.channel,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 12.sp,
+                      horizontalSpace(5),
+                      Skeleton.shade(
+                          child:
+                              Icon(Icons.mic, color: Colors.grey, size: 15.dm)),
+                      const Spacer(),
+                      FittedBox(
+                        child: Text(
+                          event.channelsAndCommentators.first.channel,
+                          style: TextStyle(
+                              color: ColorsManager.lightSecondary,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ),
-                  ],
+                      horizontalSpace(5),
+                      Skeleton.shade(
+                        child: Icon(Icons.live_tv_outlined,
+                            color: Colors.grey, size: 15.dm),
+                      ),
+                    ],
+                  ),
                 ),
               ] else ...[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'Unknown',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary),
-                    ),
-                    const Icon(Icons.mic, color: Colors.grey),
-                    const Icon(Icons.tv, color: Colors.grey),
-                    Text(
-                      'Unknown',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary),
-                    ),
-                  ],
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      FittedBox(
+                        child: Text(
+                          'Unknown',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                      ),
+                      horizontalSpace(5),
+                      Skeleton.shade(
+                          child:
+                              Icon(Icons.mic, color: Colors.grey, size: 15.dm)),
+                      const Spacer(),
+                      FittedBox(
+                        child: Text(
+                          'Unknown',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: 12.sp,
+                          ),
+                        ),
+                      ),
+                      horizontalSpace(5),
+                      Skeleton.shade(
+                        child: Icon(Icons.live_tv_outlined,
+                            color: Colors.grey, size: 15.dm),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ],

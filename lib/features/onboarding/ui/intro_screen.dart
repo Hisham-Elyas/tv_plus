@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../core/helpers/spacing.dart';
+import '../../../core/localization/constants.dart';
 import '../../../core/theming/colors.dart';
 import '../../../core/widgets/app_text_button.dart';
 import '../controller/onboarding_controller.dart';
@@ -31,7 +32,7 @@ class IntroScreen extends GetView<OnboardingController> {
               buttonHeight: 50,
               buttonWidth: 317,
               borderRadius: 152,
-              buttonText: "إبدء",
+              buttonText: Start.tr,
               onPressed: () => Get.to(() => const OnboardingScreen()),
               textStyle: TextStyle(
                   fontSize: 24.sp,

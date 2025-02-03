@@ -21,7 +21,7 @@ class CategoriesCardWidget extends StatelessWidget {
       child: Card(
         shadowColor: ColorsManager.lightSecondary,
         margin: EdgeInsets.all(10.r),
-        elevation: 3,
+        elevation: 6,
         color: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r),

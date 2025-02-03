@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/helpers/constants.dart';
+import '../../../core/theming/colors.dart';
 
 class LogoCardWidget extends StatelessWidget {
   final double? width;
@@ -18,6 +19,7 @@ class LogoCardWidget extends StatelessWidget {
     return Material(
       borderRadius: BorderRadius.circular(20.r),
       elevation: 5,
+      shadowColor: ColorsManager.lightSecondary,
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: 35.h,

@@ -52,6 +52,13 @@ class SingupScreen extends GetView<SingupController> {
                       key: controller.singUpformKey,
                       child: Column(
                         children: [
+                          Text(Sign_Up.tr,
+                              style: TextStyle(
+                                  fontSize: 26.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface)),
+                          verticalSpace(15),
                           AppTextFormField(
                             onSaved: (val) => controller.setuserName = val,
                             hintText: UserName.tr,

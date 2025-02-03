@@ -16,7 +16,7 @@ import '../models/user_model.dart';
 abstract class AuthRemotData {
   Future signUp({required SinupModel sinupModel});
   Future logIn({required LoginModel loginModel});
-
+  Future<UserModel> getUserInfo();
   Future<bool> logeOut();
 }
 
@@ -57,22 +57,54 @@ class AuthRemotDataImpHttp implements AuthRemotData {
       throw ServerException(message: "${resalt.statusCode}");
     }
   }
+
+  @override
+  Future<UserModel> getUserInfo() {
+    throw UnimplementedError();
+  }
 }
 
 class AuthRemotDataImpFirebase implements AuthRemotData {
   late final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   late final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   @override
+  Future<UserModel> getUserInfo() async {
+    try {
+      await firebaseFirestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .get()
+          .then(
+        (value) async {
+          final userval = value.data()!['user_info'];
+          await SharedPrefHelper.setData('user_info', jsonEncode(userval));
+          return UserModel.fromMap(userval);
+        },
+      );
+    } on FirebaseException catch (e) {
+      showCustomSnackBar(
+          message: "${e.message}", title: 'user info Error', isError: true);
+
+      printError(info: "Failed with error '${e.code}' :  ${e.message}");
+      throw ServerException(message: "");
+    } catch (e) {
+      throw ServerException(message: "");
+    }
+    throw ServerException(message: "");
+  }
+
+  @override
   Future<bool> logIn({required LoginModel loginModel}) async {
     try {
       await firebaseAuth.signInWithEmailAndPassword(
           email: loginModel.email, password: loginModel.password);
+
       return true;
     } on FirebaseAuthException catch (e) {
       showCustomSnackBar(
           message: "${e.message}", title: 'INVALID LOGIN INFO', isError: true);
-
       printError(info: "Failed with error '${e.code}' :  ${e.message}");
+
       return false;
     } catch (e) {
       printError(info: e.toString());
@@ -116,7 +148,6 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
           .collection('users')
           .doc(userCredential.user!.uid)
           .set({'user_info': userModel.toMap()}, SetOptions(merge: true));
-
       await SharedPrefHelper.setData(
           'user_info', jsonEncode(userModel.toMap()));
       return true;
