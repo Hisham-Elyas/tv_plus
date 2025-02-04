@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -22,6 +24,20 @@ class ImageAssets {
   static const String usFlags = 'assets/images/us.png';
 }
 
+List<String> FAISAL_Tv_Abut_us_list = [
+  Our_Vision,
+  Our_Services,
+  About,
+  Our_Mission,
+  Who_We_Are,
+];
+List<String> FAISAL_Tv_Abut_us_desc_list = [
+  Our_Vision_desc,
+  Our_Services_desc,
+  About_desc,
+  Our_Mission_desc,
+  Who_We_Are_desc,
+];
 final List onBoardingListDescription = [
   WatchYourFavouriteMatches.tr,
   All_international_and_local_leagues_with_one_click_of_a_button.tr,

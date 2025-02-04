@@ -97,7 +97,19 @@ class MyTranslations extends Translations {
           TryAgain: TryAgain,
           Start: Start,
 
-          ///
+          /// abut us screen
+          Show_more: Show_more,
+          Show_less: Show_less,
+          Our_Vision: Our_Vision,
+          Our_Vision_desc: Our_Vision_desc,
+          Our_Services: Our_Services,
+          Our_Services_desc: Our_Services_desc,
+          About: About,
+          About_desc: About_desc,
+          Our_Mission: Our_Mission,
+          Our_Mission_desc: Our_Mission_desc,
+          Who_We_Are: Who_We_Are,
+          Who_We_Are_desc: Who_We_Are_desc,
         },
         "ar": {
           TryAgain: "اعد المحاولة",
@@ -196,6 +208,20 @@ class MyTranslations extends Translations {
           VerificationCode: "رمز التحقق",
           ChannelUnknown: "القناة غير معروفة",
           Channel_not_found: "لم يتم العثور على القناة",
+
+          /// abut us screen
+          Show_more: "عرض المزيد",
+          Show_less: "عرض أقل",
+          Our_Vision: Our_Vision_ar,
+          Our_Vision_desc: Our_Vision_desc_ar,
+          Our_Services: Our_Services_ar,
+          Our_Services_desc: Our_Services_desc_ar,
+          About: About_ar,
+          About_desc: About_desc_ar,
+          Our_Mission: Our_Mission_ar,
+          Our_Mission_desc: Our_Mission_desc_ar,
+          Who_We_Are: Who_We_Are_ar,
+          Who_We_Are_desc: Who_We_Are_desc_ar,
         },
       };
 }

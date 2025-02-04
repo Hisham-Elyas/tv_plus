@@ -104,3 +104,111 @@ const String How_feedback_it_work = '# How does it work?\n'
     'side. Now you can draw on the screen.\n'
     '3. To finish your feedback just write a message '
     'below and send it by pressing the `Submit` button.';
+/////  about us
+const String Show_more = 'Show more';
+const String Show_less = 'Show lass';
+const String Our_Vision = 'Our Vision';
+const String Our_Vision_desc =
+    "At FAISAL TV, we aspire to become the leading sports network that connects fans to the heart of every game, every athlete, and every moment of action.\n\n"
+    "Our vision is to redefine how sports are experienced by delivering cutting-edge technology, innovative storytelling, and seamless access to live events and exclusive content.\n\n"
+    "We aim to inspire the next generation of athletes and fans, foster a global community of sports enthusiasts, and celebrate the unifying power of sports to bring people together.\n\n"
+    "\n\nBy setting new standards for quality, passion, and engagement, we envision a future where FAISAL TV is synonymous with the ultimate sports experience—anytime, anywhere.";
+const String Our_Services = "Services";
+const String Our_Services_desc =
+    "At FAISAL TV, we are dedicated to providing a comprehensive range of services to enhance your sports viewing experience:\n\n"
+    "\n\nLive Sports Coverage:\n\n"
+    "Enjoy real-time broadcasting of the biggest sporting events from around the globe, including football, basketball, tennis, and more.\n\n"
+    "\n\nIn-Depth Analysis & Commentary:\n\n"
+    "Get expert insights, pre-match predictions, post-match reviews, and in-game commentary from seasoned analysts and sports professionals.\n\n"
+    "\n\nExclusive Shows & Documentaries:\n\n"
+    "Dive deeper into the world of sports with original programming, behind-the-scenes features, and athlete profiles that tell the stories beyond the game.\n\n"
+    "\n\nMulti-Platform Access:\n\n"
+    "Stream live matches and shows seamlessly across your all mobile devices, and online platforms, ensuring you never miss the action.\n\n"
+    "\n\nCustomized Sports Alerts:\n\n"
+    "Stay updated with real-time notifications for scores, schedules, and breaking sports news tailored to your preferences.\n\n"
+    "FAISAL TV is your one-stop destination for all things sports—bringing the thrill of the game directly to you!";
+const String About = "About Us";
+const String About_desc =
+    "Welcome to FAISAL TV, your ultimate destination for sports entertainment and live action! We bring you closer to the games you love with unparalleled coverage of local, national, and international sporting events.\n\n"
+    "At FAISAL TV, we celebrate the spirit of competition, showcasing everything from the thrill of live matches to in-depth analyses, behind-the-scenes features, and exclusive interviews with your favorite athletes and teams.";
+const String Our_Mission = "Mission";
+const String Our_Mission_desc =
+    "Our mission is to deliver high-quality sports content that keeps fans informed, engaged, and inspired. Whether you’re a die-hard football enthusiast, a basketball aficionado, or a lover of niche sports, we’ve got you covered with comprehensive programming tailored for every sports lover.\n\n"
+    "\n\nTune in for:\n\n"
+    "Live Game Broadcasts: Watch every goal, dunk, and touchdown as it happens.\n\n"
+    "Expert Commentary & Analysis: Hear from seasoned experts who break down the action and provide insights you won’t find anywhere else.\n\n"
+    "Exclusive Content: Get up close and personal with athletes and teams through special features and interviews.\n\n"
+    "On-Demand Highlights: Relive the best moments anytime, anywhere.\n\n"
+    "Join us in celebrating the passion, drama, and excitement that make sports a global phenomenon. FAISAL TV—where the game never stops!";
+const String Who_We_Are = "Who We Are";
+const String Who_We_Are_desc =
+    "At FAISAL TV, we are more than just a sports TV channel—we are a community united by a shared passion for sports. Founded with the mission to bring fans closer to the action, we pride ourselves on delivering unparalleled access to the world’s most exciting sporting events.\n\n"
+    "Our team consists of sports enthusiasts, expert commentators, and dedicated professionals who work tirelessly to provide top-notch content that entertains, informs, and inspires. From live broadcasts to exclusive interviews, behind-the-scenes features, and in-depth analyses, we offer a 360-degree sports experience tailored to fans of all ages and interests.\n\n"
+    "We believe in the power of sports to unite, inspire, and create unforgettable memories. Whether you’re cheering for your favorite team or discovering a new sport, FAISAL TV is here to connect you with the moments that matter most.\n\n"
+    "Join us as we celebrate the spirit of competition and the joy of sports—every day, everywhere.\n\n"
+    "\n\n......................................\n\n"
+    "Leagues\n\n"
+    "1.	English Premier League (EPL)\n\n"
+    "2.	La Liga (spain)\n\n"
+    "3.	Serie A (Italy)\n\n"
+    "4.	Bundesliga (Germany)\n\n"
+    "5.	Ligue 1 (France)\n\n"
+    "6.	Primeira Liga (Portugal)\n\n"
+    "Saudi Pro League (Saudi Arabia)\n\n"
+    "Qatar Stars League (Qatar)\n\n"
+    "UAE Pro League (UAE)\n\n"
+    "Egyptian premier League (Egypt)\n\n"
+    "In addition, champions leagues like Europe champions League, African champions League, Asian champions League, and nations champions League and of course the word cup football matches.\n\n"
+    "These leagues represent the most competitive and prestigious football competitions globally, each with a unique style of play and rich football culture. They attract millions of viewers worldwide and contribute significantly to the global football landscape.\n\n";
+const String Our_Vision_ar = 'رؤيتنا';
+const String Our_Vision_desc_ar =
+    "\n\nفي فيصل تي في، نسعى لأن نصبح الشبكة الرياضية الرائدة التي تربط المشجعين بقلب كل مباراة، وكل رياضي، وكل لحظة حماسية."
+    "\n\nرؤيتنا هي إعادة تعريف تجربة مشاهدة الرياضة من خلال تقديم أحدث التقنيات، وسرد القصص المبتكر، والوصول السلس إلى الأحداث المباشرة والمحتوى الحصري. "
+    "\n\nنهدف إلى إلهام الجيل القادم من الرياضيين والمشجعين، وتعزيز مجتمع عالمي من عشاق الرياضة، والاحتفاء بالقوة الموحدة للرياضة في جمع الناس معًا."
+    "\n\nمن خلال وضع معايير جديدة للجودة، والشغف، والتفاعل، نتصور مستقبلاً يكون فيه فيصل تي في مرادفًا للتجربة الرياضية المثالية—في أي وقت، وفي أي مكان";
+const String Our_Services_ar = "خدماتنا";
+const String Our_Services_desc_ar =
+    "\n\nفي فيصل تي في، نلتزم بتقديم مجموعة شاملة من الخدمات لتعزيز تجربة مشاهدة الرياضة لديك:"
+    "\n\nتغطية المباريات المباشرة:"
+    "\n\nاستمتع بالبث المباشر لأكبر الأحداث الرياضية من جميع أنحاء العالم، بما في ذلك كرة القدم، كرة السلة، التنس، والمزيد."
+    "\n\nتحليلات وتعليقات متعمقة:"
+    "\n\nاحصل على رؤى من الخبراء، وتوقعات قبل المباريات، وتحليلات بعد المباريات، وتعليقات أثناء اللعب من محللين محترفين وخبراء رياضيين."
+    "\n\nبرامج ووثائقيات حصرية:"
+    "\n\nتعمق في عالم الرياضة من خلال برامج أصلية ولقطات خلف الكواليس وبروفايلات للرياضيين تسرد القصص وراء اللعبة."
+    "\n\nالوصول عبر منصات متعددة:"
+    "\n\nشاهد المباريات والعروض الحية بسلاسة على كل الأجهزة المحمولة، والمنصات الإلكترونية، لتضمن عدم تفويت أي لحظة."
+    "\n\nتنبيهات رياضية مخصصة:"
+    "\n\nكن على اطلاع دائم مع إشعارات لحظية لنتائج المباريات والجداول وآخر الأخبار الرياضية حسب تفضيلاتك."
+    "\n\nفيصل تي في هي وجهتك الأولى لكل ما يتعلق بالرياضة—ننقل لك إثارة اللعبة مباشرة أينما كنت!";
+const String About_ar = "عن فيصل تي في";
+const String About_desc_ar =
+    "\n\nمرحبًا بكم في فيصل تي في، وجهتكم المثالية لعشاق الرياضة وأحداثها المباشرة! نقدم لكم تغطية لا مثيل لها لأهم الأحداث الرياضية المحلية، الوطنية، والدولية."
+    "\n\nفي فيصل تي في، نحتفي بروح المنافسة، ونقدم كل شيء من إثارة المباريات المباشرة إلى التحليلات المتعمقة، ولقطات خلف الكواليس، والمقابلات الحصرية مع نجومكم المفضلين وأنديتكم المحبوبة."
+    "\n\nمهمتنا هي تقديم محتوى رياضي عالي الجودة يبقي عشاق الرياضة على اطلاع، وتحفيزهم، ومتابعتهم بشغف. سواء كنت من عشاق كرة ";
+const String Our_Mission_ar = "تابعونا للحصول على:";
+const String Our_Mission_desc_ar =
+    "\n\nبث المباريات المباشرة: شاهد كل هدف، القفزة والعلو، والهبوط في اللحظة التي تحدث فيها."
+    "\n\nتعليقات وتحليلات الخبراء: استمع لآراء المحللين المحترفين الذين يقدمون رؤى مميزة لا تجدها في أي مكان آخر."
+    "\n\nمحتوى حصري: اقترب أكثر من الرياضيين والأندية من خلال برامج مميزة ومقابلات حصرية."
+    "\n\nإعادة اللحظات المميزة عند الطلب: استمتع بأفضل اللحظات في أي وقت وأي مكان."
+    "\n\nانضم إلينا للاحتفاء بالشغف، الدراما، والإثارة التي تجعل الرياضة ظاهرة عالمية. فيصل تي في—حيث";
+const String Who_We_Are_ar = "من نحن";
+const String Who_We_Are_desc_ar =
+    "\n\nيصل تي في، نحن أكثر من مجرد قناة تلفزيونية رياضية—نحن مجتمع يجمعه شغف مشترك بالرياضة. تأسسنا بهدف تقريب المشجعين من الحدث، ونفخر بتقديم وصول لا مثيل له لأكثر الأحداث الرياضية إثارة على مستوى العالم."
+    "\n\nفريقنا يتكون من عشاق الرياضة، والمعلقين الخبراء، والمحترفين الملتزمين الذين يعملون بلا كلل لتقديم محتوى عالي الجودة يهدف إلى الترفيه، والإعلام، والإلهام. من البث المباشر إلى المقابلات الحصرية، ولقطات خلف الكواليس، والتحليلات المتعمقة، نقدم لكم تجربة رياضية شاملة تلبي اهتمامات جميع الأعمار."
+    "\n\nنؤمن بقوة الرياضة في توحيد الناس، وإلهامهم، وخلق ذكريات لا تُنسى. سواء كنت تشجع فريقك المفضل أو تكتشف رياضة جديدة، فإن فيصل تي في هنا لتوصلك باللحظات التي تعني لك الكثير."
+    "\n\nانضم إلينا للاحتفاء بروح المنافسة ومتعة الرياضة—كل يوم، وفي كل مكان."
+    "\n\nالدوريات التي ننقلها"
+    "\n\n1.	الدوري الإنجليزي الممتاز (EPL)"
+    "\n\n2.	الدوري الإسباني (لا ليغا)"
+    "\n\n3.	الدوري الإيطالي (سيري)"
+    "\n\n4.	الدوري الألماني (البوندسليغا)"
+    "\n\n5.	الدوري الفرنسي (ليغ 1)"
+    "\n\n6.	الدوري البرتغالي (برايميرا ليغا)"
+    "\n\nوكذلك الدوريات العربية والإفريقية"
+    "\n\n1.	دوري المحترفين السعودي (السعودية)"
+    "\n\n2.	دوري نجوم قطر (قطر)"
+    "\n\n3.	دوري المحترفين الإماراتي (الإمارات)"
+    "\n\n4.	الدوري المصري الممتاز (مصر)"
+    "\n\nبالإضافة لدوريات الأبطال المشهورة كدوري أبطال أوروبا ودوري أبطال افريقيا ودوري أبطال أسيا وكذلك دوري الأمم ومباريات كأس العالم."
+    "\n\nتمثل هذه الدوريات بعض من أرقى المسابقات الكروية في العالم، ولكل منها خصائصها الفريدة وأنديتها الكبرى، وكل منها يتمتع بأسلوب لعب فريد وثقافة كروية غنية. تجذب هذه الدوريات ملايين المشاهدين في جميع أنحاء العالم وتساهم بشكل كبير في المشهد الكروي العالمي";
