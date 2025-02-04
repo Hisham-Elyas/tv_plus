@@ -56,9 +56,9 @@ dependencies:
   firebase_auth: ^5.4.1
   cloud_firestore: ^5.6.2
   firebase_core: ^3.10.1
-  //url_launcher_plus: ^1.2.0
+  # url_launcher_plus: ^1.2.0
   url_launcher: ^6.1.14
- // flutter_launcher_plus: ^0.0.6
+  # flutter_launcher_plus: ^0.0.6
   # wakelock: ^0.4.0
   # appinio_video_player: ^1.2.2
 
