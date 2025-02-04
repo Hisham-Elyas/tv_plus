@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../core/localization/constants.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer_widget.dart';
+import '../widgets/custom_listtile_widget.dart';
 
 class ContactUsScreen extends StatelessWidget {
   const ContactUsScreen({super.key});
@@ -24,6 +25,7 @@ class ContactUsScreen extends StatelessWidget {
     final Uri emailUri = Uri(
       scheme: 'mailto',
       path: email,
+      queryParameters: {'subject': 'Hello FAISAL Tv', 'body': ''},
     );
     if (await canLaunchUrl(emailUri)) {
       await launchUrl(emailUri);
@@ -45,45 +47,26 @@ class ContactUsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: ContactUs.tr),
-      drawer: const CustomDrawerWidget(),
-      body: Center(
+      drawer: CustomDrawerWidget(),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            InkWell(
-              onTap: () => dialNumber("0570105563"),
-              child: Text(
-                "0570105563",
-                style: TextStyle(
-                  fontSize: 20.0.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
+            verticalSpace(20),
+            CustomListTileWidget(
+                title: "www.faisal-tv.com",
+                icon: Icons.language_rounded,
+                onTap: () => openWebsite("https://www.faisal-tv.com")),
             verticalSpace(10),
-            InkWell(
+            CustomListTileWidget(
+                title: "0570105563",
+                icon: Icons.phone,
+                onTap: () => dialNumber("0570105563")),
+            verticalSpace(10),
+            CustomListTileWidget(
+              title: "faisal2003tv@gmail.com",
+              icon: Icons.email,
               onTap: () => sendEmail("faisal2003tv@gmail.com"),
-              child: Text(
-                "faisal2003tv@gmail.com",
-                style: TextStyle(
-                  fontSize: 20.0.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ),
-            verticalSpace(10),
-            InkWell(
-              onTap: () => openWebsite("https://www.faisal-tv.com"),
-              child: Text(
-                "www.faisal-tv.com",
-                style: TextStyle(
-                  fontSize: 20.0.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
             ),
           ],
         ),

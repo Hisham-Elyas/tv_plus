@@ -5,12 +5,12 @@ import 'package:get/get.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/localization/constants.dart';
 import '../../../core/localization/language_controller.dart';
-import '../../../core/theming/colors.dart';
 import '../../../core/theming/theme_controller.dart';
 import '../../auth/login/ui/login_screen.dart';
 import '../controllers/settings_controller.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer_widget.dart';
+import '../widgets/custom_listtile_widget.dart';
 import 'feedback_sereen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -32,7 +32,7 @@ class SettingsScreen extends StatelessWidget {
                 Get.find<LanguageController>().showLanguageBottomSheet();
               },
             ),
-            verticalSpace(10.h),
+            verticalSpace(10),
             GetBuilder<ThemeController>(
               builder: (controller) => CustomListTileWidget(
                 icon: Icons.brightness_medium,
@@ -43,7 +43,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            verticalSpace(10.h),
+            verticalSpace(10),
             CustomListTileWidget(
               icon: Icons.feedback,
               title: Report_a_Problem_Or_Leave_Feedback.tr,
@@ -51,57 +51,18 @@ class SettingsScreen extends StatelessWidget {
                 Get.to(() => const FeedbackScreen());
               },
             ),
-            verticalSpace(10.h),
+            verticalSpace(10),
             CustomListTileWidget(
               icon: Icons.logout_rounded,
               title: Logout.tr,
-              onTap: () async{
-              
-              await  Get.find<SettingsController>().authRepo.logeOut();
-               Get.offAll(() => const LoginScreen());
+              onTap: () async {
+                await Get.find<SettingsController>().authRepo.logeOut();
+                Get.offAll(() => const LoginScreen());
               },
             ),
           ],
         ),
       ),
     );
-  }
-}
-
-class CustomListTileWidget extends StatelessWidget {
-  final void Function()? onTap;
-  final String title;
-  final IconData icon;
-  final Widget? trailing;
-
-  const CustomListTileWidget({
-    super.key,
-    this.onTap,
-    required this.title,
-    required this.icon,
-    this.trailing,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-        elevation: 10,
-        shadowColor: ColorsManager.lightSecondary,
-        child: ListTile(
-          trailing: trailing,
-          onTap: onTap,
-          leading: Icon(
-            icon,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-          title: Text(
-            title,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-          ),
-        ));
   }
 }
