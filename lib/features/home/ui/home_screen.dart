@@ -86,7 +86,8 @@ class HomeScreen extends StatelessWidget {
                           child: Align(
                             alignment: AlignmentDirectional.centerStart,
                             child: Text(
-                              controller.selectedDateformat,
+                              controller
+                                  .filteredLeaguesList[0].matches[0].matchDate,
                               style: TextStyle(
                                   color: ColorsManager.lightSecondary,
                                   fontSize: 12.sp,
