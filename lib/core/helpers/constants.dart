@@ -202,7 +202,7 @@ final Map<String, List<Map<String, String>>> channels = {
   ],
   "SCC ᴴᴰ": [
     {
-      'name': 'SCC 1 ᴴᴰ',
+      'name': 'SCC 1',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297366',
@@ -210,43 +210,43 @@ final Map<String, List<Map<String, String>>> channels = {
       ///1297366  / 301068
     },
     {
-      'name': 'SCC 2 ᴴᴰ',
+      'name': 'SCC 2',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297365',
     },
     {
-      'name': 'SCC 3 ᴴᴰ',
+      'name': 'SCC 3',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297364',
     },
     {
-      'name': 'SCC 4 ᴴᴰ',
+      'name': 'SCC 4',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297363',
     },
     {
-      'name': 'SCC 5 ᴴᴰ',
+      'name': 'SCC 5',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297362',
     },
     {
-      'name': 'SSC XTRAC  1 ᴴᴰ',
+      'name': 'SSC XTRAC 1',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297361',
     },
     {
-      'name': 'SS XTRAC  2 ᴴᴰ',
+      'name': 'SS XTRAC 2',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297360',
     },
     {
-      'name': 'SS XTRAC  3 ᴴᴰ',
+      'name': 'SS XTRAC 3',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297359',
