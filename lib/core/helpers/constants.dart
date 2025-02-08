@@ -201,49 +201,51 @@ final Map<String, List<Map<String, String>>> channels = {
       'name': 'SCC 1 ᴴᴰ',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844321',
+      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297366',
+
+      ///1297366  / 301068
     },
     {
       'name': 'SCC 2 ᴴᴰ',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844320',
+      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297365',
     },
     {
       'name': 'SCC 3 ᴴᴰ',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844319',
+      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297364',
     },
     {
       'name': 'SCC 4 ᴴᴰ',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844318',
+      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297363',
     },
     {
       'name': 'SCC 5 ᴴᴰ',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844317',
+      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297362',
     },
     {
       'name': 'SSC XTRAC  1 ᴴᴰ',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844316',
+      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297361',
     },
     {
       'name': 'SS XTRAC  2 ᴴᴰ',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844315',
+      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297360',
     },
     {
       'name': 'SS XTRAC  3 ᴴᴰ',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
-      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/844314',
+      'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297359',
     },
   ],
   "OSN PLATINUM": [

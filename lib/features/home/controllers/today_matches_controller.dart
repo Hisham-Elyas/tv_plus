@@ -144,18 +144,57 @@ class TodayMatchesController extends GetxController {
     });
   }
 
+  // MatchStatus getMatchStatusWithColor(MatchModel event) {
+  //   String status;
+  //   Color color;
+  //   try {
+  //     DateTime matchDateTime = DateFormat('EEEE dd-MM-yyyy hh:mm a')
+  //         .parse('${event.matchDate} ${event.matchTime}');
+  //     DateTime matchEndTime = matchDateTime.add(const Duration(hours: 2));
+
+  //     if (DateTime.now().isBefore(matchDateTime)) {
+  //       status = event.matchTime;
+  //       color = Theme.of(Get.context!).colorScheme.secondary;
+  //     } else if (DateTime.now().isAfter(matchEndTime)) {
+  //       status = 'Ended';
+  //       color = ColorsManager.mainRed;
+  //     } else {
+  //       status = 'Running';
+  //       color = ColorsManager.green;
+  //     }
+
+  //     return MatchStatus(status: status, color: color);
+  //   } catch (e) {
+  //     status = event.matchTime;
+  //     color = Theme.of(Get.context!).colorScheme.secondary;
+  //     return MatchStatus(status: status, color: color);
+  //   }
+  // }
+
   MatchStatus getMatchStatusWithColor(MatchModel event) {
     String status;
     Color color;
-    try {
-      DateTime matchDateTime = DateFormat('EEEE dd-MM-yyyy hh:mm a')
-          .parse('${event.matchDate} ${event.matchTime}');
-      DateTime matchEndTime = matchDateTime.add(const Duration(hours: 2));
 
-      if (DateTime.now().isBefore(matchDateTime)) {
-        status = event.matchTime;
+    try {
+      // Define the time zone (UTC+3 for Riyadh)
+      DateTime matchDateTime = DateFormat('EEEE dd-MM-yyyy hh:mm a').parse(
+          '${event.matchDate} ${event.matchTime}',
+          true); // Use 'true' for UTC parsing
+
+      // Manually set the time as UTC+3 (Riyadh)
+      matchDateTime = matchDateTime.subtract(const Duration(hours: 3));
+
+      // Convert UTC to the device's local time
+      DateTime localMatchDateTime = matchDateTime.toLocal();
+      DateTime matchEndTime = localMatchDateTime.add(const Duration(hours: 2));
+
+      DateTime now = DateTime.now();
+
+      if (now.isBefore(localMatchDateTime)) {
+        // Display match time in device's local format
+        status = DateFormat('hh:mm a').format(localMatchDateTime);
         color = Theme.of(Get.context!).colorScheme.secondary;
-      } else if (DateTime.now().isAfter(matchEndTime)) {
+      } else if (now.isAfter(matchEndTime)) {
         status = 'Ended';
         color = ColorsManager.mainRed;
       } else {
@@ -165,6 +204,7 @@ class TodayMatchesController extends GetxController {
 
       return MatchStatus(status: status, color: color);
     } catch (e) {
+      // If parsing fails, fallback to original match time
       status = event.matchTime;
       color = Theme.of(Get.context!).colorScheme.secondary;
       return MatchStatus(status: status, color: color);
