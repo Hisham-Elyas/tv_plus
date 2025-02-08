@@ -43,6 +43,7 @@ final List onBoardingListDescription = [
   All_international_and_local_leagues_with_one_click_of_a_button.tr,
   Premium_annual_and_monthly_subscription.tr,
 ];
+const String streamTaype = "stream is MPEG-TS (.ts) ";
 const String beinSport1_Original_Url =
     "http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544835";
 const String beinSport1_480p_url =
