@@ -234,19 +234,19 @@ final Map<String, List<Map<String, String>>> channels = {
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297362',
     },
     {
-      'name': 'SSC XTRAC 1',
+      'name': 'SSC EXTRA 1',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297361',
     },
     {
-      'name': 'SS XTRAC 2',
+      'name': 'SS EXTRA 2',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297360',
     },
     {
-      'name': 'SS XTRAC 3',
+      'name': 'SS EXTRA 3',
       'logo':
           'http://icon-tmdb.me/stalker_portal/misc/logos/320/8514.png?22097',
       'videoUrl': 'http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/1297359',
