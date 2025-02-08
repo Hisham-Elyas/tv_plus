@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modern_player/modern_player.dart';
 
+import '../../../core/helpers/constants.dart';
 import '../controllers/video_player_conteroller.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
@@ -29,13 +30,15 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           builder: (controller) => ModernPlayer.createPlayer(
               video: ModernPlayerVideo.multiple([
                 ModernPlayerVideoData.network(
-                  label: "1080p",
+                  label: "Original Url",
                   url: widget.videoUrl,
                 ),
-                ModernPlayerVideoData.network(
-                    label: "720p", url: widget.videoUrl),
-                ModernPlayerVideoData.network(
-                    label: "480p", url: widget.videoUrl),
+                if (widget.videoUrl == beinSport1_Original_Url) ...[
+                  // ModernPlayerVideoData.network(
+                  //     label: "720p", url: widget.videoUrl),
+                  ModernPlayerVideoData.network(
+                      label: "ReStram 480p", url: beinSport1_480p_url),
+                ]
               ]),
               callbackOptions: ModernPlayerCallbackOptions(
                 onBackPressed: () async {
@@ -47,7 +50,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 showBackbutton: true,
                 // showBottomBar: true,
                 doubleTapToSeek: false,
-                showMenu: false,
+                showMenu:
+                    widget.videoUrl == beinSport1_Original_Url ? true : false,
               ),
               subtitles: [],
               audioTracks: [],

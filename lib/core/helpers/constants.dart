@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -43,6 +43,10 @@ final List onBoardingListDescription = [
   All_international_and_local_leagues_with_one_click_of_a_button.tr,
   Premium_annual_and_monthly_subscription.tr,
 ];
+const String beinSport1_Original_Url =
+    "http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544835";
+const String beinSport1_480p_url =
+    "http://172.105.81.117:3000/output/stream123_testStream_480p_stream.m3u8";
 final Map<String, List<Map<String, String>>> channels = {
   "beIN Sports ᴴᴰ": [
     {
