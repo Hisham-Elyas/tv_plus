@@ -8,7 +8,7 @@ void showCustomSnackBar(
     bool isError = false,
     String? title,
     void Function(GetSnackBar)? onTap}) {
-  Get.closeAllSnackbars();
+  Get.closeCurrentSnackbar();
   Get.snackbar(
     title ?? Errors.tr,
     message,

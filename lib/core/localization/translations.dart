@@ -8,6 +8,7 @@ class MyTranslations extends Translations {
         "en": {
           Home: Home,
           Soon: Soon,
+          The_match_has_ended: The_match_has_ended,
           Go: Go,
           Categories: Categories,
           ContactUs: ContactUs,
@@ -110,9 +111,13 @@ class MyTranslations extends Translations {
           Our_Mission_desc: Our_Mission_desc,
           Who_We_Are: Who_We_Are,
           Who_We_Are_desc: Who_We_Are_desc,
+          Match_Status: Match_Status,
+          The_match_hasn_t_started_yet: The_match_hasn_t_started_yet,
         },
         "ar": {
-          TryAgain: "اعد المحاولة",
+          The_match_hasn_t_started_yet: "لم يبدء المباراة بعد",
+          Match_Status: "حالة المباراة",
+          The_match_has_ended: "انتهت المباراة",
           Start: "إبدء",
           Go: "استمر",
           Soon: "قريباََ",

@@ -6,6 +6,12 @@ const String Clear = 'Clear';
 const String Apply = 'Apply';
 const String Soon = 'Soon';
 const String Start = 'Start';
+const String Match_Status = "Match Status";
+const String The_match_has_ended = "The match has ended.";
+const String The_match_hasn_t_started_yet = "The match hasn't started yet.";
+const String Channel_not_found = "Channel not found.";
+
+const String ChannelUnknown = "Channel Unknown";
 
 const String Categories = 'Categories';
 const String ContactUs = 'Contact us';
@@ -83,8 +89,6 @@ const String VerificationCode = "verification code";
 const String GetCode = 'Get verification code';
 const String Didnt_receive_the_code = 'Didn’t receive the code?';
 const String UserName = "User Name";
-const String ChannelUnknown = "Channel Unknown";
-const String Channel_not_found = "Channel not found";
 /////////////  Settings  Screen
 ///
 const String Settings = 'Settings';

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,13 +5,9 @@ import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/spacing.dart';
-import '../../../core/localization/constants.dart';
 import '../../../core/theming/colors.dart';
-import '../../../core/widgets/custom_snackbar.dart';
 import '../controllers/today_matches_controller.dart';
-import '../controllers/video_player_conteroller.dart';
 import '../data/models/match_model.dart';
-import '../ui/video_player_screen.dart';
 
 class MatchCardWidget extends GetView<TodayMatchesController> {
   const MatchCardWidget({
@@ -26,39 +20,8 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {
-        if (event.channelsAndCommentators.isEmpty) {
-          showCustomSnackBar(
-              message: ChannelUnknown.tr,
-              title: Channel_not_found.tr,
-              isError: true);
-          return;
-        }
-        try {
-          final channel = controller
-              .findChannelByName(event.channelsAndCommentators.first.channel);
-
-          Get.to(() => VideoPlayerScreen(
-                videoUrl: channel.videoUrl,
-              ));
-
-          // Future.delayed(
-          //   const Duration(seconds: 1),
-          //   () async {
-          await Get.find<VideoPlayerConteroller>()
-              .setAllOrientationsToLandscape();
-          // },
-          // );
-          log('Found: ${channel.name}, Video URL: ${channel.videoUrl}');
-        } catch (e) {
-          log(e.toString()); // Handle exception
-        }
-
-        // Get.to(() => const VideoPlayerScreen());
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const VideoPlayerScreen()),
-        // );
+      onTap: () {
+        controller.goToMatch(event);
       },
       child: Card(
         // margin: const EdgeInsets.all(10),

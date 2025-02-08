@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:string_similarity/string_similarity.dart';
 
 import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/enums.dart';
@@ -15,6 +17,9 @@ import '../data/models/channel_category_model.dart';
 import '../data/models/league_model.dart';
 import '../data/models/match_model.dart';
 import '../data/repos/today_matches_repo.dart';
+import '../ui/categories_screen.dart';
+import '../ui/video_player_screen.dart';
+import 'video_player_conteroller.dart';
 
 class TodayMatchesController extends GetxController {
   late StatusRequest statusReq;
@@ -136,7 +141,13 @@ class TodayMatchesController extends GetxController {
     }, (r) {
       /////
       matches.clear();
-      matches.addAll(r);
+      List<MatchModel> matchesWithChannel = r
+          .where((match) =>
+              match.channelsAndCommentators.isNotEmpty &&
+              match.channelsAndCommentators.first.channel != 'Referee')
+          .toList();
+
+      matches.addAll(matchesWithChannel);
       convorToLeagueModel(matches: matches);
       statusReq = StatusRequest.success;
 
@@ -170,6 +181,45 @@ class TodayMatchesController extends GetxController {
   //     return MatchStatus(status: status, color: color);
   //   }
   // }
+  void goToMatch(MatchModel event) async {
+    MatchStatus matchStatus = getMatchStatusWithColor(event);
+
+    if (matchStatus.status == 'Ended') {
+      showCustomSnackBar(
+        message: The_match_has_ended.tr,
+        isError: true,
+        title: Match_Status.tr,
+      );
+    } else if (matchStatus.status == 'Running') {
+      if (event.channelsAndCommentators.isEmpty) {
+        showCustomSnackBar(
+            message: ChannelUnknown.tr,
+            title: Channel_not_found.tr,
+            isError: true);
+        return;
+      }
+      try {
+        final channel =
+            findChannelByName(event.channelsAndCommentators.first.channel);
+
+        Get.to(() => VideoPlayerScreen(
+              videoUrl: channel.videoUrl,
+            ));
+        await Get.find<VideoPlayerConteroller>()
+            .setAllOrientationsToLandscape();
+
+        log('Found: ${channel.name}, Video URL: ${channel.videoUrl}');
+      } catch (e) {
+        log(e.toString()); // Handle exception
+      }
+    } else {
+      showCustomSnackBar(
+        message: The_match_hasn_t_started_yet.tr,
+        isError: false,
+        title: Match_Status.tr,
+      );
+    }
+  }
 
   MatchStatus getMatchStatusWithColor(MatchModel event) {
     String status;
@@ -212,39 +262,125 @@ class TodayMatchesController extends GetxController {
   }
 
   Channel findChannelByName(String channelName) {
-    // Set a similarity threshold (e.g., 0.9 means 90% similarity)
+    const double threshold = 0.85; // Adjusted for better matching
 
-    const double threshold = 0.9;
     final List<Channel> channels = channelCategories
         .map((category) => category.channels)
         .expand((e) => e)
         .toList();
-    // Find the best match based on similarity
+
     Channel? bestMatch;
     double highestSimilarity = 0.0;
 
+    String normalizedInput = normalizeChannelName(channelName);
+
     for (var channel in channels) {
-      double similarity = StringSimilarity.compareTwoStrings(
-          channel.name.trim().toLowerCase().toString(),
-          channelName.trim().toLowerCase().toString());
+      String normalizedChannel = normalizeChannelName(channel.name);
+
+      // Calculate similarity using Levenshtein Distance
+      double similarity =
+          calculateSimilarity(normalizedInput, normalizedChannel);
+
       if (similarity > highestSimilarity) {
         highestSimilarity = similarity;
         bestMatch = channel;
       }
     }
 
-    // Check if the highest similarity is above the threshold
     if (bestMatch != null && highestSimilarity >= threshold) {
-      return bestMatch; // Return the best match if similarity is above threshold
+      return bestMatch;
     } else {
       showCustomSnackBar(
-          message: " No channel found for name: $channelName",
-          title: "Channel not found",
-          isError: true);
+        message: "${Channel_not_found.tr}: $channelName",
+        title: ChannelUnknown.tr,
+        isError: true,
+      );
+      Get.off(() => const CategoriesScreen());
       throw ChannelNotFoundException(
-          'No sufficiently similar channel found for: $channelName');
+        'No sufficiently similar channel found for: $channelName',
+      );
     }
   }
+
+  double calculateSimilarity(String input, String target) {
+    return tokenSortRatio(input, target) / 100.0; // Normalize to 0 - 1 range
+  }
+
+  /// AI-powered similarity calculation using Google ML Kit
+  // double _calculateSimilarityWithAI(String input, String target) {
+  //   // Use ML Kit's Smart Reply for text processing
+  //   final smartReply = SmartReply();
+
+  //   try {
+  //     final reply = smartReply.suggestReplies(["$input matches $target?"]);
+  //     if (reply.suggestions.isNotEmpty) {
+  //       return reply.suggestions.first.contains(target) ? 1.0 : 0.0;
+  //     }
+  //   } catch (e) {
+  //     log("ML Kit error: $e");
+  //   } finally {
+  //     smartReply.close();
+  //   }
+
+  //   return 0.0;
+  // }
+
+  // **Helper function to normalize names**
+  String normalizeChannelName(String name) {
+    return name
+        .toLowerCase()
+        .replaceAll(RegExp(r'\s+'), ' ') // Remove extra spaces
+        .replaceAll(RegExp(r'[^\w\s]'), '') // Remove special characters
+        .replaceAll(RegExp(r's\b'), '') // Handle plural vs. singular
+        .replaceAll(RegExp(r'[^a-z0-9 ]'), '') // Remove special characters
+        .replaceAll(RegExp(r'hd'), '') // Remove "HD"
+        .replaceAll(RegExp(r'sports'), 'sport') // Normalize "Sports" -> "Sport"
+        .replaceAll(RegExp(r'[^a-z0-9 ]', caseSensitive: false),
+            '') // Remove emojis & special chars
+        .trim();
+  }
+
+// **Helper function to extract channel number**
+  String extractChannelNumber(String name) {
+    RegExp numberRegex = RegExp(r'\d+'); // Find numbers in the string
+    Match? match = numberRegex.firstMatch(name);
+    return match?.group(0) ?? ''; // Return the found number or empty string
+  }
+
+  // Channel findChannelByName(String channelName) {
+  //   // Set a similarity threshold (e.g., 0.9 means 90% similarity)
+
+  //   const double threshold = 0.9;
+  //   final List<Channel> channels = channelCategories
+  //       .map((category) => category.channels)
+  //       .expand((e) => e)
+  //       .toList();
+  //   // Find the best match based on similarity
+  //   Channel? bestMatch;
+  //   double highestSimilarity = 0.0;
+
+  //   for (var channel in channels) {
+  //     double similarity = StringSimilarity.compareTwoStrings(
+  //         channel.name.trim().toLowerCase().toString(),
+  //         channelName.trim().toLowerCase().toString());
+  //     if (similarity > highestSimilarity) {
+  //       highestSimilarity = similarity;
+  //       bestMatch = channel;
+  //     }
+  //   }
+
+  //   // Check if the highest similarity is above the threshold
+  //   if (bestMatch != null && highestSimilarity >= threshold) {
+  //     return bestMatch; // Return the best match if similarity is above threshold
+  //   } else {
+  //     showCustomSnackBar(
+  //         message: " No channel found for name: $channelName",
+  //         title: "Channel not found",
+  //         isError: true);
+  //     throw ChannelNotFoundException(
+  //         'No sufficiently similar channel found for: $channelName');
+  //   }
+  // }
 }
 
 void showFilterBottomSheet(BuildContext context) {
