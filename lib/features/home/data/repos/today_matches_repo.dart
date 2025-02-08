@@ -42,6 +42,7 @@ class TodayMatchesRepoImpHttp implements TodayMatchesRepo {
       try {
         final localData = await todayMatchesLocalData.getCachedMatch();
         log('from loc Cache  <== Today Matches Data');
+
         showNetworkError();
         return right(localData);
       } on EmptyCacheException {
