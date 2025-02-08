@@ -47,7 +47,7 @@ const String streamTaype = "stream is MPEG-TS (.ts) ";
 const String beinSport1_Original_Url =
     "http://cf.iptgateway.com:80/f2fcc4fcd680/cvpjkxrnyd/544835";
 const String beinSport1_480p_url =
-    "http://172.105.81.117:3000/output/beInSport1_beInSport1_480p_stream.m3u8";
+    "http://172.105.81.117:3000/output/1_beInSport1_480p_stream.m3u8";
 final Map<String, List<Map<String, String>>> channels = {
   "beIN Sports ᴴᴰ": [
     {
