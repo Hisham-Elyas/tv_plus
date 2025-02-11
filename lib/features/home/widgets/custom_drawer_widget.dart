@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../core/localization/constants.dart';
 import '../../onboarding/widgets/logo_card_widget.dart';
-import '../controllers/profile_controller.dart';
 import '../ui/about_us_screen.dart';
 import '../ui/categories_screen.dart';
 import '../ui/contact_us_screen.dart';
@@ -28,7 +27,7 @@ class CustomDrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<ProfileController>();
+    // Get.find<ProfileController>();
     return Drawer(
       backgroundColor: Theme.of(context).colorScheme.surface,
       surfaceTintColor: Theme.of(context).colorScheme.surface,

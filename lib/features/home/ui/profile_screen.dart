@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/enums.dart';
 import '../../../core/helpers/spacing.dart';
 import '../../../core/localization/constants.dart';
 import '../controllers/profile_controller.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer_widget.dart';
+import '../widgets/custom_listtile_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -18,12 +20,6 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: Profile.tr,
-        actions: const [
-          // IconButton(
-          //   icon: const Icon(Icons.search),
-          //   onPressed: () {},
-          // ),
-        ],
       ),
       drawer: CustomDrawerWidget(),
       body: GetBuilder<ProfileController>(
@@ -56,53 +52,48 @@ class ProfileScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 40.r,
-                            child: const Icon(Icons.person),
+                      Center(
+                        child: CircleAvatar(
+                          backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
+                          backgroundImage: const AssetImage(
+                            ImageAssets.logo,
                           ),
-                          horizontalSpace(16),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                controller.userInf.userName!,
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                controller.userInf.email,
-                                style: const TextStyle(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ],
+                          radius: 80.r,
+                        ),
                       ),
                       verticalSpace(20),
-                      // ListTile(
-                      //   contentPadding: EdgeInsets.zero,
-                      //   title: const Text(
-                      //     'My orders',
-                      //     style: TextStyle(
-                      //         fontSize: 18, fontWeight: FontWeight.bold),
-                      //   ),
-                      //   // subtitle: const Text('Already have 12 orders'),
-                      //   trailing: const Icon(Icons.chevron_right),
-                      //   onTap: () {},
-                      // ),
-                      const Divider(),
-                      // ListTile(
-                      //   contentPadding: EdgeInsets.zero,
-                      //   title: const Text(
-                      //     'Shipping addresses',
-                      //     style: TextStyle(
-                      //         fontSize: 18, fontWeight: FontWeight.bold),
-                      //   ),
-                      //   // subtitle: const Text('3 addresses'),
-                      //   trailing: const Icon(Icons.chevron_right),
-                      //   onTap: () {},
-                      // ),
+                      CustomListTileWidget(
+                          title: controller.userInf.userName!,
+                          icon: Icons.person,
+                          trailing: const Icon(Icons.edit),
+                          onTap: () {
+                            controller.showActionBottomSheet('userInfo');
+                          }),
+                      verticalSpace(10),
+                      CustomListTileWidget(
+                          title: controller.userInf.email ?? '',
+                          icon: Icons.email,
+                          trailing: const Icon(Icons.edit),
+                          onTap: () {
+                            controller.showActionBottomSheet('email');
+                          }),
+                      verticalSpace(10),
+                      CustomListTileWidget(
+                          title: controller.userInf.phone ?? 'Add phone Number',
+                          icon: Icons.phone,
+                          trailing: const Icon(Icons.edit),
+                          onTap: () {
+                            controller.showActionBottomSheet('userInfo');
+                          }),
+                      verticalSpace(10),
+                      CustomListTileWidget(
+                          title: ChangePassword.tr,
+                          icon: Icons.password_outlined,
+                          trailing: const Icon(Icons.edit),
+                          onTap: () {
+                            controller.showActionBottomSheet('password');
+                          }),
+                      verticalSpace(10),
                     ],
                   ),
                 ),

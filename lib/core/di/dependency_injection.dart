@@ -8,6 +8,8 @@ import '../../features/auth/login/controllers/login_controller.dart';
 import '../../features/auth/remote/auth_remotdata.dart';
 import '../../features/auth/repos/auth_repo.dart';
 import '../../features/auth/singup/controllers/singup_controller.dart';
+import '../../features/auth/verification/controller/forget_password_controller.dart';
+import '../../features/auth/verification/controller/verification_controller.dart';
 import '../../features/home/controllers/profile_controller.dart';
 import '../../features/home/controllers/settings_controller.dart';
 import '../../features/home/controllers/today_matches_controller.dart';
@@ -33,6 +35,7 @@ Future init() async {
     if (user != null) {
       log(" User is login by ${user.uid}");
       log(" User is login by ${user.email}");
+      Get.find<ProfileController>().getUserInfo();
     } else {
       log("............... not User is login ");
     }
@@ -40,13 +43,14 @@ Future init() async {
 }
 
 Future<void> setupGetIt() async {
-  await init();
   isOnBordingView = await SharedPrefHelper.getBool("isOnBordingView");
   Get.lazyPut(() => ThemeController(), fenix: true);
   Get.lazyPut(() => LanguageController(), fenix: true);
   Get.lazyPut(() => OnboardingController());
   Get.lazyPut(() => LoginController(), fenix: true);
   Get.lazyPut(() => SingupController(), fenix: true);
+  Get.lazyPut(() => ForgetPasswordController(), fenix: true);
+  Get.lazyPut(() => VerificationController(), fenix: true);
   Get.lazyPut(() => ProfileController(), fenix: true);
 
   ///  api client
@@ -72,4 +76,5 @@ Future<void> setupGetIt() async {
   Get.lazyPut(() => AuthRepoImpFirebase(authRemotData: Get.find()),
       fenix: true);
   Get.lazyPut(() => AuthRemotDataImpFirebase(), fenix: true);
+  await init();
 }

@@ -7,6 +7,9 @@ import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../../core/helpers/coustom_overlay.dart';
+import '../../../core/localization/constants.dart';
+import '../../auth/login/ui/login_screen.dart';
 import '../../auth/repos/auth_repo.dart';
 
 class SettingsController extends GetxController {
@@ -35,6 +38,28 @@ class SettingsController extends GetxController {
           log('Extras: ${feedback.extra!.toString()}');
         }
       },
+    );
+  }
+
+  void deleteAccount() {
+    // Show confirmation dialog before deleting account
+    Get.defaultDialog(
+      title: DeleteAccount.tr,
+      middleText: DeleteAccountConfirmation.tr,
+      onConfirm: () async {
+        showOverlay(
+          asyncFunction: () async {
+            final isSuccess = await authRepo.deleteAccount();
+
+            if (isSuccess) {
+              Get.back(); // Close dialog
+              Get.offAll(() => const LoginScreen());
+            }
+          },
+        );
+      },
+      textCancel: Cancel.tr,
+      textConfirm: Delete.tr,
     );
   }
 

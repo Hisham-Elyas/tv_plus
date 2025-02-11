@@ -21,6 +21,16 @@ const String Language = "Language";
 const String DarkMode = 'Dark Mode';
 const String Logout = "Logout";
 const String Go = "Go";
+const String UserDataNotFound = "User data not found. Please try again later.";
+const String UserInfoError = "User Info Error";
+const String SomethingWentWrong = "Something went wrong. Try again later.";
+
+const String FailedToFetchUserInfo =
+    "Failed to fetch user info. Please check your connection.";
+const String VerifyEmailBeforeLogin =
+    "Please verify your email before logging in.";
+const String EmailNotVerified = "Email Not Verified";
+const String LoginError = "Login Error";
 
 const String Premium_annual_and_monthly_subscription =
     "Premium annual and monthly subscription";
@@ -31,6 +41,78 @@ const String WatchYourFavouriteMatches =
 const String TryAgain = "Try Again";
 const String Select_language = "Select language";
 const String Errors = "Error";
+const String NoUserSignedIn = "No user is signed in.";
+const String AuthError = "Auth Error";
+const String UpdateEmail = "Update Email";
+const String NewEmail = "New Email";
+const String ChangePassword = "Change Password";
+const String OldPassword = "Old Password";
+const String NewPassword = "New Password";
+const String UpdatePassword = "Update Password";
+const String UpdateProfileInfo = "Update Profile Info";
+const String Username = "User name";
+const String DeleteAccount = "Delete Account";
+const String DeleteAccountConfirmation =
+    "Are you sure you want to delete your account?";
+const String Cancel = "Cancel";
+const String Delete = "Delete";
+const String UpdateInfo = "Update Info";
+const String VerificationEmailSent =
+    "Verification email sent. Check your inbox.";
+const String EmailSent = "Email Sent";
+const String AlreadyVerified = "Your email is already verified.";
+const String AlreadyVerifiedTitle = "Already Verified";
+const String UserInfoUpdatedSuccessfully = "User info updated successfully.";
+const String FailedToUpdateUserInfo =
+    "Failed to update user info. Please try again.";
+const String UpdateError = "Update Error";
+const String AccountDeletedSuccessfully = "Account deleted successfully.";
+const String DeleteAccountError = "Delete Account Error";
+const String IncorrectEmailOrPassword =
+    "Incorrect email or password. Please try again.";
+const String EmailAlreadyInUse =
+    "This email is already associated with another account.";
+const String InvalidEmailFormat =
+    "Invalid email format. Please check and try again.";
+const String WeakPassword =
+    "Your password is too weak. Please choose a stronger password.";
+const String TooManyRequests = "Too many attempts. Please try again later.";
+const String RequiresRecentLogin =
+    "For security reasons, please log in again to update your email or password.";
+const String UserDisabled = "This user account has been disabled.";
+const String OperationNotAllowed =
+    "This operation is not allowed. Contact support.";
+const String NetworkRequestFailed =
+    "Network error. Please check your internet connection.";
+const String CredentialAlreadyInUse =
+    "This credential is already associated with a different user account.";
+const String UnexpectedError =
+    "An unexpected error occurred. Please try again.";
+
+const String VerifyEmailBeforeUpdate =
+    "Please verify your email before updating your email.";
+const String VerificationRequired = "Verification Required";
+const String EmailUpdatedSuccessfully = "Email updated successfully.";
+const String UpdateSuccess = "Update Success";
+const String EmailUpdateError = "Email Update Error";
+const String VerifyEmailBeforePasswordUpdate =
+    "Please verify your email before updating your password.";
+const String PasswordUpdatedSuccessfully = "Password updated successfully!";
+const String PasswordUpdateError = "Password Update Error";
+const String PasswordResetLinkSent =
+    "Password reset link sent to email. Check your inbox.";
+const String ResetPassword = "Reset Password";
+const String ResetPasswordError = "Reset Password Error";
+
+const String LoggedOutSuccessfully = "Logged out successfully.";
+const String Success = "Success";
+const String FailedToLogOut = "Failed to log out. Try again.";
+const String LogoutError = "Logout Error";
+const String AccountCreatedSuccessfully =
+    "Account created successfully! Please verify your email before logging in.";
+const String SignUpSuccess = "Sign Up Success";
+const String SignUpError = "Sign Up Error";
+
 const String Ckeck_your_Internet = "Ckeck your Internet ";
 const String Network_Info = 'Network Info ❗';
 const String Unexpected_Error = 'Unexpected Error ❗';

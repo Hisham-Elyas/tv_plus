@@ -2,23 +2,23 @@
 class UserModel {
   final String? userId;
   final String? userName;
-  final String email;
+  final String? email;
   final String? phone;
   final String? password;
 
   UserModel({
-    this.phone,
     this.userId,
     this.userName,
     required this.email,
+    this.phone,
     this.password,
   });
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'User_Name': userName,
       'User_Id': userId,
       'User_Phone': phone,
+      'User_Email': email,
     };
   }
 
@@ -26,8 +26,8 @@ class UserModel {
     return UserModel(
       userId: map['User_Id'] != null ? map['User_Id'] as String : null,
       userName: map['User_Name'] != null ? map['User_Name'] as String : null,
-      email: map['User_Email'] as String,
-      phone: map['User_Phone'] != null ? map['User_Name'] as String : null,
+      email: map['User_Email'] != null ? map['User_Email'] as String : null,
+      phone: map['User_Phone'] != null ? map['User_Phone'] as String : null,
     );
   }
 
@@ -52,5 +52,21 @@ class UserModel {
   @override
   String toString() {
     return 'UserModel(userId: $userId, userName: $userName, email: $email, password: $password)';
+  }
+
+  UserModel copyWith({
+    String? userId,
+    String? userName,
+    String? email,
+    String? phone,
+    String? password,
+  }) {
+    return UserModel(
+      userId: userId ?? this.userId,
+      userName: userName ?? this.userName,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      password: password ?? this.password,
+    );
   }
 }

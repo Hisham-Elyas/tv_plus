@@ -11,6 +11,7 @@ import '../../../../core/widgets/app_text_form_field.dart';
 import '../../../../core/widgets/card_widget.dart';
 import '../../../onboarding/widgets/logo_card_widget.dart';
 import '../../singup/ui/singup_screen.dart';
+import '../../verification/ui/forget_password_screen.dart';
 import '../controllers/login_controller.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -74,17 +75,17 @@ class LoginScreen extends GetView<LoginController> {
                             validator: controller.passwordvalidator,
                           ),
                           verticalSpace(10),
-                          // TextButton(
-                          //   onPressed: () =>
-                          //       Get.to(() => const ForgetPasswordScreen()),
-                          //   child: Text(
-                          //     Forgot_Your_Password.tr,
-                          //     style: TextStyle(
-                          //         fontSize: 15.sp,
-                          //         fontWeight: FontWeight.w700,
-                          //         color: ColorsManager.mainRed),
-                          //   ),
-                          // ),
+                          TextButton(
+                            onPressed: () =>
+                                Get.to(() => const ForgetPasswordScreen()),
+                            child: Text(
+                              Forgot_Your_Password.tr,
+                              style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorsManager.mainRed),
+                            ),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

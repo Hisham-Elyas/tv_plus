@@ -1,3 +1,4 @@
+import 'package:faisal_tv/features/home/ui/home_screen.dart';
 import 'package:feedback/feedback.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'core/localization/translations.dart';
 import 'core/theming/app_themes.dart';
 import 'core/theming/theme_controller.dart';
 import 'features/auth/login/ui/login_screen.dart';
-import 'features/home/ui/home_screen.dart';
 import 'features/onboarding/ui/intro_screen.dart';
 
 void main() async {
@@ -59,6 +59,15 @@ class MyApp extends StatelessWidget {
                       ? const HomeScreen()
                       : const LoginScreen()
                   : const IntroScreen(),
+              // home: isOnBordingView
+              //     ? firebaseAuth.authStateChanges().listen((User? user) {
+              //         if (user != null) {
+              //         r
+              //         } else {
+              //           log("............... not User is login ");
+              //         }
+              //       })
+              //     : const IntroScreen(),
 
               // home: HomeScreen2(
               //     // matches: sampleMatches,

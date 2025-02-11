@@ -60,6 +60,22 @@ class SettingsScreen extends StatelessWidget {
                 Get.offAll(() => const LoginScreen());
               },
             ),
+            verticalSpace(10),
+            CustomListTileWidget(
+              title: DeleteAccount.tr,
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              trailing: Icon(
+                Icons.delete,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              onTap: () async {
+                Get.find<SettingsController>().deleteAccount();
+              },
+            ),
           ],
         ),
       ),

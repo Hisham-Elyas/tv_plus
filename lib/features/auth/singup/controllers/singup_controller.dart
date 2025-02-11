@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '/features/home/ui/home_screen.dart';
 import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
+import '../../login/ui/login_screen.dart';
 import '../../models/sinup_model.dart';
 import '../../repos/auth_repo.dart';
 
@@ -34,7 +34,7 @@ class SingupController extends GetxController {
                 userName: userName));
 
         if (isSuccess) {
-          Get.offAll(() => const HomeScreen());
+          Get.offAll(() => const LoginScreen());
         }
       },
     );

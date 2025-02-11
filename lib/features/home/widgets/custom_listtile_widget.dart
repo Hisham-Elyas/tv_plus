@@ -6,15 +6,17 @@ import '../../../core/theming/colors.dart';
 class CustomListTileWidget extends StatelessWidget {
   final void Function()? onTap;
   final String title;
-  final IconData icon;
+  final IconData? icon;
   final Widget? trailing;
+  final TextStyle? style;
 
   const CustomListTileWidget({
     super.key,
     this.onTap,
     required this.title,
-    required this.icon,
+    this.icon,
     this.trailing,
+    this.style,
   });
 
   @override
@@ -25,17 +27,20 @@ class CustomListTileWidget extends StatelessWidget {
         child: ListTile(
           trailing: trailing,
           onTap: onTap,
-          leading: Icon(
-            icon,
-            color: Theme.of(context).colorScheme.primary,
-          ),
+          leading: icon == null
+              ? null
+              : Icon(
+                  icon,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
           title: Text(
             title,
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
+            style: style ??
+                TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
           ),
         ));
   }

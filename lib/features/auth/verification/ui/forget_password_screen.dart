@@ -10,6 +10,7 @@ import '../../../../core/widgets/app_text_button.dart';
 import '../../../../core/widgets/app_text_form_field.dart';
 import '../../../../core/widgets/card_widget.dart';
 import '../../../onboarding/widgets/logo_card_widget.dart';
+import '../controller/forget_password_controller.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
@@ -42,67 +43,70 @@ class ForgetPasswordScreen extends StatelessWidget {
                     height: 152.h,
                   ),
                   verticalSpace(35),
-                  CardWidget(
-                    width: 335.w,
-                    height: 200.h,
-                    horizontal: 32.w,
-                    vertical: 17.h,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppTextFormField(
-                          controller: TextEditingController(),
-                          hintText: Phone_number.tr,
-                          validator: (p0) {
-                            return null;
-                          },
-                        ),
-                        verticalSpace(20),
-                        AppTextButton(
-                          backgroundColor: ColorsManager.mainRed,
-                          buttonHeight: 40,
-                          buttonWidth: 271,
-                          borderRadius: 152,
-                          buttonText: GetCode.tr,
-                          onPressed: () {},
-                          textStyle: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Theme.of(context).colorScheme.surface),
-                        )
-                      ],
-                    ),
-                  ),
+                  // CardWidget(
+                  //   width: 335.w,
+                  //   height: 200.h,
+                  //   horizontal: 32.w,
+                  //   vertical: 17.h,
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  // AppTextFormField(
+                  //   controller: TextEditingController(),
+                  //   hintText: Phone_number.tr,
+                  //   validator: (p0) {
+                  //     return null;
+                  //   },
+                  // ),
+                  // verticalSpace(20),
+                  //       AppTextButton(
+                  //         backgroundColor: ColorsManager.mainRed,
+                  //         buttonHeight: 40,
+                  //         buttonWidth: 271,
+                  //         borderRadius: 152,
+                  //         buttonText: GetCode.tr,
+                  //         onPressed: () {},
+                  //         textStyle: TextStyle(
+                  //             fontSize: 12.sp,
+                  //             fontWeight: FontWeight.w700,
+                  //             color: Theme.of(context).colorScheme.surface),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
                   verticalSpace(80),
                   CardWidget(
                     width: 335.w,
                     height: 200.h,
                     horizontal: 32.w,
                     vertical: 17.h,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AppTextFormField(
-                          controller: TextEditingController(),
-                          hintText: Enter_Verification_Code.tr,
-                          validator: (p0) {
-                            return null;
-                          },
+                    child: GetBuilder<ForgetPasswordController>(
+                      builder: (controller) => Form(
+                        key: controller.verificationformKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppTextFormField(
+                              onSaved: (val) => controller.setEmail = val,
+                              hintText: Enter_your_email.tr,
+                              validator: controller.emailvalidator,
+                            ),
+                            verticalSpace(20),
+                            AppTextButton(
+                              backgroundColor: ColorsManager.mainRed,
+                              buttonHeight: 40,
+                              buttonWidth: 271,
+                              borderRadius: 152,
+                              buttonText: Reset_Password.tr,
+                              onPressed: controller.sendPasswordResetLink,
+                              textStyle: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: Theme.of(context).colorScheme.surface),
+                            )
+                          ],
                         ),
-                        verticalSpace(20),
-                        AppTextButton(
-                          backgroundColor: ColorsManager.mainRed,
-                          buttonHeight: 40,
-                          buttonWidth: 271,
-                          borderRadius: 152,
-                          buttonText: Verify.tr,
-                          onPressed: () {},
-                          textStyle: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Theme.of(context).colorScheme.surface),
-                        )
-                      ],
+                      ),
                     ),
                   ),
                 ],
