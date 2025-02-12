@@ -172,6 +172,7 @@ class MyTranslations extends Translations {
           Delete: Delete,
         },
         "ar": {
+          Network_Info: "معلومات الشبكة"
           DeleteAccount: "حذف الحساب",
           DeleteAccountConfirmation: "هل أنت متأكد أنك تريد حذف حسابك؟",
           Cancel: "إلغاء",
