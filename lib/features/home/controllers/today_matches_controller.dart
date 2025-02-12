@@ -13,12 +13,14 @@ import '../../../core/helpers/enums.dart';
 import '../../../core/localization/constants.dart';
 import '../../../core/theming/colors.dart';
 import '../../../core/widgets/custom_snackbar.dart';
-import '../data/models/channel_category_model.dart';
+import '../data/models/category_model.dart';
+// import '../data/models/channel_category_model.dart';
 import '../data/models/league_model.dart';
 import '../data/models/match_model.dart';
 import '../data/repos/today_matches_repo.dart';
 import '../ui/categories_screen.dart';
 import '../ui/video_player_screen.dart';
+import 'category_controller.dart';
 import 'video_player_conteroller.dart';
 
 class TodayMatchesController extends GetxController {
@@ -27,6 +29,7 @@ class TodayMatchesController extends GetxController {
   List<LeagueModel> leaguesList = [];
   List<LeagueModel> leaguesListdummyData = dummyleaguesList;
   final TodayMatchesRepoImpHttp todayMatchesRepo = Get.find();
+  final CategoryController categoryController = Get.find();
 
   List<String> selectedLeagues = [];
 
@@ -199,16 +202,16 @@ class TodayMatchesController extends GetxController {
         return;
       }
       try {
-        final channel =
-            findChannelByName(event.channelsAndCommentators.first.channel);
+        final channel = await findChannelByName(
+            event.channelsAndCommentators.first.channel);
 
         Get.to(() => VideoPlayerScreen(
-              videoUrl: channel.videoUrl,
+              videoUrl: channel.url,
             ));
         await Get.find<VideoPlayerConteroller>()
             .setAllOrientationsToLandscape();
 
-        log('Found: ${channel.name}, Video URL: ${channel.videoUrl}');
+        log('Found: ${channel.name}, Video URL: ${channel.url}');
       } catch (e) {
         log(e.toString()); // Handle exception
       }
@@ -261,9 +264,21 @@ class TodayMatchesController extends GetxController {
     }
   }
 
-  Channel findChannelByName(String channelName) {
+  Future<Channel> findChannelByName(String channelName) async {
     const double threshold = 0.85; // Adjusted for better matching
-
+    final List<CategoryWithChannels> channelCategories =
+        await categoryController.getCategorys;
+    if (channelCategories.isEmpty) {
+      Get.off(() => const CategoriesScreen());
+      showCustomSnackBar(
+        message: "${Channel_not_found.tr}: $channelName",
+        title: ChannelUnknown.tr,
+        isError: true,
+      );
+      throw ChannelNotFoundException(
+        'No sufficiently similar channel found for: $channelName',
+      );
+    }
     final List<Channel> channels = channelCategories
         .map((category) => category.channels)
         .expand((e) => e)

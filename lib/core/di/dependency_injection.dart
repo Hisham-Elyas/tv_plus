@@ -10,12 +10,15 @@ import '../../features/auth/repos/auth_repo.dart';
 import '../../features/auth/singup/controllers/singup_controller.dart';
 import '../../features/auth/verification/controller/forget_password_controller.dart';
 import '../../features/auth/verification/controller/verification_controller.dart';
+import '../../features/home/controllers/category_controller.dart';
 import '../../features/home/controllers/profile_controller.dart';
 import '../../features/home/controllers/settings_controller.dart';
 import '../../features/home/controllers/today_matches_controller.dart';
 import '../../features/home/controllers/video_player_conteroller.dart';
 import '../../features/home/data/local/today_matches_local_date.dart';
+import '../../features/home/data/remote/category_channel_remote_data.dart';
 import '../../features/home/data/remote/today_matches_remote_date.dart';
+import '../../features/home/data/repos/category_repo.dart';
 import '../../features/home/data/repos/today_matches_repo.dart';
 import '../../features/onboarding/controller/onboarding_controller.dart';
 import '../../firebase_options.dart';
@@ -36,6 +39,7 @@ Future init() async {
       log(" User is login by ${user.uid}");
       log(" User is login by ${user.email}");
       Get.find<ProfileController>().getUserInfo();
+      Get.find<CategoryController>();
     } else {
       log("............... not User is login ");
     }
@@ -66,6 +70,13 @@ Future<void> setupGetIt() async {
           ),
       fenix: true);
   Get.lazyPut(() => TodayMatchesController(), fenix: true);
+
+  Get.lazyPut(() => CategoryRemoteDateImplHttp(apiClent: Get.find()),
+      fenix: true);
+  Get.lazyPut(() => CategoryRepoImpHttp(categoryRemote: Get.find()),
+      fenix: true);
+  Get.lazyPut(() => CategoryController(), fenix: true);
+
   Get.lazyPut(() => VideoPlayerConteroller(), fenix: true);
   Get.lazyPut(() => SettingsController(), fenix: true);
   //// auth

@@ -1,4 +1,5 @@
 import '../../../../core/networking/api_client.dart';
+import '../../../../core/networking/api_constants.dart';
 import '../../../../core/networking/exception.dart';
 import '../models/match_model.dart';
 
@@ -14,7 +15,7 @@ class TodayMatchesRemoteDataImpHttp implements TodayMatchesRemoteDate {
   @override
   Future<List<MatchModel>> getAllTodayMatches() async {
     final resalt = await apiClent.getData(
-        uri: 'http://172.105.81.117:3000/api/today_matches');
+        uri: ApiConstants.apiBaseUrl + ApiConstants.todayMatches);
     if (resalt.statusCode == 200) {
       final List<MatchModel> matches = (resalt.body as List)
           .map((match) => MatchModel.fromJson(match as Map<String, dynamic>))

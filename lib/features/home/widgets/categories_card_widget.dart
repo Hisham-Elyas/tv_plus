@@ -1,17 +1,16 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/colors.dart';
-import '../data/models/channel_category_model.dart';
+import '../data/models/category_model.dart';
 
 class CategoriesCardWidget extends StatelessWidget {
   const CategoriesCardWidget(
       {super.key, required this.category, required this.onTap});
   final void Function() onTap;
-  final ChannelCategory category;
+  final CategoryWithChannels category;
 
   @override
   Widget build(BuildContext context) {
@@ -31,23 +30,7 @@ class CategoriesCardWidget extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.r),
-                child: CachedNetworkImage(
-                  width: 70.w,
-                  height: 70.h,
-                  fit: BoxFit.contain,
-                  imageUrl: category.logo,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Skeletonizer(
-                    enableSwitchAnimation: true,
-                    enabled: true,
-                    child: Skeleton.shade(
-                        child: Icon(Icons.live_tv_outlined, size: 60.dm)),
-                  ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
+              Skeleton.shade(child: Icon(Icons.live_tv_outlined, size: 60.dm)),
               verticalSpace(8),
               FittedBox(
                 child: Text(

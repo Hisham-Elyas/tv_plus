@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../controllers/video_player_conteroller.dart';
-import '../data/models/channel_category_model.dart';
+import '../data/models/category_model.dart';
 import '../widgets/channel_card_widget.dart';
 import '../widgets/custom_app_bar.dart';
 import 'video_player_screen.dart';
 
 class CategoriesDetailsScreen extends StatelessWidget {
-  final ChannelCategory category;
+  final CategoryWithChannels category;
   const CategoriesDetailsScreen({super.key, required this.category});
 
   @override
@@ -29,27 +29,18 @@ class CategoriesDetailsScreen extends StatelessWidget {
           ),
           itemCount: category.channels.length,
           itemBuilder: (context, index) {
+            category.channels
+                .sort((a, b) => a.customName.compareTo(b.customName));
             final Channel channel = category.channels[index];
             return ChannelCardWidget(
               channel: channel,
               onTap: () async {
                 Get.to(() => VideoPlayerScreen(
-                      videoUrl: channel.videoUrl,
+                      videoUrl: channel.url,
                     ));
-                // Future.delayed(
-                //   const Duration(seconds: 1),
-                //   () async {
+
                 await Get.find<VideoPlayerConteroller>()
                     .setAllOrientationsToLandscape();
-                //   },
-                // );
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => VideoPlayerScreen(
-                //             videoUrl: channel.videoUrl,
-                //           )),
-                // );
               },
             );
           },

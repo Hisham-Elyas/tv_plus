@@ -5,7 +5,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/theming/colors.dart';
-import '../data/models/channel_category_model.dart';
+import '../data/models/category_model.dart';
 
 class ChannelCardWidget extends StatelessWidget {
   const ChannelCardWidget({
@@ -40,7 +40,7 @@ class ChannelCardWidget extends StatelessWidget {
                   width: 70.w,
                   height: 70.h,
                   fit: BoxFit.contain,
-                  imageUrl: channel.logo,
+                  imageUrl: channel.tvgLogo,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
                       Skeletonizer(
                     enableSwitchAnimation: true,
@@ -54,7 +54,7 @@ class ChannelCardWidget extends StatelessWidget {
               verticalSpace(8),
               FittedBox(
                 child: Text(
-                  channel.name,
+                  channel.customName,
                   style:
                       TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,

@@ -3,6 +3,7 @@
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../features/home/data/models/category_model.dart';
 import '../../features/home/data/models/channel_and_commentator_model.dart';
 import '../../features/home/data/models/channel_category_model.dart';
 import '../../features/home/data/models/league_model.dart';
@@ -1110,4 +1111,25 @@ List<LeagueModel> dummyleaguesList = [
           ]),
     ],
   ),
+];
+
+List<CategoryWithChannels> dummyListcategorys = [
+  CategoryWithChannels(
+      categoryId: 1, categoryName: BoneMock.name, count: 1, channels: []),
+  CategoryWithChannels(
+      categoryId: 2, categoryName: BoneMock.name, count: 1, channels: []),
+  CategoryWithChannels(
+      categoryId: 3, categoryName: BoneMock.name, count: 1, channels: []),
+  CategoryWithChannels(
+      categoryId: 4, categoryName: BoneMock.name, count: 1, channels: []),
+  CategoryWithChannels(
+      categoryId: 5, categoryName: BoneMock.name, count: 1, channels: []),
+  CategoryWithChannels(
+      categoryId: 6, categoryName: BoneMock.name, count: 1, channels: []),
+  CategoryWithChannels(
+      categoryId: 7, categoryName: BoneMock.name, count: 1, channels: []),
+  CategoryWithChannels(
+      categoryId: 8, categoryName: BoneMock.name, count: 1, channels: []),
+  CategoryWithChannels(
+      categoryId: 9, categoryName: BoneMock.name, count: 1, channels: []),
 ];
