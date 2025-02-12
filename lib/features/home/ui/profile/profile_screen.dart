@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../core/helpers/constants.dart';
-import '../../../core/helpers/enums.dart';
-import '../../../core/helpers/spacing.dart';
-import '../../../core/localization/constants.dart';
-import '../controllers/profile_controller.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_drawer_widget.dart';
-import '../widgets/custom_listtile_widget.dart';
+import '../../../../core/helpers/constants.dart';
+import '../../../../core/helpers/enums.dart';
+import '../../../../core/helpers/spacing.dart';
+import '../../../../core/localization/constants.dart';
+import '../../controllers/profile_controller.dart';
+import '../../widgets/custom_app_bar.dart';
+import '../../widgets/custom_drawer_widget.dart';
+import '../../widgets/custom_listtile_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

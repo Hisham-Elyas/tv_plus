@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../core/helpers/constants.dart';
-import '../../../core/localization/constants.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_drawer_widget.dart';
-import '../widgets/expandable_text_widget.dart';
+import '../../../../core/helpers/constants.dart';
+import '../../../../core/localization/constants.dart';
+import '../../widgets/custom_app_bar.dart';
+import '../../widgets/custom_drawer_widget.dart';
+import '../../widgets/expandable_text_widget.dart';
 
 class AboutUsScreen extends StatelessWidget {
   const AboutUsScreen({super.key});

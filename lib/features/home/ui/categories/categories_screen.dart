@@ -3,13 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import '../../../core/helpers/enums.dart';
-import '../../../core/localization/constants.dart';
-import '../controllers/category_controller.dart';
-import '../data/models/category_model.dart';
-import '../widgets/categories_card_widget.dart';
-import '../widgets/custom_app_bar.dart';
-import '../widgets/custom_drawer_widget.dart';
+import '../../../../core/helpers/enums.dart';
+import '../../../../core/localization/constants.dart';
+import '../../controllers/category_controller.dart';
+import '../../data/models/category_model.dart';
+import '../../widgets/categories_card_widget.dart';
+import '../../widgets/custom_app_bar.dart';
+import '../../widgets/custom_drawer_widget.dart';
 import 'categories_details_screen.dart';
 
 class CategoriesScreen extends StatelessWidget {

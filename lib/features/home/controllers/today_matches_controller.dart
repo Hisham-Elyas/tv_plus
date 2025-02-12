@@ -18,7 +18,7 @@ import '../data/models/category_model.dart';
 import '../data/models/league_model.dart';
 import '../data/models/match_model.dart';
 import '../data/repos/today_matches_repo.dart';
-import '../ui/categories_screen.dart';
+import '../ui/categories/categories_screen.dart';
 import '../ui/video_player_screen.dart';
 import 'category_controller.dart';
 import 'video_player_conteroller.dart';

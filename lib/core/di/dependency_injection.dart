@@ -11,6 +11,7 @@ import '../../features/auth/singup/controllers/singup_controller.dart';
 import '../../features/auth/verification/controller/forget_password_controller.dart';
 import '../../features/auth/verification/controller/verification_controller.dart';
 import '../../features/home/controllers/category_controller.dart';
+import '../../features/home/controllers/contact_us_controller.dart';
 import '../../features/home/controllers/profile_controller.dart';
 import '../../features/home/controllers/settings_controller.dart';
 import '../../features/home/controllers/today_matches_controller.dart';
@@ -78,6 +79,7 @@ Future<void> setupGetIt() async {
   Get.lazyPut(() => CategoryController(), fenix: true);
 
   Get.lazyPut(() => VideoPlayerConteroller(), fenix: true);
+  Get.lazyPut(() => ContactUsController(), fenix: true);
   Get.lazyPut(() => SettingsController(), fenix: true);
   //// auth
   /// Http
