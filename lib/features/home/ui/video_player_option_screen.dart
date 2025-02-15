@@ -1,3 +1,4 @@
+import 'package:faisal_tv/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
@@ -50,11 +51,11 @@ class _VideoPlayerOptionScreenState extends State<VideoPlayerOptionScreen> {
       body: GetBuilder<VideoPlayerConteroller>(
         builder: (controller) => Column(
           children: [
-            SizedBox(height: 50.h),
+            verticalSpace(45),
             Container(
               margin: EdgeInsetsDirectional.symmetric(
                   horizontal: 10.w, vertical: 30.h),
-              height: 50.h,
+              height: 45.h,
               child: ListView.separated(
                 separatorBuilder: (context, index) => SizedBox(width: 10.w),
                 itemCount: widget.channel.urlList.length,
@@ -70,7 +71,8 @@ class _VideoPlayerOptionScreenState extends State<VideoPlayerOptionScreen> {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 700),
                       // margin: EdgeInsetsDirectional.only(start: 10.w),
-                      padding: EdgeInsets.all(5.dm),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: controller.urlIndex == index
