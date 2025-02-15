@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:get/get.dart';
 
-import '../../../core/localization/constants.dart';
 import '../controllers/video_player_conteroller.dart';
 import '../data/models/category_model.dart';
 import '../widgets/custom_app_bar.dart';
@@ -31,6 +30,7 @@ class _VideoPlayerOptionScreenState extends State<VideoPlayerOptionScreen> {
       autoPlay: true,
       options: VlcPlayerOptions(),
     );
+    Get.find<VideoPlayerConteroller>().isPlaying == true;
     super.initState();
   }
 
@@ -40,6 +40,7 @@ class _VideoPlayerOptionScreenState extends State<VideoPlayerOptionScreen> {
     await Get.find<VideoPlayerConteroller>().setAllOrientationsTopPrtrait();
     await Get.find<VideoPlayerConteroller>().vlcController.dispose();
     Get.find<VideoPlayerConteroller>().urlIndex = 0;
+    Get.find<VideoPlayerConteroller>().isPlaying == false;
   }
 
   @override
@@ -80,8 +81,9 @@ class _VideoPlayerOptionScreenState extends State<VideoPlayerOptionScreen> {
                               : Theme.of(context).colorScheme.surface,
                           border: Border.all(),
                           borderRadius: BorderRadius.circular(20.r)),
-                      child: Text("${server.tr} ${index + 1}",
-                          // widget.channel.urlList[index].name,
+                      child: Text(
+                          // "${server.tr} ${index + 1}",
+                          widget.channel.urlList[index].name,
                           style: TextStyle(
                             fontSize: 12.sp,
                           )),
