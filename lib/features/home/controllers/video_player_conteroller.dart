@@ -7,7 +7,8 @@ import '../../../core/helpers/enums.dart';
 class VideoPlayerConteroller extends GetxController {
   late StatusRequest statusReq;
   late VlcPlayerController vlcController;
-  late String videoUrls;
+  String? videoUrls;
+  int urlIndex = 0;
 
   Future disposevlcController() async {
     await setAllOrientationsTopPrtrait();
@@ -51,5 +52,25 @@ class VideoPlayerConteroller extends GetxController {
       DeviceOrientation.portraitDown,
       DeviceOrientation.portraitUp,
     ]);
+  }
+
+  setUrlInVlcController({required String url, required int index}) {
+    urlIndex = index;
+    videoUrls = url;
+    vlcController.setMediaFromNetwork(url);
+    isPlaying = true;
+    update();
+  }
+
+  bool isPlaying = true;
+  void togglePlayPause() {
+    if (isPlaying) {
+      vlcController.pause();
+    } else {
+      vlcController.play();
+    }
+
+    isPlaying = !isPlaying;
+    update();
   }
 }

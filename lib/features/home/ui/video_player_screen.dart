@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modern_player/modern_player.dart';
 
-import '../../../core/helpers/constants.dart';
+import '../../../core/localization/constants.dart';
 import '../controllers/video_player_conteroller.dart';
+import '../data/models/category_model.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
-  final String videoUrl;
+  final Channel channel;
   const VideoPlayerScreen({
     super.key,
-    required this.videoUrl,
+    required this.channel,
   });
 
   @override
@@ -30,15 +31,15 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           builder: (controller) => ModernPlayer.createPlayer(
               video: ModernPlayerVideo.multiple([
                 ModernPlayerVideoData.network(
-                  label: "Original Url",
-                  url: widget.videoUrl,
+                  label: "Default",
+                  url: controller.videoUrls ?? widget.channel.url,
                 ),
-                if (widget.videoUrl == beinSport1_Original_Url) ...[
-                  // ModernPlayerVideoData.network(
-                  //     label: "720p", url: widget.videoUrl),
-                  ModernPlayerVideoData.network(
-                      label: "ReStram 480p", url: beinSport1_480p_url),
-                ]
+                ...widget.channel.urlList
+                    .map((e) => ModernPlayerVideoData.network(
+                          label: "${server.tr} : ${e.name}",
+                          url: e.url,
+                        ))
+                    .toList()
               ]),
               callbackOptions: ModernPlayerCallbackOptions(
                 onBackPressed: () async {
@@ -50,8 +51,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 showBackbutton: true,
                 // showBottomBar: true,
                 doubleTapToSeek: false,
-                showMenu:
-                    widget.videoUrl == beinSport1_Original_Url ? true : false,
+                showMenu: true,
               ),
               subtitles: [],
               audioTracks: [],
@@ -59,10 +59,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               translationOptions:
                   ModernPlayerTranslationOptions.menu(qualityHeaderText: ''),
               options: ModernPlayerOptions(
-                  allowScreenSleep: false,
-                  autoVisibilityPause: false,
-                  videoStartAt: 5000 // in milliseconds
-                  ))
+                allowScreenSleep: false,
+                autoVisibilityPause: false,
+                // videoStartAt: 5000 // in milliseconds
+              ))
           // VlcPlayer(
           //   // virtualDisplay: false,
           //   controller: controller.vlcController,

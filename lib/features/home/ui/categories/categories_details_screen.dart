@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/video_player_conteroller.dart';
 import '../../data/models/category_model.dart';
 import '../../widgets/channel_card_widget.dart';
 import '../../widgets/custom_app_bar.dart';
-import '../video_player_screen.dart';
+import '../video_player_option_screen.dart';
 
 class CategoriesDetailsScreen extends StatelessWidget {
   final CategoryWithChannels category;
@@ -35,12 +34,15 @@ class CategoriesDetailsScreen extends StatelessWidget {
             return ChannelCardWidget(
               channel: channel,
               onTap: () async {
-                Get.to(() => VideoPlayerScreen(
-                      videoUrl: channel.url,
+                Get.to(() => VideoPlayerOptionScreen(
+                      channel: channel,
                     ));
+                // Get.to(() => VideoPlayerScreen(
+                //       channel: channel,
+                //     ));
 
-                await Get.find<VideoPlayerConteroller>()
-                    .setAllOrientationsToLandscape();
+                // await Get.find<VideoPlayerConteroller>()
+                //     .setAllOrientationsToLandscape();
               },
             );
           },

@@ -103,6 +103,7 @@ const String PasswordResetLinkSent =
     "Password reset link sent to email. Check your inbox.";
 const String ResetPassword = "Reset Password";
 const String ResetPasswordError = "Reset Password Error";
+const String server = "server";
 
 const String LoggedOutSuccessfully = "Logged out successfully.";
 const String Success = "Success";

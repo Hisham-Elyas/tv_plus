@@ -170,9 +170,11 @@ class MyTranslations extends Translations {
           DeleteAccountConfirmation: DeleteAccountConfirmation,
           Cancel: Cancel,
           Delete: Delete,
+          server: server,
         },
         "ar": {
-          Network_Info: "معلومات الشبكة"
+          server: "الخادم",
+          Network_Info: "معلومات الشبكة",
           DeleteAccount: "حذف الحساب",
           DeleteAccountConfirmation: "هل أنت متأكد أنك تريد حذف حسابك؟",
           Cancel: "إلغاء",
