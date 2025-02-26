@@ -19,8 +19,9 @@ import '../data/models/league_model.dart';
 import '../data/models/match_model.dart';
 import '../data/repos/today_matches_repo.dart';
 import '../ui/categories/categories_screen.dart';
-import '../ui/video_player_option_screen.dart';
+import '../ui/video_player_screen.dart';
 import 'category_controller.dart';
+import 'video_player_conteroller.dart';
 
 class TodayMatchesController extends GetxController {
   late StatusRequest statusReq;
@@ -204,14 +205,14 @@ class TodayMatchesController extends GetxController {
         final channel = await findChannelByName(
             event.channelsAndCommentators.first.channel);
 
-        Get.to(() => VideoPlayerOptionScreen(
-              channel: channel,
-            ));
-        // Get.to(() => VideoPlayerScreen(
+        // Get.to(() => VideoPlayerOptionScreen(
         //       channel: channel,
         //     ));
-        // await Get.find<VideoPlayerConteroller>()
-        //     .setAllOrientationsToLandscape();
+        Get.to(() => VideoPlayerScreen(
+              channel: channel,
+            ));
+        await Get.find<VideoPlayerConteroller>()
+            .setAllOrientationsToLandscape();
 
         log('Found: ${channel.name}, Video URL: ${channel.url}');
       } catch (e) {
