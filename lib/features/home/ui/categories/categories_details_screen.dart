@@ -6,7 +6,6 @@ import '../../controllers/video_player_conteroller.dart';
 import '../../data/models/category_model.dart';
 import '../../widgets/channel_card_widget.dart';
 import '../../widgets/custom_app_bar.dart';
-import '../video_player_option_screen.dart';
 import '../video_player_screen.dart';
 
 class CategoriesDetailsScreen extends StatelessWidget {

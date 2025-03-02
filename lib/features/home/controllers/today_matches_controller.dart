@@ -187,13 +187,7 @@ class TodayMatchesController extends GetxController {
   void goToMatch(MatchModel event) async {
     MatchStatus matchStatus = getMatchStatusWithColor(event);
 
-    if (matchStatus.status == 'Ended') {
-      showCustomSnackBar(
-        message: The_match_has_ended.tr,
-        isError: true,
-        title: Match_Status.tr,
-      );
-    } else if (matchStatus.status == 'Running') {
+    if (matchStatus.statustitel == 'Running') {
       if (event.channelsAndCommentators.isEmpty) {
         showCustomSnackBar(
             message: ChannelUnknown.tr,
@@ -218,7 +212,7 @@ class TodayMatchesController extends GetxController {
       } catch (e) {
         log(e.toString()); // Handle exception
       }
-    } else {
+    } else if (matchStatus.statustitel != 'Ended') {
       showCustomSnackBar(
         message: The_match_hasn_t_started_yet.tr,
         isError: false,
@@ -229,6 +223,7 @@ class TodayMatchesController extends GetxController {
 
   MatchStatus getMatchStatusWithColor(MatchModel event) {
     String status;
+    String statustitel;
     Color color;
 
     try {
@@ -248,22 +243,31 @@ class TodayMatchesController extends GetxController {
 
       if (now.isBefore(localMatchDateTime)) {
         // Display match time in device's local format
+        statustitel = 'not start';
         status = DateFormat('hh:mm a').format(localMatchDateTime);
         color = Theme.of(Get.context!).colorScheme.secondary;
       } else if (now.isAfter(matchEndTime)) {
-        status = 'Ended';
+        status = DateFormat('hh:mm a').format(localMatchDateTime);
+        statustitel = 'Ended';
         color = ColorsManager.mainRed;
       } else {
-        status = 'Running';
+        status = DateFormat('hh:mm a').format(localMatchDateTime);
+        statustitel = 'Running';
         color = ColorsManager.green;
       }
 
-      return MatchStatus(status: status, color: color);
+      return MatchStatus(
+        status: status,
+        color: color,
+        statustitel: statustitel,
+      );
     } catch (e) {
       // If parsing fails, fallback to original match time
       status = event.matchTime;
+      statustitel = event.matchTime;
       color = Theme.of(Get.context!).colorScheme.secondary;
-      return MatchStatus(status: status, color: color);
+      return MatchStatus(
+          status: status, color: color, statustitel: statustitel);
     }
   }
 
@@ -497,9 +501,11 @@ void showFilterBottomSheet(BuildContext context) {
 
 class MatchStatus {
   final String status;
+  final String statustitel;
   final Color color;
 
-  MatchStatus({required this.status, required this.color});
+  MatchStatus(
+      {required this.status, required this.statustitel, required this.color});
 }
 
 class ChannelNotFoundException implements Exception {

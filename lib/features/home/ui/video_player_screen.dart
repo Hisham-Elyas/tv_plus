@@ -49,7 +49,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               ),
               controlsOptions: ModernPlayerControlsOptions(
                 showBackbutton: true,
-                // showBottomBar: true,
+                // showControls: false,
+                showBottomBar: false,
                 doubleTapToSeek: false,
                 showMenu: true,
               ),
