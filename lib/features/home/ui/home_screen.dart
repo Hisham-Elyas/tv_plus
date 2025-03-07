@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/enums.dart';
 import '../../../core/localization/constants.dart';
 import '../../../core/theming/colors.dart';
@@ -18,7 +19,7 @@ class HomeScreen extends StatelessWidget {
     return GetBuilder<TodayMatchesController>(
       builder: (controller) => Scaffold(
           appBar: CustomAppBar(
-            // title: appName,
+            title: appName,
             actions: [
               // /// previous day button
               // IconButton(
