@@ -18,6 +18,7 @@ class HomeScreen extends StatelessWidget {
     return GetBuilder<TodayMatchesController>(
       builder: (controller) => Scaffold(
           appBar: CustomAppBar(
+            // title: appName,
             actions: [
               // /// previous day button
               // IconButton(

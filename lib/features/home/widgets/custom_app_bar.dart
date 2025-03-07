@@ -33,8 +33,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.r),
                   color: Theme.of(context).colorScheme.surface),
-              child: Image.asset(ImageAssets.textTvChannellogo,
-                  fit: BoxFit.contain),
+              child: Image.asset(ImageAssets.logo, fit: BoxFit.contain),
             ),
       iconTheme: IconThemeData(
         color: Theme.of(context)

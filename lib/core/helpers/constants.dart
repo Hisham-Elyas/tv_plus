@@ -17,9 +17,11 @@ class SharedPrefKeys {
   static const String userToken = 'userToken';
 }
 
+String appName = "TV PLUS";
+
 class ImageAssets {
   static const String textTvChannellogo = 'assets/images/Tv Channel.png';
-  static const String logo = 'assets/images/faisal_log_off_bg.png';
+  static const String logo = 'assets/images/TV_PLUS_log_off_bg.png';
   static const String bgImage = 'assets/images/bg_image.png';
   static const String saFlags = 'assets/images/sa.png';
   static const String usFlags = 'assets/images/us.png';

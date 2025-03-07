@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import '../helpers/shared_pref_helper.dart';
 
 class ThemeController extends GetxController {
-  ThemeMode _themeMode = ThemeMode.light;
+  ThemeMode _themeMode = ThemeMode.dark;
   final String _themeKey = 'isDarkMode';
-  FeedbackThemeData feedbackTheme = FeedbackThemeData.light();
+  FeedbackThemeData feedbackTheme = FeedbackThemeData.dark();
 
   @override
   void onInit() {
