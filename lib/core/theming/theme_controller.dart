@@ -1,13 +1,14 @@
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/shared_pref_helper.dart';
 
 class ThemeController extends GetxController {
-  ThemeMode _themeMode = ThemeMode.dark;
+  ThemeMode _themeMode = ThemeMode.light;
   final String _themeKey = 'isDarkMode';
-  FeedbackThemeData feedbackTheme = FeedbackThemeData.dark();
+  FeedbackThemeData feedbackTheme = FeedbackThemeData.light();
 
   @override
   void onInit() {
@@ -17,9 +18,13 @@ class ThemeController extends GetxController {
 
   ThemeMode get themeMode => _themeMode;
   Future<void> _loadTheme() async {
-    _themeMode = await SharedPrefHelper.getBool(_themeKey) ?? false
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool? isDark = sharedPreferences.getBool(_themeKey);
+    _themeMode = isDark == null
         ? ThemeMode.dark
-        : ThemeMode.light;
+        : isDark
+            ? ThemeMode.dark
+            : ThemeMode.light;
     // update();
   }
 

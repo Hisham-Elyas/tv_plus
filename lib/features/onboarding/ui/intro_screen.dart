@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 
 import '../../../core/helpers/spacing.dart';
 import '../../../core/localization/constants.dart';
+import '../../../core/localization/language_controller.dart';
 import '../../../core/theming/colors.dart';
 import '../../../core/widgets/app_text_button.dart';
+import '../../home/widgets/custom_listtile_widget.dart';
 import '../controller/onboarding_controller.dart';
 import '../widgets/logo_card_widget.dart';
 import 'onboarding_screen.dart';
@@ -26,7 +28,18 @@ class IntroScreen extends GetView<OnboardingController> {
               width: 340.w,
               height: 263.h,
             ),
-            verticalSpace(99),
+            verticalSpace(45),
+            SizedBox(
+              width: 250.w,
+              child: CustomListTileWidget(
+                icon: Icons.language_rounded,
+                title: Select_language.tr,
+                onTap: () {
+                  Get.find<LanguageController>().showLanguageBottomSheet();
+                },
+              ),
+            ),
+            verticalSpace(45),
             AppTextButton(
               backgroundColor: ColorsManager.mainRed,
               buttonHeight: 50,

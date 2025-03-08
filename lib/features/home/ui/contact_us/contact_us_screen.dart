@@ -38,6 +38,12 @@ class ContactUsScreen extends GetView<ContactUsController> {
               icon: Icons.email,
               onTap: () => controller.sendEmail("faisal2003tv@gmail.com"),
             ),
+            verticalSpace(10),
+            CustomListTileWidget(
+              title: "X",
+              icon: Icons.language_rounded,
+              onTap: () => controller.openWebsite("https://x.com/elonmusk"),
+            ),
           ],
         ),
       ),
