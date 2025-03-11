@@ -15,18 +15,20 @@ import '../../auth/repos/auth_repo.dart';
 import 'settings_controller.dart';
 
 class ProfileController extends GetxController {
-  late UserModel? userInf;
+  late UserModel userInf;
 
   late StatusRequest statusReq = StatusRequest.loading;
   final AuthRepoImpFirebase authRepo = Get.find();
 
   @override
   void onInit() async {
+    print("ProfileController  onInit()");
     await getUserInfo();
     super.onInit();
   }
 
   _getUserInfoFromServer() async {
+    print("_getUserInfoFromServer()");
     try {
       statusReq = StatusRequest.loading;
       update();
@@ -53,7 +55,6 @@ class ProfileController extends GetxController {
 
   getUserInfo() async {
     final userdata = await SharedPrefHelper.getString('user_info');
-    debugPrint("userdata ==>  $userdata");
     if (userdata.isEmpty) {
       statusReq = StatusRequest.loading;
       update();
@@ -61,16 +62,20 @@ class ProfileController extends GetxController {
         final result = await authRepo.getUserInfo();
         result.fold(
           (l) {
+            debugPrint("userdata ==>  not fond");
             statusReq = l;
             update();
           },
           (r) {
             userInf = r;
+            debugPrint("userdata ==>  ${r.toString()}");
             statusReq = StatusRequest.success;
             update();
           },
         );
       } catch (e) {
+        statusReq = StatusRequest.serverFailure;
+        update();
         showCustomSnackBar(
           message: e.toString(),
           title: "",
@@ -255,9 +260,9 @@ class ProfileController extends GetxController {
 
   Widget _buildUserInfoUpdateSheet() {
     TextEditingController userNameController =
-        TextEditingController(text: userInf!.userName);
+        TextEditingController(text: userInf.userName);
     TextEditingController phoneController =
-        TextEditingController(text: userInf!.phone);
+        TextEditingController(text: userInf.phone);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -283,7 +288,7 @@ class ProfileController extends GetxController {
           style: const ButtonStyle(elevation: WidgetStatePropertyAll(5)),
           onPressed: () async {
             await updateUserInfo(
-              userModel: userInf!.copyWith(
+              userModel: userInf.copyWith(
                 userName: userNameController.text,
                 phone: phoneController.text,
               ),

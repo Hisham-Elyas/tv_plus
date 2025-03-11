@@ -8,6 +8,7 @@ import 'package:faisal_tv/core/exceptions/firebase_auth_exceptions.dart';
 import 'package:faisal_tv/core/exceptions/format_exceptions.dart';
 import 'package:faisal_tv/core/exceptions/platform_exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../core/exceptions/firebase_exceptions.dart';
@@ -113,10 +114,30 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
   @override
   Future<UserModel> getUserInfo() async {
     try {
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(firebaseAuth.currentUser!.uid)
+          .get();
+
+      if (documentSnapshot.exists) {
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>;
+
+        // Access user_info map
+        Map<String, dynamic> userInfo = data['user_info'];
+
+        print("User Name: ${userInfo['name']}");
+        print("User Email: ${userInfo['email']}");
+      } else {
+        print("User not found");
+      }
+      // print("==================================");
+
       final doc = await firebaseFirestore
           .collection('users')
           .doc(firebaseAuth.currentUser!.uid)
           .get();
+
       if (!doc.exists) {
         showCustomSnackBar(
             message: UserDataNotFound.tr,
@@ -131,9 +152,9 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
-    } on HFormatException catch (_) {
+    } on FormatException catch (_) {
       throw const HFormatException();
-    } on HPlatformException catch (e) {
+    } on PlatformException catch (e) {
       throw HPlatformException(e.code).message;
     } catch (e) {
       throw "Someting went weong. pleas try agin";
@@ -153,9 +174,9 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
-    } on HFormatException catch (_) {
+    } on FormatException catch (_) {
       throw const HFormatException();
-    } on HPlatformException catch (e) {
+    } on PlatformException catch (e) {
       throw HPlatformException(e.code).message;
     } catch (e) {
       throw "Someting went weong. pleas try agin";
@@ -215,9 +236,9 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
-    } on HFormatException catch (_) {
+    } on FormatException catch (_) {
       throw const HFormatException();
-    } on HPlatformException catch (e) {
+    } on PlatformException catch (e) {
       throw HPlatformException(e.code).message;
     } catch (e) {
       throw "Someting went weong. pleas try agin";
@@ -269,9 +290,9 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
-    } on HFormatException catch (_) {
+    } on FormatException catch (_) {
       throw const HFormatException();
-    } on HPlatformException catch (e) {
+    } on PlatformException catch (e) {
       throw HPlatformException(e.code).message;
     } catch (e) {
       throw "Someting went weong. pleas try agin";
@@ -326,9 +347,9 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
-    } on HFormatException catch (_) {
+    } on FormatException catch (_) {
       throw const HFormatException();
-    } on HPlatformException catch (e) {
+    } on PlatformException catch (e) {
       throw HPlatformException(e.code).message;
     } catch (e) {
       throw "Someting went weong. pleas try agin";
@@ -351,9 +372,9 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
-    } on HFormatException catch (_) {
+    } on FormatException catch (_) {
       throw const HFormatException();
-    } on HPlatformException catch (e) {
+    } on PlatformException catch (e) {
       throw HPlatformException(e.code).message;
     } catch (e) {
       throw "Someting went weong. pleas try agin";
@@ -448,9 +469,9 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
-    } on HFormatException catch (_) {
+    } on FormatException catch (_) {
       throw const HFormatException();
-    } on HPlatformException catch (e) {
+    } on PlatformException catch (e) {
       throw HPlatformException(e.code).message;
     } catch (e) {
       throw "Someting went weong. pleas try agin";

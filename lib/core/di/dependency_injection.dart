@@ -12,7 +12,6 @@ import '../../features/auth/verification/controller/forget_password_controller.d
 import '../../features/auth/verification/controller/verification_controller.dart';
 import '../../features/home/controllers/category_controller.dart';
 import '../../features/home/controllers/contact_us_controller.dart';
-import '../../features/home/controllers/profile_controller.dart';
 import '../../features/home/controllers/settings_controller.dart';
 import '../../features/home/controllers/today_matches_controller.dart';
 import '../../features/home/controllers/video_player_conteroller.dart';
@@ -40,7 +39,6 @@ Future init() async {
     if (user != null) {
       log(" User is login by ${user.uid}");
       log(" User is login by ${user.email}");
-      Get.find<ProfileController>().getUserInfo();
       Get.find<CategoryController>();
     } else {
       log("............... not User is login ");
@@ -58,7 +56,6 @@ Future<void> setupGetIt() async {
   Get.lazyPut(() => SingupController(), fenix: true);
   Get.lazyPut(() => ForgetPasswordController(), fenix: true);
   Get.lazyPut(() => VerificationController(), fenix: true);
-  Get.lazyPut(() => ProfileController(), fenix: true);
 
   ///  api client
   Get.lazyPut(() => ApiClent(), fenix: true);

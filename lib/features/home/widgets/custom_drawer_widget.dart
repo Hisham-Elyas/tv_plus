@@ -27,7 +27,6 @@ class CustomDrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get.find<ProfileController>();
     return Drawer(
       backgroundColor: Theme.of(context).colorScheme.surface,
       surfaceTintColor: Theme.of(context).colorScheme.surface,
