@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -42,9 +43,9 @@ class NetworkManager extends GetxController {
           margin: const EdgeInsets.symmetric(horizontal: 30),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: THelperFunctions.isDarkMode(Get.context!)
-                ? TColors.darkerGrey.withOpacity(0.9)
-                : TColors.grey.withOpacity(0.9),
+            color: isDarkMode(Get.context!)
+                ? const Color(0xFF4F4F4F).withOpacity(0.9)
+                : const Color(0xFFD9D9D9).withOpacity(0.9),
           ),
           child: Center(
               child: Text(message,
@@ -52,6 +53,10 @@ class NetworkManager extends GetxController {
         ),
       ),
     );
+  }
+
+  static bool isDarkMode(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark;
   }
 
   /// Check the internet connection status.
