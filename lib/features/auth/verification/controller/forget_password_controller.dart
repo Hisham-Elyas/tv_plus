@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
+import '../../../../core/widgets/custom_snackbar.dart';
 import '../../login/ui/login_screen.dart';
 import '../../repos/auth_repo.dart';
 
@@ -19,10 +20,18 @@ class ForgetPasswordController extends GetxController {
     verificationformKey.currentState!.save();
     showOverlay(
       asyncFunction: () async {
-        final isSuccess = await authRepo.forgotPassword(email: email);
+        try {
+          final isSuccess = await authRepo.forgotPassword(email: email);
 
-        if (isSuccess) {
-          Get.offAll(() => const LoginScreen());
+          if (isSuccess) {
+            Get.offAll(() => const LoginScreen());
+          }
+        } catch (e) {
+          showCustomSnackBar(
+            message: e.toString(),
+            title: "",
+            isError: true,
+          );
         }
       },
     );

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
+import '../../../../core/widgets/custom_snackbar.dart';
 import '../../login/ui/login_screen.dart';
 import '../../models/sinup_model.dart';
 import '../../repos/auth_repo.dart';
@@ -26,15 +27,23 @@ class SingupController extends GetxController {
     debugPrint('SingUp =>  userName : $userName');
     showOverlay(
       asyncFunction: () async {
-        final isSuccess = await authRepo.signUp(
-            sinupModel: SinupModel(
-                email: email,
-                password: confirmPassword,
-                phone: phoneNumber,
-                userName: userName));
+        try {
+          final isSuccess = await authRepo.signUp(
+              sinupModel: SinupModel(
+                  email: email,
+                  password: confirmPassword,
+                  phone: phoneNumber,
+                  userName: userName));
 
-        if (isSuccess) {
-          Get.offAll(() => const LoginScreen());
+          if (isSuccess) {
+            Get.offAll(() => const LoginScreen());
+          }
+        } catch (e) {
+          showCustomSnackBar(
+            message: e.toString(),
+            title: "",
+            isError: true,
+          );
         }
       },
     );

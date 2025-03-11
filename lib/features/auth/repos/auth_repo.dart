@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../../core/helpers/check_internet.dart';
 import '../../../core/helpers/enums.dart';
+import '../../../core/helpers/network_manager.dart';
 import '../../../core/helpers/snackbar_error_message.dart';
 import '../../../core/networking/exception.dart';
 import '../models/login_model.dart';
@@ -37,28 +38,29 @@ class AuthRepoImpFirebase implements AuthRepo {
 
   @override
   Future<bool> signUp({required SinupModel sinupModel}) async {
-    if (await checkInternet()) {
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (isConnected) {
       return await authRemotData.signUp(sinupModel: sinupModel);
     } else {
-      showNetworkError();
-
       return false;
     }
   }
 
   @override
   Future<bool> logIn({required LoginModel loginModel}) async {
-    if (await checkInternet()) {
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (isConnected) {
       return await authRemotData.logIn(loginModel: loginModel);
     } else {
-      showNetworkError();
       return false;
     }
   }
 
   @override
   Future<Either<StatusRequest, UserModel>> getUserInfo() async {
-    if (await checkInternet()) {
+    final isConnected = await NetworkManager.instance.isConnected();
+
+    if (isConnected) {
       try {
         final response = await authRemotData.getUserInfo();
 
@@ -67,17 +69,16 @@ class AuthRepoImpFirebase implements AuthRepo {
         return left(StatusRequest.serverFailure);
       }
     } else {
-      showNetworkError();
       return left(StatusRequest.serverFailure);
     }
   }
 
   @override
   Future<bool> updateEmail({required String newEmail}) async {
-    if (await checkInternet()) {
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (isConnected) {
       return await authRemotData.updateEmail(newEmail: newEmail);
     } else {
-      showNetworkError();
       return false;
     }
   }
@@ -85,49 +86,51 @@ class AuthRepoImpFirebase implements AuthRepo {
   @override
   Future<bool> updatePassword(
       {required String oldPassword, required String newPassword}) async {
-    if (await checkInternet()) {
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (isConnected) {
       return await authRemotData.updatePassword(
           oldPassword: oldPassword, newPassword: newPassword);
     } else {
-      showNetworkError();
       return false;
     }
   }
 
   @override
   Future<bool> deleteAccount() async {
-    if (await checkInternet()) {
+    final isConnected = await NetworkManager.instance.isConnected();
+
+    if (isConnected) {
       return await authRemotData.deleteAccount();
     } else {
-      showNetworkError();
       return false;
     }
   }
 
   Future<void> resendEmailVerification() async {
-    if (await checkInternet()) {
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (isConnected) {
       return await authRemotData.resendEmailVerification();
     } else {
-      showNetworkError();
+      return;
     }
   }
 
   @override
   Future<bool> forgotPassword({required String email}) async {
-    if (await checkInternet()) {
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (isConnected) {
       return await authRemotData.forgotPassword(email: email);
     } else {
-      showNetworkError();
       return false;
     }
   }
 
   @override
   Future<bool> updateUserInfo({required UserModel userModel}) async {
-    if (await checkInternet()) {
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (isConnected) {
       return await authRemotData.updateUserInfo(userModel: userModel);
     } else {
-      showNetworkError();
       return false;
     }
   }

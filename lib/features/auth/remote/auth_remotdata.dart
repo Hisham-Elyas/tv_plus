@@ -4,9 +4,13 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:faisal_tv/core/exceptions/firebase_auth_exceptions.dart';
+import 'package:faisal_tv/core/exceptions/format_exceptions.dart';
+import 'package:faisal_tv/core/exceptions/platform_exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
+import '../../../core/exceptions/firebase_exceptions.dart';
 import '../../../core/helpers/shared_pref_helper.dart';
 import '../../../core/localization/constants.dart';
 import '../../../core/networking/api_client.dart';
@@ -118,67 +122,43 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
             message: UserDataNotFound.tr,
             title: UserInfoError.tr,
             isError: true);
-        throw ServerException(message: "User data not found.");
+        throw "User data not found.";
       }
       final userval = doc.data()!['user_info'];
       await SharedPrefHelper.setData('user_info', jsonEncode(userval));
       return UserModel.fromMap(userval);
+    } on FirebaseAuthException catch (e) {
+      throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
-      showCustomSnackBar(
-          message: FailedToFetchUserInfo.tr,
-          title: UserInfoError.tr,
-          isError: true);
-      printError(info: "Failed with error '${e.code}' :  ${e.message}");
-      throw ServerException(message: "");
+      throw HFirebaseException(e.code).message;
+    } on HFormatException catch (_) {
+      throw const HFormatException();
+    } on HPlatformException catch (e) {
+      throw HPlatformException(e.code).message;
     } catch (e) {
-      printError(info: "Failed with error ' :  $e");
-      throw ServerException(message: "");
+      throw "Someting went weong. pleas try agin";
     }
   }
 
   @override
   Future<bool> logIn({required LoginModel loginModel}) async {
     try {
-      UserCredential userCredential =
-          await firebaseAuth.signInWithEmailAndPassword(
+      await firebaseAuth.signInWithEmailAndPassword(
         email: loginModel.email,
         password: loginModel.password,
       );
 
-      User? user = userCredential.user;
-
-      if (user != null && !user.emailVerified) {
-        await firebaseAuth.signOut(); // Sign out the user if not verified
-        showCustomSnackBar(
-          message: VerifyEmailBeforeLogin.tr,
-          title: EmailNotVerified.tr,
-          isError: true,
-        );
-        await Future.delayed(
-          const Duration(seconds: 5),
-          () async {
-            await resendEmailVerification();
-          },
-        );
-        return false;
-      }
-
       return true;
     } on FirebaseAuthException catch (e) {
-      String errorMessage = _handleFirebaseAuthError(e);
-      showCustomSnackBar(
-        message: errorMessage,
-        title: LoginError.tr,
-        isError: true,
-      );
-      return false;
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseException(e.code).message;
+    } on HFormatException catch (_) {
+      throw const HFormatException();
+    } on HPlatformException catch (e) {
+      throw HPlatformException(e.code).message;
     } catch (e) {
-      showCustomSnackBar(
-        message: SomethingWentWrong.tr,
-        title: Errors.tr,
-        isError: true,
-      );
-      return false;
+      throw "Someting went weong. pleas try agin";
     }
   }
 
@@ -224,9 +204,6 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
       await SharedPrefHelper.setData(
           'user_info', jsonEncode(userModel.toMap()));
 
-      // Send email verification
-      await userCredential.user!.sendEmailVerification();
-
       showCustomSnackBar(
         message: AccountCreatedSuccessfully.tr,
         title: SignUpSuccess.tr,
@@ -235,13 +212,15 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
 
       return true;
     } on FirebaseAuthException catch (e) {
-      String errorMessage = _handleFirebaseAuthError(e);
-      showCustomSnackBar(
-        message: errorMessage,
-        title: SignUpError.tr,
-        isError: true,
-      );
-      return false;
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseException(e.code).message;
+    } on HFormatException catch (_) {
+      throw const HFormatException();
+    } on HPlatformException catch (e) {
+      throw HPlatformException(e.code).message;
+    } catch (e) {
+      throw "Someting went weong. pleas try agin";
     }
   }
 
@@ -287,13 +266,15 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
 
       return true;
     } on FirebaseAuthException catch (e) {
-      String errorMessage = _handleFirebaseAuthError(e);
-      showCustomSnackBar(
-        message: errorMessage,
-        title: EmailUpdateError.tr,
-        isError: true,
-      );
-      return false;
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseException(e.code).message;
+    } on HFormatException catch (_) {
+      throw const HFormatException();
+    } on HPlatformException catch (e) {
+      throw HPlatformException(e.code).message;
+    } catch (e) {
+      throw "Someting went weong. pleas try agin";
     }
   }
 
@@ -342,10 +323,15 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
 
       return true;
     } on FirebaseAuthException catch (e) {
-      String errorMessage = _handleFirebaseAuthError(e);
-      showCustomSnackBar(
-          message: errorMessage, title: PasswordUpdateError.tr, isError: true);
-      return false;
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseException(e.code).message;
+    } on HFormatException catch (_) {
+      throw const HFormatException();
+    } on HPlatformException catch (e) {
+      throw HPlatformException(e.code).message;
+    } catch (e) {
+      throw "Someting went weong. pleas try agin";
     }
   }
 
@@ -362,10 +348,15 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
 
       return true;
     } on FirebaseAuthException catch (e) {
-      String errorMessage = _handleFirebaseAuthError(e);
-      showCustomSnackBar(
-          message: errorMessage, title: ResetPasswordError.tr, isError: true);
-      return false;
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseException(e.code).message;
+    } on HFormatException catch (_) {
+      throw const HFormatException();
+    } on HPlatformException catch (e) {
+      throw HPlatformException(e.code).message;
+    } catch (e) {
+      throw "Someting went weong. pleas try agin";
     }
   }
 
@@ -454,40 +445,45 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
 
       return true;
     } on FirebaseAuthException catch (e) {
-      String errorMessage = _handleFirebaseAuthError(e);
-      showCustomSnackBar(
-          message: errorMessage, title: DeleteAccountError.tr, isError: true);
-      return false;
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseException(e.code).message;
+    } on HFormatException catch (_) {
+      throw const HFormatException();
+    } on HPlatformException catch (e) {
+      throw HPlatformException(e.code).message;
+    } catch (e) {
+      throw "Someting went weong. pleas try agin";
     }
   }
 
-  /// Handles Firebase Authentication Errors and returns user-friendly messages.
-  String _handleFirebaseAuthError(FirebaseAuthException e) {
-    log(e.message.toString());
-    switch (e.code) {
-      case 'user-not-found':
-      case 'wrong-password':
-        return IncorrectEmailOrPassword.tr;
-      case 'email-already-in-use':
-        return EmailAlreadyInUse.tr;
-      case 'invalid-email':
-        return InvalidEmailFormat.tr;
-      case 'weak-password':
-        return WeakPassword.tr;
-      case 'too-many-requests':
-        return TooManyRequests.tr;
-      case 'requires-recent-login':
-        return RequiresRecentLogin.tr;
-      case 'user-disabled':
-        return UserDisabled.tr;
-      case 'operation-not-allowed':
-        return OperationNotAllowed.tr;
-      case 'network-request-failed':
-        return NetworkRequestFailed.tr;
-      case 'credential-already-in-use':
-        return CredentialAlreadyInUse.tr;
-      default:
-        return UnexpectedError.tr;
-    }
-  }
+  // /// Handles Firebase Authentication Errors and returns user-friendly messages.
+  // String _handleFirebaseAuthError(FirebaseAuthException e) {
+  //   log(e.message.toString());
+  //   switch (e.code) {
+  //     case 'user-not-found':
+  //     case 'wrong-password':
+  //       return IncorrectEmailOrPassword.tr;
+  //     case 'email-already-in-use':
+  //       return EmailAlreadyInUse.tr;
+  //     case 'invalid-email':
+  //       return InvalidEmailFormat.tr;
+  //     case 'weak-password':
+  //       return WeakPassword.tr;
+  //     case 'too-many-requests':
+  //       return TooManyRequests.tr;
+  //     case 'requires-recent-login':
+  //       return RequiresRecentLogin.tr;
+  //     case 'user-disabled':
+  //       return UserDisabled.tr;
+  //     case 'operation-not-allowed':
+  //       return OperationNotAllowed.tr;
+  //     case 'network-request-failed':
+  //       return NetworkRequestFailed.tr;
+  //     case 'credential-already-in-use':
+  //       return CredentialAlreadyInUse.tr;
+  //     default:
+  //       return UnexpectedError.tr;
+  //   }
+  // }
 }

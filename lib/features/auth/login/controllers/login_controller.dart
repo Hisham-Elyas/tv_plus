@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
+import '../../../../core/widgets/custom_snackbar.dart';
 import '../../../home/controllers/today_matches_controller.dart';
 import '../../../home/ui/home_screen.dart';
 import '../../models/login_model.dart';
@@ -24,17 +25,25 @@ class LoginController extends GetxController {
 
     showOverlay(
       asyncFunction: () async {
-        final isSuccess = await authRepo.logIn(
-            loginModel: LoginModel(
-          email: email,
-          password: password,
-        ));
+        try {
+          final isSuccess = await authRepo.logIn(
+              loginModel: LoginModel(
+            email: email,
+            password: password,
+          ));
 
-        if (isSuccess) {
-          /// save  user
+          if (isSuccess) {
+            /// save  user
 
-          Get.offAll(() => const HomeScreen());
-          Get.find<TodayMatchesController>();
+            Get.offAll(() => const HomeScreen());
+            Get.find<TodayMatchesController>();
+          }
+        } catch (e) {
+          showCustomSnackBar(
+            message: e.toString(),
+            title: "",
+            isError: true,
+          );
         }
       },
     );

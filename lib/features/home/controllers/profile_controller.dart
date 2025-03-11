@@ -8,13 +8,14 @@ import '../../../core/helpers/enums.dart';
 import '../../../core/helpers/shared_pref_helper.dart';
 import '../../../core/localization/constants.dart';
 import '../../../core/widgets/app_text_form_field.dart';
+import '../../../core/widgets/custom_snackbar.dart';
 import '../../auth/login/ui/login_screen.dart';
 import '../../auth/models/user_model.dart';
 import '../../auth/repos/auth_repo.dart';
 import 'settings_controller.dart';
 
 class ProfileController extends GetxController {
-  late UserModel userInf;
+  late UserModel? userInf;
 
   late StatusRequest statusReq = StatusRequest.loading;
   final AuthRepoImpFirebase authRepo = Get.find();
@@ -26,26 +27,7 @@ class ProfileController extends GetxController {
   }
 
   _getUserInfoFromServer() async {
-    statusReq = StatusRequest.loading;
-    update();
-    final result = await authRepo.getUserInfo();
-    result.fold(
-      (l) {
-        statusReq = l;
-        update();
-      },
-      (r) {
-        userInf = r;
-        statusReq = StatusRequest.success;
-        update();
-      },
-    );
-  }
-
-  getUserInfo() async {
-    final userdata = await SharedPrefHelper.getString('user_info');
-    debugPrint("userdata ==>  $userdata");
-    if (userdata.isEmpty) {
+    try {
       statusReq = StatusRequest.loading;
       update();
       final result = await authRepo.getUserInfo();
@@ -60,6 +42,41 @@ class ProfileController extends GetxController {
           update();
         },
       );
+    } catch (e) {
+      showCustomSnackBar(
+        message: e.toString(),
+        title: "",
+        isError: true,
+      );
+    }
+  }
+
+  getUserInfo() async {
+    final userdata = await SharedPrefHelper.getString('user_info');
+    debugPrint("userdata ==>  $userdata");
+    if (userdata.isEmpty) {
+      statusReq = StatusRequest.loading;
+      update();
+      try {
+        final result = await authRepo.getUserInfo();
+        result.fold(
+          (l) {
+            statusReq = l;
+            update();
+          },
+          (r) {
+            userInf = r;
+            statusReq = StatusRequest.success;
+            update();
+          },
+        );
+      } catch (e) {
+        showCustomSnackBar(
+          message: e.toString(),
+          title: "",
+          isError: true,
+        );
+      }
     } else if (userdata.isNotEmpty) {
       userInf = UserModel.fromMap(jsonDecode(userdata));
       statusReq = StatusRequest.success;
@@ -74,11 +91,19 @@ class ProfileController extends GetxController {
   Future<void> updateEmail({required String newEmail}) async {
     showOverlay(
       asyncFunction: () async {
-        final isSuccess = await authRepo.updateEmail(newEmail: newEmail);
+        try {
+          final isSuccess = await authRepo.updateEmail(newEmail: newEmail);
 
-        if (isSuccess) {
-          await _getUserInfoFromServer();
-          Get.back();
+          if (isSuccess) {
+            await _getUserInfoFromServer();
+            Get.back();
+          }
+        } catch (e) {
+          showCustomSnackBar(
+            message: e.toString(),
+            title: "",
+            isError: true,
+          );
         }
       },
     );
@@ -89,13 +114,21 @@ class ProfileController extends GetxController {
       {required String oldPassword, required String newPassword}) async {
     showOverlay(
       asyncFunction: () async {
-        final isSuccess = await authRepo.updatePassword(
-          oldPassword: oldPassword,
-          newPassword: newPassword,
-        );
+        try {
+          final isSuccess = await authRepo.updatePassword(
+            oldPassword: oldPassword,
+            newPassword: newPassword,
+          );
 
-        if (isSuccess) {
-          Get.back();
+          if (isSuccess) {
+            Get.back();
+          }
+        } catch (e) {
+          showCustomSnackBar(
+            message: e.toString(),
+            title: "",
+            isError: true,
+          );
         }
       },
     );
@@ -105,11 +138,19 @@ class ProfileController extends GetxController {
   Future<void> updateUserInfo({required UserModel userModel}) async {
     showOverlay(
       asyncFunction: () async {
-        final isSuccess = await authRepo.updateUserInfo(userModel: userModel);
+        try {
+          final isSuccess = await authRepo.updateUserInfo(userModel: userModel);
 
-        if (isSuccess) {
-          Get.back();
-          _getUserInfoFromServer();
+          if (isSuccess) {
+            Get.back();
+            _getUserInfoFromServer();
+          }
+        } catch (e) {
+          showCustomSnackBar(
+            message: e.toString(),
+            title: "",
+            isError: true,
+          );
         }
       },
     );
@@ -214,9 +255,9 @@ class ProfileController extends GetxController {
 
   Widget _buildUserInfoUpdateSheet() {
     TextEditingController userNameController =
-        TextEditingController(text: userInf.userName);
+        TextEditingController(text: userInf!.userName);
     TextEditingController phoneController =
-        TextEditingController(text: userInf.phone);
+        TextEditingController(text: userInf!.phone);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -242,7 +283,7 @@ class ProfileController extends GetxController {
           style: const ButtonStyle(elevation: WidgetStatePropertyAll(5)),
           onPressed: () async {
             await updateUserInfo(
-              userModel: userInf.copyWith(
+              userModel: userInf!.copyWith(
                 userName: userNameController.text,
                 phone: phoneController.text,
               ),

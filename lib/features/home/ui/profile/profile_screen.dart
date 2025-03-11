@@ -23,10 +23,12 @@ class ProfileScreen extends StatelessWidget {
       ),
       drawer: CustomDrawerWidget(),
       body: GetBuilder<ProfileController>(
+        init: ProfileController(),
         builder: (controller) => Skeletonizer(
           enabled: controller.statusReq == StatusRequest.loading,
           enableSwitchAnimation: true,
-          child: controller.statusReq == StatusRequest.serverFailure
+          child: controller.statusReq == StatusRequest.serverFailure ||
+                  controller.userInf == null
               // if server error
               ? Center(
                   child: Column(
@@ -63,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       verticalSpace(20),
                       CustomListTileWidget(
-                          title: controller.userInf.userName!,
+                          title: controller.userInf!.userName!,
                           icon: Icons.person,
                           trailing: const Icon(Icons.edit),
                           onTap: () {
@@ -71,7 +73,7 @@ class ProfileScreen extends StatelessWidget {
                           }),
                       verticalSpace(10),
                       CustomListTileWidget(
-                          title: controller.userInf.email ?? '',
+                          title: controller.userInf!.email ?? '',
                           icon: Icons.email,
                           trailing: const Icon(Icons.edit),
                           onTap: () {
@@ -79,7 +81,8 @@ class ProfileScreen extends StatelessWidget {
                           }),
                       verticalSpace(10),
                       CustomListTileWidget(
-                          title: controller.userInf.phone ?? 'Add phone Number',
+                          title:
+                              controller.userInf!.phone ?? 'Add phone Number',
                           icon: Icons.phone,
                           trailing: const Icon(Icons.edit),
                           onTap: () {

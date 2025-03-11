@@ -24,6 +24,7 @@ import '../../features/home/data/repos/today_matches_repo.dart';
 import '../../features/onboarding/controller/onboarding_controller.dart';
 import '../../firebase_options.dart';
 import '../helpers/constants.dart';
+import '../helpers/network_manager.dart';
 import '../helpers/shared_pref_helper.dart';
 import '../localization/language_controller.dart';
 import '../networking/api_client.dart';
@@ -49,6 +50,7 @@ Future init() async {
 
 Future<void> setupGetIt() async {
   isOnBordingView = await SharedPrefHelper.getBool("isOnBordingView");
+  Get.put(() => NetworkManager());
   Get.lazyPut(() => ThemeController(), fenix: true);
   Get.lazyPut(() => LanguageController(), fenix: true);
   Get.lazyPut(() => OnboardingController());
