@@ -233,14 +233,18 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
 
       return true;
     } on FirebaseAuthException catch (e) {
+      print(e.toString());
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
+      print(e.toString());
       throw HFirebaseException(e.code).message;
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {
+      print(e.toString());
       throw HPlatformException(e.code).message;
     } catch (e) {
+      print(e.toString());
       throw "Someting went weong. pleas try agin";
     }
   }

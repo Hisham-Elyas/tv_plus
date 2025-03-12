@@ -49,6 +49,7 @@ Future init() async {
 Future<void> setupGetIt() async {
   isOnBordingView = await SharedPrefHelper.getBool("isOnBordingView");
   Get.put(() => NetworkManager());
+  Get.lazyPut(() => NetworkManager(), fenix: true);
   Get.lazyPut(() => ThemeController(), fenix: true);
   Get.lazyPut(() => LanguageController(), fenix: true);
   Get.lazyPut(() => OnboardingController());
