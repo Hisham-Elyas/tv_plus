@@ -5,6 +5,8 @@ import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
+import '../../../home/controllers/today_matches_controller.dart';
+import '../../../home/ui/home_screen.dart';
 import '../../login/ui/login_screen.dart';
 import '../../models/sinup_model.dart';
 import '../../repos/auth_repo.dart';
@@ -36,7 +38,9 @@ class SingupController extends GetxController {
                   userName: userName));
 
           if (isSuccess) {
-            Get.offAll(() => const LoginScreen());
+        
+            Get.offAll(() => const HomeScreen());
+            Get.find<TodayMatchesController>();
           }
         } catch (e) {
           showCustomSnackBar(
@@ -44,6 +48,7 @@ class SingupController extends GetxController {
             title: "",
             isError: true,
           );
+          authRepo.logeOut();
         }
       },
     );
