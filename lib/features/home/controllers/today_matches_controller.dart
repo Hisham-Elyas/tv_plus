@@ -184,6 +184,7 @@ class TodayMatchesController extends GetxController {
   //     return MatchStatus(status: status, color: color);
   //   }
   // }
+
   void goToMatch(MatchModel event) async {
     MatchStatus matchStatus = getMatchStatusWithColor(event);
 
@@ -233,7 +234,7 @@ class TodayMatchesController extends GetxController {
           true); // Use 'true' for UTC parsing
 
       // Manually set the time as UTC+3 (Riyadh)
-      matchDateTime = matchDateTime.subtract(const Duration(hours: 3));
+      matchDateTime = matchDateTime.subtract(const Duration(hours: 4));
 
       // Convert UTC to the device's local time
       DateTime localMatchDateTime = matchDateTime.toLocal();
@@ -270,6 +271,8 @@ class TodayMatchesController extends GetxController {
           status: status, color: color, statustitel: statustitel);
     }
   }
+
+// timer countdown  countdown match
 
   Future<Channel> findChannelByName(String channelName) async {
     const double threshold = 0.85; // Adjusted for better matching
@@ -328,25 +331,6 @@ class TodayMatchesController extends GetxController {
     return tokenSortRatio(input, target) / 100.0; // Normalize to 0 - 1 range
   }
 
-  /// AI-powered similarity calculation using Google ML Kit
-  // double _calculateSimilarityWithAI(String input, String target) {
-  //   // Use ML Kit's Smart Reply for text processing
-  //   final smartReply = SmartReply();
-
-  //   try {
-  //     final reply = smartReply.suggestReplies(["$input matches $target?"]);
-  //     if (reply.suggestions.isNotEmpty) {
-  //       return reply.suggestions.first.contains(target) ? 1.0 : 0.0;
-  //     }
-  //   } catch (e) {
-  //     log("ML Kit error: $e");
-  //   } finally {
-  //     smartReply.close();
-  //   }
-
-  //   return 0.0;
-  // }
-
   // **Helper function to normalize names**
   String normalizeChannelName(String name) {
     return name
@@ -368,41 +352,6 @@ class TodayMatchesController extends GetxController {
     Match? match = numberRegex.firstMatch(name);
     return match?.group(0) ?? ''; // Return the found number or empty string
   }
-
-  // Channel findChannelByName(String channelName) {
-  //   // Set a similarity threshold (e.g., 0.9 means 90% similarity)
-
-  //   const double threshold = 0.9;
-  //   final List<Channel> channels = channelCategories
-  //       .map((category) => category.channels)
-  //       .expand((e) => e)
-  //       .toList();
-  //   // Find the best match based on similarity
-  //   Channel? bestMatch;
-  //   double highestSimilarity = 0.0;
-
-  //   for (var channel in channels) {
-  //     double similarity = StringSimilarity.compareTwoStrings(
-  //         channel.name.trim().toLowerCase().toString(),
-  //         channelName.trim().toLowerCase().toString());
-  //     if (similarity > highestSimilarity) {
-  //       highestSimilarity = similarity;
-  //       bestMatch = channel;
-  //     }
-  //   }
-
-  //   // Check if the highest similarity is above the threshold
-  //   if (bestMatch != null && highestSimilarity >= threshold) {
-  //     return bestMatch; // Return the best match if similarity is above threshold
-  //   } else {
-  //     showCustomSnackBar(
-  //         message: " No channel found for name: $channelName",
-  //         title: "Channel not found",
-  //         isError: true);
-  //     throw ChannelNotFoundException(
-  //         'No sufficiently similar channel found for: $channelName');
-  //   }
-  // }
 }
 
 void showFilterBottomSheet(BuildContext context) {
