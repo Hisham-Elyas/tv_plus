@@ -22,6 +22,7 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
     return InkWell(
       onTap: () {
         controller.goToMatch(event);
+        // showMatchCountdownPopup(context, event);
       },
       child: Card(
         // margin: const EdgeInsets.all(10),

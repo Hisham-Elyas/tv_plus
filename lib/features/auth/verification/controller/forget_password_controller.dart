@@ -10,7 +10,7 @@ import '../../repos/auth_repo.dart';
 class ForgetPasswordController extends GetxController {
   late String email;
   final GlobalKey<FormState> verificationformKey = GlobalKey();
-  final AuthRepoImpFirebase authRepo = Get.find();
+  final AuthRepoImpHttp authRepo = Get.find();
   sendPasswordResetLink() {
     Get.focusScope!.unfocus();
     if (!verificationformKey.currentState!.validate()) {

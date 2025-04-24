@@ -18,7 +18,7 @@ class ProfileController extends GetxController {
   late UserModel userInf;
 
   late StatusRequest statusReq = StatusRequest.loading;
-  final AuthRepoImpFirebase authRepo = Get.find();
+  final AuthRepoImpHttp authRepo = Get.find();
 
   @override
   void onInit() async {
@@ -121,7 +121,6 @@ class ProfileController extends GetxController {
       asyncFunction: () async {
         try {
           final isSuccess = await authRepo.updatePassword(
-            oldPassword: oldPassword,
             newPassword: newPassword,
           );
 
@@ -231,12 +230,12 @@ class ProfileController extends GetxController {
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
-        AppTextFormField(
-          controller: oldPasswordController,
-          hintText: OldPassword.tr,
-          obscureText: true,
-        ),
-        const SizedBox(height: 10),
+        // AppTextFormField(
+        //   controller: oldPasswordController,
+        //   hintText: OldPassword.tr,
+        //   obscureText: true,
+        // ),
+        // const SizedBox(height: 10),
         AppTextFormField(
           controller: newPasswordController,
           hintText: NewPassword.tr,

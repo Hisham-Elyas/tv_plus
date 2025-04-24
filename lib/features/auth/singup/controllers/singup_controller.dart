@@ -1,3 +1,5 @@
+import 'package:faisal_tv/features/auth/models/login_model.dart';
+import 'package:faisal_tv/features/home/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,9 +7,6 @@ import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
-import '../../../home/controllers/today_matches_controller.dart';
-import '../../../home/ui/home_screen.dart';
-import '../../login/ui/login_screen.dart';
 import '../../models/sinup_model.dart';
 import '../../repos/auth_repo.dart';
 
@@ -17,8 +16,8 @@ class SingupController extends GetxController {
   late String password;
   late String confirmPassword;
   late String phoneNumber;
-  final GlobalKey<FormState> singUpformKey = GlobalKey();
-  final AuthRepoImpFirebase authRepo = Get.find();
+  final GlobalKey<FormState> singUpformKey = GlobalKey<FormState>();
+  final AuthRepoImpHttp authRepo = Get.find();
   void singUp() async {
     Get.focusScope!.unfocus();
     if (!singUpformKey.currentState!.validate()) {
@@ -32,15 +31,21 @@ class SingupController extends GetxController {
         try {
           final isSuccess = await authRepo.signUp(
               sinupModel: SinupModel(
-                  email: email,
-                  password: confirmPassword,
-                  phone: phoneNumber,
-                  userName: userName));
+                  email: email.trim(),
+                  password: confirmPassword.trim(),
+                  phone: phoneNumber.trim(),
+                  userName: userName.trim()));
 
           if (isSuccess) {
-        
-            Get.offAll(() => const HomeScreen());
-            Get.find<TodayMatchesController>();
+            final isLogin = await authRepo.logIn(
+                loginModel: LoginModel(
+              email: email.trim(),
+              password: password.trim(),
+            ));
+            if (isLogin) {
+              /// save  user
+              Get.offAll(() => const HomeScreen());
+            }
           }
         } catch (e) {
           showCustomSnackBar(

@@ -10,10 +10,10 @@ import '../../models/login_model.dart';
 import '../../repos/auth_repo.dart';
 
 class LoginController extends GetxController {
-  final GlobalKey<FormState> loginformKey = GlobalKey();
+  final GlobalKey<FormState> loginformKey = GlobalKey<FormState>();
   late String email;
   late String password;
-  final AuthRepoImpFirebase authRepo = Get.find();
+  final AuthRepoImpHttp authRepo = Get.find();
 
   void login() {
     Get.focusScope!.unfocus();
@@ -28,8 +28,8 @@ class LoginController extends GetxController {
         try {
           final isSuccess = await authRepo.logIn(
               loginModel: LoginModel(
-            email: email,
-            password: password,
+            email: email.trim(),
+            password: password.trim(),
           ));
 
           if (isSuccess) {

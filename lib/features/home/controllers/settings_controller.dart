@@ -13,7 +13,7 @@ import '../../auth/login/ui/login_screen.dart';
 import '../../auth/repos/auth_repo.dart';
 
 class SettingsController extends GetxController {
-  final AuthRepoImpFirebase authRepo = Get.find();
+  final AuthRepoImpHttp authRepo = Get.find();
 
   void showFeedback() {
     BetterFeedback.of(Get.context!).show(

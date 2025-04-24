@@ -12,6 +12,7 @@ import 'core/localization/translations.dart';
 import 'core/theming/app_themes.dart';
 import 'core/theming/theme_controller.dart';
 import 'features/auth/login/ui/login_screen.dart';
+import 'features/auth/remote/auth_remotdata.dart';
 import 'features/home/ui/home_screen.dart';
 import 'features/onboarding/ui/intro_screen.dart';
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+    final AuthRemotDataImpHttp auth = Get.find<AuthRemotDataImpHttp>();
     return GetBuilder<ThemeController>(
       init: ThemeController(),
       builder: (themeController) => GetBuilder<LanguageController>(
@@ -55,7 +57,7 @@ class MyApp extends StatelessWidget {
               //   useMaterial3: true,
               // ),
               home: isOnBordingView
-                  ? firebaseAuth.currentUser != null
+                  ? auth.isAuthenticated
                       ? const HomeScreen()
                       : const LoginScreen()
                   : const IntroScreen(),

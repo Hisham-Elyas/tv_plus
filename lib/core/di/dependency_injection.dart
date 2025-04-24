@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
@@ -35,15 +33,15 @@ Future init() async {
   );
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  firebaseAuth.authStateChanges().listen((User? user) {
-    if (user != null) {
-      log(" User is login by ${user.uid}");
-      log(" User is login by ${user.email}");
-      Get.find<CategoryController>();
-    } else {
-      log("............... not User is login ");
-    }
-  });
+  // firebaseAuth.authStateChanges().listen((User? user) {
+  //   if (user != null) {
+  //     log(" User is login by ${user.uid}");
+  //     log(" User is login by ${user.email}");
+  //     Get.find<CategoryController>();
+  //   } else {
+  //     log("............... not User is login ");
+  //   }
+  // });
 }
 
 Future<void> setupGetIt() async {
@@ -88,8 +86,7 @@ Future<void> setupGetIt() async {
   // Get.lazyPut(() => AuthRepoImpHttp(authRemotData: Get.find()), fenix: true);
   // Get.lazyPut(() => AuthRemotDataImpHttp(apiClent: Get.find()), fenix: true);
 ////  Firebase
-  Get.lazyPut(() => AuthRepoImpFirebase(authRemotData: Get.find()),
-      fenix: true);
-  Get.lazyPut(() => AuthRemotDataImpFirebase(), fenix: true);
+  Get.lazyPut(() => AuthRepoImpHttp(authRemotData: Get.find()), fenix: true);
+  Get.lazyPut(() => AuthRemotDataImpHttp(apiClent: Get.find()), fenix: true);
   await init();
 }
