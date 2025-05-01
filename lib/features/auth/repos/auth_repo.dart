@@ -17,8 +17,11 @@ abstract class AuthRepo {
   Future logeOut();
   Future<bool> updateEmail({required String newEmail});
   Future<bool> updatePassword({required String newPassword});
-
-  Future<bool> forgotPassword({required String email});
+  Future<bool> resetPasswordWOtp(
+      {required String newPassword,
+      required String otp,
+      required String email});
+  Future<bool> sendResetOtp({required String email});
   Future<bool> deleteAccount();
 }
 
@@ -92,8 +95,14 @@ class AuthRepoImpHttp implements AuthRepo {
   }
 
   @override
-  Future<bool> forgotPassword({required String email}) {
-    throw UnimplementedError();
+  Future<bool> sendResetOtp({required String email}) async {
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (isConnected) {
+      return await authRemotData.forgotPassword(email: email);
+    } else {
+      showNetworkError();
+      return false;
+    }
   }
 
   @override
@@ -112,6 +121,21 @@ class AuthRepoImpHttp implements AuthRepo {
     final isConnected = await NetworkManager.instance.isConnected();
     if (isConnected) {
       return await authRemotData.updateUserInfo(userModel: userModel);
+    } else {
+      showNetworkError();
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> resetPasswordWOtp(
+      {required String newPassword,
+      required String otp,
+      required String email}) async {
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (isConnected) {
+      return await authRemotData.resetPasswordWOtp(
+          newPassword: newPassword, otp: otp, email: email);
     } else {
       showNetworkError();
       return false;

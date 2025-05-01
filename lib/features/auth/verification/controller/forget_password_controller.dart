@@ -4,14 +4,14 @@ import 'package:get/get.dart';
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
-import '../../login/ui/login_screen.dart';
 import '../../repos/auth_repo.dart';
+import '../ui/verification_otp_screen.dart';
 
 class ForgetPasswordController extends GetxController {
   late String email;
   final GlobalKey<FormState> verificationformKey = GlobalKey();
   final AuthRepoImpHttp authRepo = Get.find();
-  sendPasswordResetLink() {
+  sendResetOtp() {
     Get.focusScope!.unfocus();
     if (!verificationformKey.currentState!.validate()) {
       // Invalid!
@@ -21,10 +21,10 @@ class ForgetPasswordController extends GetxController {
     showOverlay(
       asyncFunction: () async {
         try {
-          final isSuccess = await authRepo.forgotPassword(email: email);
+          final isSuccess = await authRepo.sendResetOtp(email: email);
 
           if (isSuccess) {
-            Get.offAll(() => const LoginScreen());
+            Get.to(() => const OTPScreen());
           }
         } catch (e) {
           showCustomSnackBar(

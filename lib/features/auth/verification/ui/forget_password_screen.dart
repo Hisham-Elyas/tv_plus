@@ -98,7 +98,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                               buttonWidth: 271,
                               borderRadius: 152,
                               buttonText: Reset_Password.tr,
-                              onPressed: controller.sendPasswordResetLink,
+                              onPressed: () => controller.sendResetOtp(),
                               textStyle: TextStyle(
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w700,

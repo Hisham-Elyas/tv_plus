@@ -21,6 +21,11 @@ abstract class AuthRemotData {
   Future<bool> updateUserInfo({required UserModel userModel});
   Future<bool> logeOut();
   Future<bool> forgotPassword({required String email});
+  Future<bool> resetPasswordWOtp(
+      {required String newPassword,
+      required String otp,
+      required String email});
+
   Future<bool> updateEmail({required String newEmail});
   Future<bool> updatePassword({required String newPassword});
   Future<bool> deleteAccount();
@@ -40,6 +45,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   final String deleteUserEndpoint = '/auth/delete';
   final String getAllUsersEndpoint = '/auth/all-users';
   final String getUserDataEndpoint = '/auth/user';
+  final String sendResetOtp = '/auth/send-reset-otp';
+
+  final String resetPasswordWithOtp = '/auth//reset-password-with-otp';
 
   bool get isAuthenticated => !_isExpired;
   bool _isExpired = true;
@@ -224,7 +232,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   Future<bool> deleteAccount() async {
     try {
       final response = await apiClent.deleteData(
-        uri: '$baseUrl$deleteUserEndpoint/$userId',
+        uri: '$baseUrl$sendResetOtp',
         headers: {'Authorization': 'Bearer $token'},
       );
       if (response.statusCode == 200) {
@@ -297,8 +305,28 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   Future<bool> forgotPassword({required String email}) async {
     try {
       final response = await apiClent.posData(
-        uri: '$baseUrl/auth/forgot-password',
+        uri: '$baseUrl$sendResetOtp',
         body: {'email': email},
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw response.body['error'] ?? 'Failed to send password reset email.';
+      }
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  @override
+  Future<bool> resetPasswordWOtp(
+      {required String newPassword,
+      required String otp,
+      required String email}) async {
+    try {
+      final response = await apiClent.posData(
+        uri: '$baseUrl$sendResetOtp',
+        body: {"email": email, "otp": otp, "newPassword": newPassword},
       );
       if (response.statusCode == 200) {
         return true;
