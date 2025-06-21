@@ -6,6 +6,7 @@ import '../../controllers/video_player_conteroller.dart';
 import '../../data/models/category_model.dart';
 import '../../widgets/channel_card_widget.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../../widgets/show_football_channel_popup.dart';
 import '../video_player_screen.dart';
 
 class CategoriesDetailsScreen extends StatelessWidget {
@@ -38,12 +39,17 @@ class CategoriesDetailsScreen extends StatelessWidget {
                 // Get.to(() => VideoPlayerOptionScreen(
                 //       channel: channel,
                 //     ));
-                Get.to(() => VideoPlayerScreen(
-                      channel: channel,
-                    ));
-
-                await Get.find<VideoPlayerConteroller>()
-                    .setAllOrientationsToLandscape();
+                showFootballChannelPopup(
+                  channel: channel,
+                  onPressedLink: (p0) async {
+                    Get.find<VideoPlayerConteroller>().videoUrls = p0;
+                    Get.to(() => VideoPlayerScreen(
+                          channel: channel,
+                        ));
+                    await Get.find<VideoPlayerConteroller>()
+                        .setAllOrientationsToLandscape();
+                  },
+                );
               },
             );
           },

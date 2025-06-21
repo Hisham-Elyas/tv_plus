@@ -20,6 +20,7 @@ import '../data/models/match_model.dart';
 import '../data/repos/today_matches_repo.dart';
 import '../ui/categories/categories_screen.dart';
 import '../ui/video_player_screen.dart';
+import '../widgets/show_football_channel_popup.dart';
 import 'category_controller.dart';
 import 'video_player_conteroller.dart';
 
@@ -268,11 +269,22 @@ class TodayMatchesController extends GetxController {
         // Get.to(() => VideoPlayerOptionScreen(
         //       channel: channel,
         //     ));
-        Get.to(() => VideoPlayerScreen(
-              channel: channel,
-            ));
-        await Get.find<VideoPlayerConteroller>()
-            .setAllOrientationsToLandscape();
+        // Get.to(() => VideoPlayerScreen(
+        //       channel: channel,
+        //     ));
+        // await Get.find<VideoPlayerConteroller>()
+        //     .setAllOrientationsToLandscape();
+        showFootballChannelPopup(
+          channel: channel,
+          onPressedLink: (p0) async {
+            Get.find<VideoPlayerConteroller>().videoUrls = p0;
+            Get.to(() => VideoPlayerScreen(
+                  channel: channel,
+                ));
+            await Get.find<VideoPlayerConteroller>()
+                .setAllOrientationsToLandscape();
+          },
+        );
 
         log('Found: ${channel.name}, Video URL: ${channel.url}');
       } catch (e) {
