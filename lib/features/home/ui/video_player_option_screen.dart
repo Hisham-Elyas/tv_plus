@@ -1,9 +1,9 @@
-import 'package:faisal_tv/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 import 'package:get/get.dart';
 
+import '../../../core/helpers/spacing.dart';
 import '../controllers/video_player_conteroller.dart';
 import '../data/models/category_model.dart';
 import '../widgets/custom_app_bar.dart';

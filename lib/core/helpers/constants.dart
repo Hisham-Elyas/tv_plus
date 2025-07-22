@@ -6,6 +6,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import '../../features/home/data/models/category_model.dart';
 import '../../features/home/data/models/channel_and_commentator_model.dart';
 import '../../features/home/data/models/channel_category_locl_model.dart';
+import '../../features/home/data/models/fixtures_model.dart';
 import '../../features/home/data/models/league_model.dart';
 import '../../features/home/data/models/match_model.dart';
 import '../localization/constants.dart';
@@ -1135,3 +1136,23 @@ List<CategoryWithChannels> dummyListcategorys = [
   CategoryWithChannels(
       categoryId: 9, categoryName: BoneMock.name, count: 1, channels: []),
 ];
+final List<League> dummyLeaguesList = List.generate(4, (i) {
+  return League(
+    id: i,
+    name: "Loading League $i",
+    imagePath: '',
+    today: List.generate(2, (j) {
+      return Fixture(
+        seasonId: 1,
+        id: j,
+        name: "Loading Match $j",
+        startingAt: "2025-05-25 18:00:00",
+        participants: [
+          Participant(name: "Team A", imagePath: "", location: "home"),
+          Participant(name: "Team B", imagePath: "", location: "away"),
+        ],
+        scores: [],
+      );
+    }),
+  );
+});

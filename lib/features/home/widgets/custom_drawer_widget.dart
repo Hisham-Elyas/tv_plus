@@ -7,6 +7,7 @@ import '../../onboarding/widgets/logo_card_widget.dart';
 import '../ui/about_us/about_us_screen.dart';
 import '../ui/categories/categories_screen.dart';
 import '../ui/contact_us/contact_us_screen.dart';
+import '../ui/home_matchList_screen.dart';
 import '../ui/home_screen.dart';
 import '../ui/profile/profile_screen.dart';
 import '../ui/setting/settings_screen.dart';
@@ -71,7 +72,7 @@ class CustomListTile extends StatelessWidget {
       onTap: () {
         switch (index) {
           case 0:
-            Get.off(() => const HomeScreen());
+            Get.off(() => MatchListScreen());
             break;
           case 1:
             Get.off(() => const CategoriesScreen());

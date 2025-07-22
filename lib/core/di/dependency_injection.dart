@@ -1,3 +1,7 @@
+import 'package:faisal_tv/features/home/controllers/fixtures_controller.dart'
+    show FixturesController;
+import 'package:faisal_tv/features/home/data/remote/fixtures_remote_data.dart';
+import 'package:faisal_tv/features/home/data/repos/fixtures_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
@@ -88,5 +92,13 @@ Future<void> setupGetIt() async {
 ////  Firebase
   Get.lazyPut(() => AuthRepoImpHttp(authRemotData: Get.find()), fenix: true);
   Get.lazyPut(() => AuthRemotDataImpHttp(apiClent: Get.find()), fenix: true);
+
+  /// Fixtures
+
+  Get.lazyPut(() => FixturesRemoteDateImpHttp(apiClent: Get.find()),
+      fenix: true);
+  Get.lazyPut(() => FixturesRepoImpHttp(todayMatchesRemotData: Get.find()),
+      fenix: true);
+  Get.lazyPut(() => FixturesController(), fenix: true);
   await init();
 }

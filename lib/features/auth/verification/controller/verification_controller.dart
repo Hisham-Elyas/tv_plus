@@ -1,9 +1,9 @@
-import 'package:faisal_tv/features/auth/login/ui/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
+import '../../login/ui/login_screen.dart';
 import '../../repos/auth_repo.dart';
 
 class VerificationController extends GetxController {
@@ -12,7 +12,7 @@ class VerificationController extends GetxController {
   final GlobalKey<FormState> verificationOtpformKey = GlobalKey();
   final AuthRepoImpHttp authRepo = Get.find();
 
-  verifyOTP({required String email}) {
+  void verifyOTP({required String email}) {
     Get.focusScope!.unfocus();
     if (!verificationOtpformKey.currentState!.validate()) {
       // Invalid!

@@ -1,5 +1,5 @@
-import 'package:faisal_tv/features/auth/models/login_model.dart';
-import 'package:faisal_tv/features/home/ui/home_screen.dart';
+import '../../models/login_model.dart';
+import '../../../home/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
