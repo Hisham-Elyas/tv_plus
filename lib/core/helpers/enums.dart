@@ -1,3 +1,6 @@
+import 'package:faisal_tv/core/localization/constants.dart';
+import 'package:get/utils.dart';
+
 enum StatusRequest {
   loading,
   success,
@@ -34,9 +37,9 @@ extension ScorerTypeExtension on ScorerType {
   String get label {
     switch (this) {
       case ScorerType.goals:
-        return 'Goals';
+        return Goals.tr;
       case ScorerType.assists:
-        return 'Assists';
+        return Assists.tr;
       // case ScorerType.yellowCards:
       //   return 'Yellow Cards';
       // case ScorerType.redCards:
@@ -47,9 +50,9 @@ extension ScorerTypeExtension on ScorerType {
   String get labelWithIcon {
     switch (this) {
       case ScorerType.goals:
-        return '⚽ Goals';
+        return EmojiGoals.tr;
       case ScorerType.assists:
-        return '🎯 Assists';
+        return EmojiAssists.tr;
       // case ScorerType.yellowCards:
       //   return '🟨 Yellow Cards';
       // case ScorerType.redCards:

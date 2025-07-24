@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:faisal_tv/core/localization/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -63,7 +64,7 @@ class MatchListScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "❌ Please try again later",
+                  ServerError.tr,
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: Theme.of(context).colorScheme.onSurface,
@@ -71,7 +72,7 @@ class MatchListScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: controller.getAllTodayMatches,
-                  child: Text("Try Again"),
+                  child: Text(TryAgain.tr),
                 ),
               ],
             ),
@@ -97,10 +98,10 @@ class MatchListScreen extends StatelessWidget {
 
                 /// 🔍 No data
                 if (status == StatusRequest.noData)
-                  const Center(
+                  Center(
                       child: Padding(
                     padding: EdgeInsets.only(top: 100),
-                    child: Text("No matches found for this date."),
+                    child: Text(NoMatchesFoundForDate.tr),
                   ))
                 else
                   ...controller.filteredFixtures
@@ -363,7 +364,7 @@ void showFilterBottomSheet(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Filter Leagues", // or use localization: FilterLeagues.tr
+                  FilterLeagues.tr,
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
@@ -423,11 +424,11 @@ void showFilterBottomSheet(BuildContext context) {
               children: [
                 ElevatedButton(
                   onPressed: controller.clearFilters,
-                  child: Text("Clear"), // or Clear.tr
+                  child: Text(Clear.tr), // or Clear.tr
                 ),
                 ElevatedButton(
                   onPressed: () => Get.back(),
-                  child: Text("Apply"), // or Apply.tr
+                  child: Text(Apply.tr), // or Apply.tr
                 ),
               ],
             ),

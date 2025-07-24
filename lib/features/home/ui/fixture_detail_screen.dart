@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:faisal_tv/core/localization/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -34,7 +35,7 @@ class MatchDetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "❌ Please try again later",
+                  Please_try_agein_later.tr,
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: Theme.of(context).colorScheme.onSurface,
@@ -42,7 +43,7 @@ class MatchDetailScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () => controller.loadFixture(fixtureId),
-                  child: Text("Try Again"),
+                  child: Text(TryAgain.tr),
                 ),
               ],
             ),
@@ -104,8 +105,8 @@ class MatchDetailScreen extends StatelessWidget {
           children: [
             Text("📅", style: TextStyle(fontSize: 48)),
             SizedBox(height: 12),
-            Text("No events available."),
-            Text("Match events content here"),
+            Text(NoEventsAvailable.tr),
+            Text(MatchEventsContentHere.tr),
           ],
         ),
       );
@@ -330,8 +331,8 @@ class MatchDetailScreen extends StatelessWidget {
           children: [
             Text("📊", style: TextStyle(fontSize: 48)),
             SizedBox(height: 12),
-            Text("No statistics available."),
-            Text("Match Statistics content here"),
+            Text(NoStatisticsAvailable.tr),
+            Text(MatchStatisticsContentHere.tr),
           ],
         ),
       );
@@ -360,7 +361,7 @@ class MatchDetailScreen extends StatelessWidget {
         headerTitle(
           home: homeTeam,
           away: awayTeam,
-          title: "Statistics Info",
+          title: StatisticsInfo.tr,
         ),
         Expanded(
           child: ListView.separated(
@@ -535,9 +536,9 @@ class MatchHeader extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _tab("Events", 0),
-                  _tab("Match Preview", 1),
-                  _tab("Statistics", 2),
+                  _tab(Events.tr, 0),
+                  _tab(MatchPreview.tr, 1),
+                  _tab(Statistics.tr, 2),
                 ],
               ),
             ),
@@ -714,7 +715,7 @@ class MatchHeader extends StatelessWidget {
       if (_isTomorrow(start, nowInTz)) {
         return _centerColumn(
           label: DateFormat('hh:mm a').format(start),
-          mainText: 'Tomorrow',
+          mainText: Tomorrow.tr,
           isBoldMain: true,
         );
       }
@@ -724,7 +725,7 @@ class MatchHeader extends StatelessWidget {
         final days = diff.inDays;
         return _centerColumn(
           label: DateFormat('hh:mm a').format(start),
-          mainText: 'After $days day${days > 1 ? 's' : ''}',
+          mainText: '${After.tr} $days ${Day.tr}${days > 1 ? '' : ''}',
           isBoldMain: true,
         );
       }
@@ -738,7 +739,7 @@ class MatchHeader extends StatelessWidget {
 
       return _centerColumn(
         label: DateFormat('hh:mm a').format(start),
-        subtitle: 'Starts in',
+        subtitle: StartsIn.tr,
         mainText: countdown,
       );
     });
@@ -816,7 +817,7 @@ class MatchPreviewWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           SizedBox(height: 10.h),
-          headerTitle(home: home, away: away, title: "Sidelined"),
+          headerTitle(home: home, away: away, title: Sidelined.tr),
 
           // Statistics Section
           Card(
@@ -837,10 +838,10 @@ class MatchPreviewWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _sidelinedList(homeSidelined,
-                          '${homeSidelined.length} player${homeSidelined.length != 1 ? 's' : ''}'),
+                          '${homeSidelined.length} ${Players.tr} ${homeSidelined.length != 1 ? '' : ''}'),
                       Spacer(),
                       _sidelinedList(awaySidelined,
-                          '${awaySidelined.length} player${awaySidelined.length != 1 ? 's' : ''}'),
+                          '${awaySidelined.length} ${Players.tr} ${awaySidelined.length != 1 ? '' : ''}'),
                     ],
                   ),
                 ],
@@ -852,12 +853,12 @@ class MatchPreviewWidget extends StatelessWidget {
           headerTitle(
             home: home,
             away: away,
-            title: "Location Info",
+            title: LocationInfo.tr,
           ),
           SizedBox(height: 10.h),
           Center(
               child: Text(
-            'Venue',
+            Venues.tr,
             style: TextStyle(
                 color: Colors.grey[600],
                 fontSize: 14.sp,
@@ -896,11 +897,11 @@ class MatchPreviewWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _infoRow('Venue', fixture.venue.name),
-                  _infoRow('Capacity', fixture.venue.capacity.toString()),
-                  _infoRow('Surface', fixture.venue.surface),
-                  _infoRow('City', fixture.venue.cityName),
-                  _infoRow('Address', fixture.venue.address),
+                  _infoRow(Venues.tr, fixture.venue.name),
+                  _infoRow(Capacity.tr, fixture.venue.capacity.toString()),
+                  _infoRow(Surface.tr, fixture.venue.surface),
+                  _infoRow(City.tr, fixture.venue.cityName),
+                  _infoRow(Address.tr, fixture.venue.address),
                 ],
               ),
             ),
@@ -922,8 +923,8 @@ class MatchPreviewWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                      child: const Text(
-                        'Weather Report',
+                      child: Text(
+                        WeatherReports.tr,
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
@@ -935,13 +936,13 @@ class MatchPreviewWidget extends StatelessWidget {
                         height: 50,
                       ),
                     ),
-                    _infoRow('Weather', fixture.weatherReport!.description),
-                    _infoRow('Temperature',
+                    _infoRow(Weather.tr, fixture.weatherReport!.description),
+                    _infoRow(Temperatures.tr,
                         '${fixture.weatherReport!.temperature.day}°C'),
-                    _infoRow('Clouds', fixture.weatherReport!.clouds),
-                    _infoRow('Wind Speed',
+                    _infoRow(Clouds.tr, fixture.weatherReport!.clouds),
+                    _infoRow(WindSpeed.tr,
                         '${fixture.weatherReport!.wind.speed} km/h'),
-                    _infoRow('Humidity', fixture.weatherReport!.humidity),
+                    _infoRow(Humidity.tr, fixture.weatherReport!.humidity),
                   ],
                 ),
               ),
@@ -968,10 +969,10 @@ class MatchPreviewWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          defaultText,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
-        ),
+        // Text(
+        //   defaultText,
+        //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+        // ),
         const SizedBox(height: 8),
         ...sidelined.map((s) {
           return Padding(
@@ -994,13 +995,18 @@ class MatchPreviewWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      s.sideline.player.displayName,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 12.sp),
+                    SizedBox(
+                      width: 110.w,
+                      child: Text(
+                        s.sideline.player.displayName,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 12.sp),
+                      ),
                     ),
                     Text(
                       s.sideline.type.name,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.grey[600],
                         fontSize: 10.sp,

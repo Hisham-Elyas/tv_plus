@@ -1140,7 +1140,7 @@ final List<League> dummyLeaguesList = List.generate(4, (i) {
   return League(
     id: i,
     name: "Loading League $i",
-    imagePath: '',
+    imagePath: 'https://cdn.sportmonks.com/images/soccer/teams/22/86.png',
     today: List.generate(2, (j) {
       return Fixture(
         seasonId: 1,

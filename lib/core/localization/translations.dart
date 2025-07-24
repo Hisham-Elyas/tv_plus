@@ -6,6 +6,7 @@ class MyTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         "en": {
+          NoEventsAvailable: NoEventsAvailable,
           Home: Home,
           Soon: Soon,
           The_match_has_ended: The_match_has_ended,
@@ -171,8 +172,112 @@ class MyTranslations extends Translations {
           Cancel: Cancel,
           Delete: Delete,
           server: server,
+
+          MatchEventsContentHere: MatchEventsContentHere,
+          NoStatisticsAvailable: NoStatisticsAvailable,
+          MatchStatisticsContentHere: MatchStatisticsContentHere,
+          StatisticsInfo: StatisticsInfo,
+          Events: Events,
+          MatchPreview: MatchPreview,
+          Statistics: Statistics,
+          Tomorrow: Tomorrow,
+          After: After,
+          Day: Day,
+          Sidelined: Sidelined,
+          LocationInfo: LocationInfo,
+          Venues: Venues,
+          Capacity: Capacity,
+          Surface: Surface,
+          City: City,
+          Address: Address,
+          Weather: Weather,
+          Temperatures: Temperatures,
+          Clouds: Clouds,
+          WindSpeed: WindSpeed,
+          Humidity: Humidity,
+          Scorers: Scorers,
+          Standingss: Standingss,
+          Players: Players,
+          WeatherReports: WeatherReports,
+          ServerError: ServerError,
+          NoStandingsDataAvailable: NoStandingsDataAvailable,
+          NoStandingsFound: NoStandingsFound,
+          Pos: Pos,
+          Teams: Teams,
+          NoScorersDataAvailable: NoScorersDataAvailable,
+
+          P: P,
+          W: W,
+          D: D,
+          L: L,
+          GF: GF,
+          GA: GA,
+          GD: GD,
+          Pts: Pts,
+          Forms: Forms,
+          Goals: Goals,
+          Assists: Assists,
+          EmojiGoals: EmojiGoals,
+          EmojiAssists: EmojiAssists,
+          StartsIn: StartsIn,
+          NoMatchesFoundForDate: NoMatchesFoundForDate,
         },
         "ar": {
+          NoMatchesFoundForDate: "لم يتم العثور على مباريات في هذا التاريخ.",
+
+          StartsIn: "يبدأ في",
+          NoScorersDataAvailable: "📭 لا توجد بيانات هدافين متاحة.",
+          Goals: "الأهداف",
+          Assists: "التمريرات الحاسمة",
+          EmojiGoals: "⚽  الأهداف",
+          EmojiAssists: "🎯  التمريرات الحاسمة",
+
+          Teams: "الفريق",
+          P: "لعب", // Played
+          W: "فوز", // Wins
+          D: "تعادل", // Draws
+          L: "خسارة", // Losses
+          GF: "له", // Goals For
+          GA: "عليه", // Goals Against
+          GD: "فرق", // Goal Difference
+          Pts: "نقاط", // Points
+          Forms: "نموذج", // Form
+          ServerError: "❌ خطأ في الخادم. حاول مرة أخرى لاحقًا.",
+          NoStandingsDataAvailable: "📭 لا توجد بيانات ترتيب متاحة.",
+          NoStandingsFound: "📭 لم يتم العثور على ترتيب.",
+          Pos: "المركز",
+          Scorers: "الهدافون",
+          Standingss: "الترتيب",
+          WeatherReports: "تقرير الطقس",
+          Weather: "الطقس",
+          Players: "لاعب",
+          Temperatures: "درجة الحرارة",
+          Clouds: "الغيوم",
+          WindSpeed: "سرعة الرياح",
+          Humidity: "الرطوبة",
+          LocationInfo: "معلومات الموقع",
+          Venues: "المكان",
+          Capacity: "السعة",
+          Surface: "السطح",
+          City: "المدينة",
+          Address: "العنوان",
+          Sidelined: "خارج التشكيلة",
+          Tomorrow: "غداً",
+          After: "بعد",
+          Day: "يوم",
+          Events: "الأحداث",
+          MatchPreview: "معاينة المباراة",
+          Statistics: "الإحصائيات",
+          StatisticsInfo: "معلومات الإحصائيات",
+
+          MatchStatisticsContentHere: "محتوى إحصائيات المباراة هنا",
+
+          NoStatisticsAvailable: "لا توجد إحصائيات متاحة.",
+
+          MatchEventsContentHere: "محتوى أحداث المباراة هنا",
+
+          NoEventsAvailable: "لا توجد أحداث متاحة.",
+
           server: "الخادم",
           Network_Info: "معلومات الشبكة",
           DeleteAccount: "حذف الحساب",

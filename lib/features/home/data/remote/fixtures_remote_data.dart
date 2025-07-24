@@ -1,6 +1,8 @@
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/helpers/enums.dart';
+import '../../../../core/localization/language_controller.dart';
 import '../../../../core/networking/api_client.dart';
 import '../../../../core/networking/api_constants.dart';
 import '../../../../core/networking/exception.dart';
@@ -25,6 +27,7 @@ abstract class FixturesRemoteDate {
 
 class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   final ApiClent apiClent;
+  final String locale = Get.find<LanguageController>().appLocale.languageCode;
 
   FixturesRemoteDateImpHttp({required this.apiClent});
 
@@ -37,7 +40,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
 
     final result = await apiClent.getData(
       uri:
-          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.topscorers}/$seasonId?type=${type.name}&timezone=$timeZone",
+          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.topscorers}/$seasonId?type=${type.name}&timezone=$timeZone&locale=$locale",
     );
 
     if (result.statusCode == 200) {
@@ -56,7 +59,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
     final result = await apiClent.getData(
       /// http://172.105.81.117:3000/api/fixtures/team/2447/matches
       uri:
-          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.team}/$teamId${ApiConstants.matches}?timezone=$timeZone",
+          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.team}/$teamId${ApiConstants.matches}?timezone=$timeZone&locale=$locale",
     );
 
     if (result.statusCode == 200) {
@@ -70,11 +73,14 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
 
   @override
   Future<StandingsResponse> getStandings({required String seasonId}) async {
+    final timeZone = await getDeviceTimeZone();
+
     final result = await apiClent.getData(
       uri:
-          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.standings}/$seasonId",
+          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.standings}/$seasonId?locale=$locale&timezone=$timeZone",
     );
 
+    print("from getStandings: ${result.body}  ");
     if (result.statusCode == 200) {
       final StandingsResponse response = StandingsResponse.fromJson(
           result.body); // ✅ assuming `result.body` is a JSON map
@@ -90,7 +96,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
     final timeZone = await getDeviceTimeZone(); // ⬅️ Get timezone here
     final resalt = await apiClent.getData(
         uri:
-            "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.calendar}?date=$date&timezone=$timeZone");
+            "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.calendar}?date=$date&timezone=$timeZone&locale=$locale");
     print(resalt.body);
     // print(resalt.statusCode);
     if (resalt.statusCode == 200) {
@@ -108,7 +114,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
     final timeZone = await getDeviceTimeZone(); // ⬅️ Get timezone here
     final resalt = await apiClent.getData(
       uri:
-          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures}/$fixturId?timezone=$timeZone",
+          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures}/$fixturId?timezone=$timeZone&locale=$locale",
     );
 
     if (resalt.statusCode == 200) {

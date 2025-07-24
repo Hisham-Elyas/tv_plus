@@ -22,6 +22,10 @@ const String DarkMode = 'Dark Mode';
 const String Logout = "Logout";
 const String Go = "Go";
 const String UserDataNotFound = "User data not found. Please try again later.";
+const String NoEventsAvailable = "No events available.";
+const String MatchEventsContentHere = "Match events content here";
+const String NoStatisticsAvailable = "No statistics available.";
+const String MatchStatisticsContentHere = "Match Statistics content here";
 const String UserInfoError = "User Info Error";
 const String SomethingWentWrong = "Something went wrong. Try again later.";
 
@@ -32,6 +36,51 @@ const String VerifyEmailBeforeLogin =
 const String EmailNotVerified = "Email Not Verified";
 const String LoginError = "Login Error";
 
+const String Tomorrow = "Tomorrow";
+const String Pos = "Pos";
+const String Teams = "Team";
+const String P = "P"; // Played
+const String W = "W"; // Wins
+const String D = "D"; // Draws
+const String L = "L"; // Losses
+const String GF = "GF"; // Goals For
+const String GA = "GA"; // Goals Against
+const String GD = "GD"; // Goal Difference
+const String Pts = "Pts"; // Points
+const String Forms = "Form";
+const String NoScorersDataAvailable = "📭 No scorers data available.";
+
+const String ServerError = "❌ Server error. Please try again later.";
+// ... existing code ...
+
+const String NoMatchesFoundForDate = "No matches found for this date.";
+
+const String StartsIn = "Starts in";
+const String Goals = "Goals";
+const String Assists = "Assists";
+const String EmojiGoals = "⚽ Goals";
+const String EmojiAssists = "🎯 Assists";
+const String NoStandingsDataAvailable = "📭 No standings data available.";
+const String NoStandingsFound = "📭 No standings found.";
+const String After = "After";
+const String Day = "Day";
+const String Scorers = "Scorers";
+const String Standingss = "Standings";
+const String Sidelined = "Sidelined";
+const String Players = "Player";
+const String WeatherReports = "Weather Report";
+const String Weather = "Weather";
+const String Temperatures = "Temperature";
+const String Clouds = "Clouds";
+const String WindSpeed = "Wind Speed";
+const String Humidity = "Humidity";
+
+const String LocationInfo = "Location Info";
+const String Venues = "Venue";
+const String Capacity = "Capacity";
+const String Surface = "Surface";
+const String City = "City";
+const String Address = "Address";
 const String Premium_annual_and_monthly_subscription =
     "Premium annual and monthly subscription";
 const String All_international_and_local_leagues_with_one_click_of_a_button =
@@ -39,6 +88,10 @@ const String All_international_and_local_leagues_with_one_click_of_a_button =
 const String WatchYourFavouriteMatches =
     "Watch your favorite matches without interruption.";
 const String TryAgain = "Try Again";
+const String Events = "Events";
+const String MatchPreview = "Match Preview";
+const String Statistics = "Statistics";
+const String StatisticsInfo = "Statistics Info";
 const String Select_language = "Select language";
 const String Errors = "Error";
 const String NoUserSignedIn = "No user is signed in.";

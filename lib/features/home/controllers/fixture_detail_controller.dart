@@ -127,13 +127,13 @@ class FixtureDetailController extends GetxController {
       Participant(
         id: 1,
         name: "Team A",
-        imagePath: "assets/images/applogo.png",
+        imagePath: "https://cdn.sportmonks.com/images/soccer/teams/22/86.png",
         winner: true,
       ),
       Participant(
         id: 2,
         name: "Team B",
-        imagePath: "assets/images/applogo1.png",
+        imagePath: "https://cdn.sportmonks.com/images/soccer/teams/22/86.png",
         winner: false,
       ),
     ],
@@ -141,7 +141,7 @@ class FixtureDetailController extends GetxController {
     league: League(
       id: 1,
       name: "Premier",
-      imagePath: "assets/images/logo.png",
+      imagePath: "https://cdn.sportmonks.com/images/soccer/teams/22/86.png",
     ),
     venue: Venue(
       id: 1,

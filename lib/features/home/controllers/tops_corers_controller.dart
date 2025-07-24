@@ -67,7 +67,7 @@ class TopScorersController extends GetxController {
           id: 100 + index,
           displayName: 'Player ${index + 1}',
           imagePath:
-              'https://via.placeholder.com/150', // Use a placeholder image
+              'https://cdn.sportmonks.com/images/soccer/teams/22/86.png', // Use a placeholder image
           nationality: 'Country ${index + 1}',
           position: index % 2 == 0 ? 'Forward' : 'Midfielder',
         ),
@@ -75,7 +75,7 @@ class TopScorersController extends GetxController {
           id: 200 + index,
           name: 'Team ${index + 1}',
           imagePath:
-              'https://via.placeholder.com/100', // Use a placeholder image
+              'https://cdn.sportmonks.com/images/soccer/teams/22/86.png', // Use a placeholder image
         ),
       );
     }),

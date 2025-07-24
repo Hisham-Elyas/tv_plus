@@ -6,6 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/enums.dart';
+import '../../../core/localization/language_controller.dart';
 import '../data/models/fixtures_model.dart';
 import '../data/repos/fixtures_repo.dart';
 
@@ -172,6 +173,7 @@ class FixturesController extends GetxController {
   }
 
   /// Format full display date (e.g., Monday, 15/07/2025)
+  final String locale = Get.find<LanguageController>().appLocale.languageCode;
   String get formattedDisplayDate =>
       "${dayOfWeek(selectedDate.value)}, ${formatDateDisplay(selectedDate.value)}";
 
@@ -187,15 +189,16 @@ class FixturesController extends GetxController {
 
   /// Get day of the week (e.g., Monday)
   String dayOfWeek(DateTime date) {
-    const days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ];
-    return days[date.weekday % 7];
+    // const days = [
+    //   "Sunday",
+    //   "Monday",
+    //   "Tuesday",
+    //   "Wednesday",
+    //   "Thursday",
+    //   "Friday",
+    //   "Saturday"
+    // ];
+    // return days[date.weekday % 7];
+    return DateFormat('EEEE', locale).format(date);
   }
 }

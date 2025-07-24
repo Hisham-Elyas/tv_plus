@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/enums.dart';
+import '../../../core/localization/constants.dart';
 import '../controllers/league_detail_controller.dart';
 import '../controllers/standings_controller.dart' show StandingsController;
 
@@ -140,8 +141,8 @@ class LeagueHeader extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _tab("Scorers", 0),
-                _tab("Standings", 1),
+                _tab(Scorers.tr, 0),
+                _tab(Standingss.tr, 1),
                 // _tab("Upcoming", 1),
               ],
             ),
@@ -206,12 +207,12 @@ class Standings extends StatelessWidget {
       final status = controller.statusReq.value;
 
       if (status == StatusRequest.serverFailure) {
-        return _errorView("❌ Server error. Please try again later.", () {
+        return _errorView(ServerError.tr, () {
           controller.getStandings(seasonId.toString());
         });
       } else if (status == StatusRequest.emptyCache ||
           status == StatusRequest.noData) {
-        return _errorView("📭 No standings data available.", () {
+        return _errorView(NoStandingsDataAvailable.tr, () {
           controller.getStandings(seasonId.toString());
         });
       }
@@ -220,7 +221,7 @@ class Standings extends StatelessWidget {
       final standingsList = controller.standings.value?.data ?? [];
 
       if (!isLoading && standingsList.isEmpty) {
-        return _errorView("📭 No standings found.", () {
+        return _errorView(NoStandingsFound.tr, () {
           controller.getStandings(seasonId.toString());
         });
       }
@@ -240,18 +241,18 @@ class Standings extends StatelessWidget {
                 headingRowHeight: 40,
                 dataRowHeight: 50,
                 columnSpacing: 16,
-                columns: const [
-                  DataColumn(label: Text('Pos')),
-                  DataColumn(label: Text('Team')),
-                  DataColumn(label: Text('P')),
-                  DataColumn(label: Text('W')),
-                  DataColumn(label: Text('D')),
-                  DataColumn(label: Text('L')),
-                  DataColumn(label: Text('GF')),
-                  DataColumn(label: Text('GA')),
-                  DataColumn(label: Text('GD')),
-                  DataColumn(label: Text('Pts')),
-                  DataColumn(label: Text('Form')),
+                columns: [
+                  DataColumn(label: Text(Pos.tr)),
+                  DataColumn(label: Text(Teams.tr)),
+                  DataColumn(label: Text(P.tr)),
+                  DataColumn(label: Text(W.tr)),
+                  DataColumn(label: Text(D.tr)),
+                  DataColumn(label: Text(L.tr)),
+                  DataColumn(label: Text(GF.tr)),
+                  DataColumn(label: Text(GA.tr)),
+                  DataColumn(label: Text(GD.tr)),
+                  DataColumn(label: Text(Pts.tr)),
+                  DataColumn(label: Text(Forms.tr)),
                 ],
                 rows: List<DataRow>.generate(
                   isLoading ? 8 : standingsList.length,
@@ -354,7 +355,7 @@ Widget _errorView(String message, VoidCallback onRetry) {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 10),
-        ElevatedButton(onPressed: onRetry, child: const Text("Try Again")),
+        ElevatedButton(onPressed: onRetry, child: Text(TryAgain.tr)),
       ],
     ),
   );
@@ -498,27 +499,31 @@ class ScorersTab extends StatelessWidget {
 
         // Table header
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6),
+          padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 6),
           child: Row(
             children: [
-              const SizedBox(
-                  width: 20,
-                  child:
-                      Text('#', style: TextStyle(fontWeight: FontWeight.bold))),
-              const SizedBox(width: 8),
-              const Expanded(
+              SizedBox(
+                  width: 15.w,
+                  child: Text('#',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.sp))),
+              SizedBox(width: 8.w),
+              Expanded(
                   flex: 3,
-                  child: Text('Player',
-                      style: TextStyle(fontWeight: FontWeight.bold))),
-              const Expanded(
+                  child: Text(Players.tr,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.sp))),
+              Expanded(
                   flex: 2,
-                  child: Text('Team',
-                      style: TextStyle(fontWeight: FontWeight.bold))),
+                  child: Text(Teams.tr,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.sp))),
               Expanded(
                 child: Obx(() => Text(
                       controller.selectedType.value.label,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 14.sp),
                     )),
               ),
             ],
@@ -533,7 +538,7 @@ class ScorersTab extends StatelessWidget {
             final data = controller.scorers.value?.data ?? [];
 
             if (status == StatusRequest.serverFailure) {
-              return _errorView("❌ Server error. Please try again later.", () {
+              return _errorView(ServerError.tr, () {
                 controller.getTopScorers(
                     seasonId: seasonId.toString(),
                     forceRefresh: true,
@@ -541,7 +546,7 @@ class ScorersTab extends StatelessWidget {
               });
             } else if (status == StatusRequest.emptyCache ||
                 status == StatusRequest.noData) {
-              return _errorView("📭 No scorers data available.", () {
+              return _errorView(NoScorersDataAvailable.tr, () {
                 controller.getTopScorers(
                     seasonId: seasonId.toString(),
                     forceRefresh: true,
@@ -692,7 +697,7 @@ class TopScorerTile extends StatelessWidget {
                       scorer.participant.name,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          fontSize: 12.sp, fontWeight: FontWeight.w500),
+                          fontSize: 12.sp, fontWeight: FontWeight.bold),
                     ),
                   )
                 ],
