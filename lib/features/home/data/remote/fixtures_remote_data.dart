@@ -14,7 +14,8 @@ import '../models/team_fixtures_response_model.dart';
 
 abstract class FixturesRemoteDate {
   Future getAllTodayMatches({required String date});
-  Future getFixturDetiels({required String fixturId});
+  Future getFixturDetiels(
+      {required String fixturId, required String channelCommmId});
   Future<StandingsResponse> getStandings({required String seasonId});
   Future<ScorersResponse> getTopScorers({
     required String seasonId,
@@ -80,7 +81,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
           "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.standings}/$seasonId?locale=$locale&timezone=$timeZone",
     );
 
-    print("from getStandings: ${result.body}  ");
+    // print("from getStandings: ${result.body}  ");
     if (result.statusCode == 200) {
       final StandingsResponse response = StandingsResponse.fromJson(
           result.body); // ✅ assuming `result.body` is a JSON map
@@ -97,7 +98,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
     final resalt = await apiClent.getData(
         uri:
             "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.calendar}?date=$date&timezone=$timeZone&locale=$locale");
-    print(resalt.body);
+    // print(resalt.body);
     // print(resalt.statusCode);
     if (resalt.statusCode == 200) {
       final FixturesResponse response = FixturesResponse.fromJson(resalt.body);
@@ -110,18 +111,18 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
 
   @override
   Future<FixtureDetailResponse> getFixturDetiels(
-      {required String fixturId}) async {
+      {required String fixturId, required String channelCommmId}) async {
     final timeZone = await getDeviceTimeZone(); // ⬅️ Get timezone here
     final resalt = await apiClent.getData(
       uri:
-          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures}/$fixturId?timezone=$timeZone&locale=$locale",
+          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures}/$fixturId?timezone=$timeZone&locale=$locale&channel_commm_id=$channelCommmId",
     );
 
     if (resalt.statusCode == 200) {
       // 🔥 Fix here: decode the JSON string into a map first
       // final Map<String, dynamic> decodedJson = jsonDecode();
 
-      print(resalt.body); // or any field to verify
+      // print(resalt.body); // or any field to verify
       // ✅ Now safely parse it into your model
       final FixtureDetailResponse response =
           FixtureDetailResponse.fromJson(resalt.body);

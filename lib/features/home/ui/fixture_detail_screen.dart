@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:faisal_tv/core/localization/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -8,19 +7,25 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import '../../../core/helpers/enums.dart';
+import '../../../core/helpers/spacing.dart';
+import '../../../core/localization/constants.dart';
 import '../../../core/theming/colors.dart';
+import '../../../core/widgets/custom_snackbar.dart';
 import '../controllers/fixture_detail_controller.dart';
 import '../data/models/fixture_detail_model.dart';
 
 class MatchDetailScreen extends StatelessWidget {
   final String fixtureId;
+  final String channelCommmId;
 
-  const MatchDetailScreen({super.key, required this.fixtureId});
+  const MatchDetailScreen(
+      {super.key, required this.fixtureId, required this.channelCommmId});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(FixtureDetailController());
-    controller.loadFixture(fixtureId);
+    controller.loadFixture(
+        fixtureId: fixtureId, channelCommmId: channelCommmId);
 
     return Scaffold(
       // backgroundColor: Colors.white,
@@ -42,7 +47,8 @@ class MatchDetailScreen extends StatelessWidget {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.loadFixture(fixtureId),
+                  onPressed: () => controller.loadFixture(
+                      fixtureId: fixtureId, channelCommmId: channelCommmId),
                   child: Text(TryAgain.tr),
                 ),
               ],
@@ -55,7 +61,8 @@ class MatchDetailScreen extends StatelessWidget {
           enabled: status == StatusRequest.loading,
           enableSwitchAnimation: true,
           child: RefreshIndicator(
-            onRefresh: () => controller.loadFixture(fixtureId),
+            onRefresh: () => controller.loadFixture(
+                fixtureId: fixtureId, channelCommmId: channelCommmId),
             child: Column(
               children: [
                 /// Header + Tabs
@@ -801,6 +808,36 @@ class MatchPreviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<ChannelCommentator> dummyChannelCommentators = [
+      ChannelCommentator(
+        channel: 1,
+        channelName: 'Channel One',
+        commentator: 101,
+        commentatorName: 'John Doe',
+        sound: 5,
+      ),
+      ChannelCommentator(
+        channel: 2,
+        channelName: 'Channel Two',
+        commentator: 102,
+        commentatorName: 'Jane Smith',
+        sound: 8,
+      ),
+      // Add more dummy data if needed
+    ];
+    final List<ChannelCommentator> channelCommentator = fixture.channelComm;
+    // final List<ChannelCommentator> channelCommentator =
+    //     dummyChannelCommentators;
+    if (channelCommentator.isEmpty) {
+      print("No channel commentators found, adding dummy data");
+      channelCommentator.add(ChannelCommentator(
+          channel: 1,
+          channelName: Unknown.tr,
+          commentator: 1,
+          commentatorName: Unknown.tr,
+          sound: 1));
+    }
+
     final sidelined = fixture.sidelined ?? [];
     final homeSidelined = sidelined
         .where((s) => s.participantId == fixture.participants.first.id)
@@ -816,6 +853,94 @@ class MatchPreviewWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          SizedBox(height: 10.h),
+          // Channel & Commentators Section
+          headerTitle(
+              home: home, away: away, title: ChannelsAndCommentators.tr),
+          SizedBox(height: 12.h),
+          ListView.separated(
+            shrinkWrap: true,
+            padding: EdgeInsets.all(0),
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: channelCommentator.length,
+            separatorBuilder: (context, index) => SizedBox(height: 8.h),
+            itemBuilder: (context, index) {
+              final commentator = channelCommentator[index];
+              return GestureDetector(
+                onTap: () {
+                  if (commentator.channelName != Unknown.tr) {
+                    print('get ');
+                  } else {
+                    /// show msg for user
+                    showCustomSnackBar(
+                        message: ChannelUnknown.tr,
+                        title: Channel_not_found.tr,
+                        isError: true);
+                  }
+                },
+                child: Card(
+                  elevation: 5,
+                  shadowColor: ColorsManager.lightSecondary,
+                  color: Theme.of(context).colorScheme.surface,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                  margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.h),
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                    decoration: BoxDecoration(
+                      color:
+                          Theme.of(context).colorScheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Skeleton.shade(
+                                child: Icon(Icons.live_tv_outlined,
+                                    color: Colors.grey, size: 15.dm),
+                              ),
+                              horizontalSpace(5),
+                              Text(
+                                commentator.channelName,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              Skeleton.shade(
+                                  child: Icon(Icons.mic,
+                                      color: Colors.grey, size: 15.dm)),
+                              horizontalSpace(5),
+                              Text(
+                                commentator.commentatorName,
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+
           SizedBox(height: 10.h),
           headerTitle(home: home, away: away, title: Sidelined.tr),
 

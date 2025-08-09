@@ -17,6 +17,7 @@ class FixtureDetailResponse {
 class FixtureDetail {
   final int id;
   final String name;
+  final String channelCommmId;
   final String? resultInfo;
   final DateTime startingAt;
   final List<Participant> participants;
@@ -28,9 +29,11 @@ class FixtureDetail {
   final List<Sideline>? sidelined;
   final WeatherReport? weatherReport;
   final List<Statistic> statistics;
+  List<ChannelCommentator> channelComm;
 
   FixtureDetail({
     required this.id,
+    required this.channelCommmId,
     required this.name,
     this.resultInfo,
     required this.startingAt,
@@ -43,6 +46,7 @@ class FixtureDetail {
     this.sidelined,
     this.weatherReport,
     required this.statistics,
+    required this.channelComm,
   });
 
   factory FixtureDetail.fromJson(Map<String, dynamic> json,
@@ -55,6 +59,7 @@ class FixtureDetail {
     return FixtureDetail(
       id: json['id'],
       name: json['name'],
+      channelCommmId: json['channel_commm_id'],
       resultInfo: json['result_info'],
       startingAt: DateTime.parse(json['starting_at']),
       // startingAt: localTime,
@@ -81,6 +86,36 @@ class FixtureDetail {
       weatherReport: json['weatherreport'] != null
           ? WeatherReport.fromJson(json['weatherreport'])
           : null,
+      channelComm: (json['channel_commm'] as List)
+          .map((i) => ChannelCommentator.fromJson(i))
+          .toList(),
+    );
+  }
+}
+
+// Define a model for ChannelCommentator
+class ChannelCommentator {
+  int channel;
+  String channelName;
+  int commentator;
+  String commentatorName;
+  int sound;
+
+  ChannelCommentator({
+    required this.channel,
+    required this.channelName,
+    required this.commentator,
+    required this.commentatorName,
+    required this.sound,
+  });
+
+  factory ChannelCommentator.fromJson(Map<String, dynamic> json) {
+    return ChannelCommentator(
+      channel: json['channel'],
+      channelName: json['channel_name'],
+      commentator: json['commentator'],
+      commentatorName: json['commentator_name'],
+      sound: json['sound'],
     );
   }
 }

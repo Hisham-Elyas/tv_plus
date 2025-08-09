@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:faisal_tv/core/localization/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,6 +8,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/enums.dart';
+import '../../../core/localization/constants.dart';
 import '../../../core/theming/colors.dart';
 import '../controllers/fixtures_controller.dart';
 import '../data/models/fixtures_model.dart';
@@ -197,14 +197,16 @@ class MatchListScreen extends StatelessWidget {
 
     final homeScore = fixture.scores
         .firstWhereOrNull(
-            (s) => s.description == 'CURRENT' && s.score.participant == 'home')
+            (s) => s.typeId == 1525 && s.score.participant == 'home')
         ?.score
         .goals;
     final awayScore = fixture.scores
         .firstWhereOrNull(
-            (s) => s.description == 'CURRENT' && s.score.participant == 'away')
+            (s) => s.typeId == 1525 && s.score.participant == 'away')
         ?.score
         .goals;
+    print(fixture.scores.toString());
+
     // final now = DateTime.now();
     final now = controller.currentTime.value;
     if (now == null) {
@@ -223,6 +225,7 @@ class MatchListScreen extends StatelessWidget {
       // onTap: () => Get.to(() => const MatchDetailsScreen()),
       onTap: () => Get.to(() => MatchDetailScreen(
             fixtureId: fixture.id.toString(),
+            channelCommmId: fixture.channelCommmId.toString(),
           )),
       child: Card(
         // margin: const EdgeInsets.all(10),

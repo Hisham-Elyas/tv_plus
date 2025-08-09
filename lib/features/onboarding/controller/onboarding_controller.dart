@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../core/helpers/shared_pref_helper.dart';
 
 import '../../../core/helpers/constants.dart';
+import '../../../core/helpers/shared_pref_helper.dart';
 import '../../auth/login/ui/login_screen.dart';
 
 class OnboardingController extends GetxController {

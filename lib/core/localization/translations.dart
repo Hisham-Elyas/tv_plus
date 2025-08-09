@@ -220,11 +220,15 @@ class MyTranslations extends Translations {
           EmojiGoals: EmojiGoals,
           EmojiAssists: EmojiAssists,
           StartsIn: StartsIn,
+          ChannelsAndCommentators: ChannelsAndCommentators,
           NoMatchesFoundForDate: NoMatchesFoundForDate,
+          Unknown: Unknown,
         },
         "ar": {
+          ChannelsAndCommentators: 'القنوات والمعلقين',
           NoMatchesFoundForDate: "لم يتم العثور على مباريات في هذا التاريخ.",
 
+          Unknown: "غير معروف",
           StartsIn: "يبدأ في",
           NoScorersDataAvailable: "📭 لا توجد بيانات هدافين متاحة.",
           Goals: "الأهداف",

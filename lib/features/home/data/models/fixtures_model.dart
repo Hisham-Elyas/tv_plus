@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class FixturesResponse {
   final List<League> data;
   final String timezone;
@@ -37,6 +38,7 @@ class League {
 
 class Fixture {
   final int id;
+  final int channelCommmId;
   final String name;
   final int seasonId;
   final String startingAt;
@@ -45,6 +47,7 @@ class Fixture {
 
   Fixture({
     required this.id,
+    required this.channelCommmId,
     required this.name,
     required this.startingAt,
     required this.participants,
@@ -55,6 +58,7 @@ class Fixture {
   factory Fixture.fromJson(Map<String, dynamic> json) {
     return Fixture(
       id: json['id'],
+      channelCommmId: json['channel_commm_id'],
       seasonId: json["season_id"],
       name: json['name'],
       startingAt: json['starting_at'],
@@ -125,6 +129,33 @@ class Score {
       description: json['description'] ?? '',
     );
   }
+
+  @override
+  String toString() {
+    return 'Score(id: $id, fixtureId: $fixtureId, typeId: $typeId, participantId: $participantId, score: $score, description: $description)';
+  }
+
+  @override
+  bool operator ==(covariant Score other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.fixtureId == fixtureId &&
+        other.typeId == typeId &&
+        other.participantId == participantId &&
+        other.score == score &&
+        other.description == description;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        fixtureId.hashCode ^
+        typeId.hashCode ^
+        participantId.hashCode ^
+        score.hashCode ^
+        description.hashCode;
+  }
 }
 
 class ScoreValue {
@@ -142,4 +173,17 @@ class ScoreValue {
       participant: json['participant'],
     );
   }
+
+  @override
+  String toString() => 'ScoreValue(goals: $goals, participant: $participant)';
+
+  @override
+  bool operator ==(covariant ScoreValue other) {
+    if (identical(this, other)) return true;
+
+    return other.goals == goals && other.participant == participant;
+  }
+
+  @override
+  int get hashCode => goals.hashCode ^ participant.hashCode;
 }

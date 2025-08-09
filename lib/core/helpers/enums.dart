@@ -1,5 +1,6 @@
-import 'package:faisal_tv/core/localization/constants.dart';
 import 'package:get/utils.dart';
+
+import '../localization/constants.dart';
 
 enum StatusRequest {
   loading,

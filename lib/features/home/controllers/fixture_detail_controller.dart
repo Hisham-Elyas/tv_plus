@@ -49,8 +49,9 @@ class FixtureDetailController extends GetxController {
       // Only refresh if match is in a live state
       if (liveStates.contains(match.state.developerName)) {
         // await loadFixture(match.id.toString());
-        final response =
-            await repository.getFixturDetiels(fixturId: match.id.toString());
+        final response = await repository.getFixturDetiels(
+            fixturId: match.id.toString(),
+            channelCommmId: match.channelCommmId);
         response.fold(
           (error) {
             print("Error loading fixture: $error");
@@ -90,11 +91,13 @@ class FixtureDetailController extends GetxController {
     selectedTabIndex.value = index;
   }
 
-  Future<void> loadFixture(String fixtureId) async {
+  Future<void> loadFixture(
+      {required String fixtureId, required String channelCommmId}) async {
     try {
       isLoading(true);
       statusReq.value = StatusRequest.loading;
-      final response = await repository.getFixturDetiels(fixturId: fixtureId);
+      final response = await repository.getFixturDetiels(
+          fixturId: fixtureId, channelCommmId: channelCommmId);
       response.fold(
         (error) {
           statusReq.value = error;
@@ -119,6 +122,15 @@ class FixtureDetailController extends GetxController {
   }
 
   final dummyFixtureDetail = FixtureDetail(
+    channelCommmId: '1',
+    channelComm: [
+      ChannelCommentator(
+          channel: 0,
+          channelName: "Sample",
+          commentator: 1,
+          commentatorName: "Sample",
+          sound: 1)
+    ],
     id: 1,
     name: "Sample",
     resultInfo: "2-1",

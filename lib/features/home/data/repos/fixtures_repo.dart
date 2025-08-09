@@ -16,7 +16,8 @@ import '../remote/fixtures_remote_data.dart';
 
 abstract class FixturesRepo {
   Future getAllTodayMatches({required String date});
-  Future getFixturDetiels({required String fixturId});
+  Future getFixturDetiels(
+      {required String fixturId, required String channelCommmId});
   Future<Either<StatusRequest, StandingsResponse>> getStandings(
       {required String seasonId});
 
@@ -128,11 +129,11 @@ class FixturesRepoImpHttp implements FixturesRepo {
 
   @override
   Future<Either<StatusRequest, FixtureDetailResponse>> getFixturDetiels(
-      {required String fixturId}) async {
+      {required String fixturId, required String channelCommmId}) async {
     if (await checkInternet()) {
       try {
-        final remotData =
-            await todayMatchesRemotData.getFixturDetiels(fixturId: fixturId);
+        final remotData = await todayMatchesRemotData.getFixturDetiels(
+            fixturId: fixturId, channelCommmId: channelCommmId);
         // todayMatchesLocalData.cacheMatch(match: remotData);
 
         log('from Server  ==> Fixture Details Data');
