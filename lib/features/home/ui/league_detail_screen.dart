@@ -1,4 +1,6 @@
 // league_detail_screen.dart
+// ignore_for_file: deprecated_member_use
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:faisal_tv/core/theming/colors.dart';
 import 'package:faisal_tv/features/home/controllers/team_upcoming_matches_controller.dart';

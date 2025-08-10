@@ -18,7 +18,7 @@ class OTPScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final email = Get.find<ForgetPasswordController>().email ?? '';
+    final email = Get.find<ForgetPasswordController>().email;
     return Scaffold(
       body: Container(
         width: double.infinity,

@@ -64,6 +64,10 @@ const String NoStandingsDataAvailable = "📭 No standings data available.";
 const String NoStandingsFound = "📭 No standings found.";
 const String After = "After";
 const String Day = "Day";
+const String MainLink = "🎯 Main Link";
+const String QualityOptions = "📺 Quality Options:";
+
+const String Close = "Close";
 const String Scorers = "Scorers";
 const String Standingss = "Standings";
 const String Sidelined = "Sidelined";

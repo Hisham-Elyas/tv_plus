@@ -1,5 +1,3 @@
-import 'package:timezone/timezone.dart' as tz;
-
 class FixtureDetailResponse {
   final FixtureDetail data;
   final String timezone;
@@ -51,11 +49,6 @@ class FixtureDetail {
 
   factory FixtureDetail.fromJson(Map<String, dynamic> json,
       {required String timezone}) {
-    // Parse the datetime string
-    DateTime utcTime = DateTime.parse(json['starting_at']);
-
-    // Convert to local time using the timezone
-    DateTime localTime = _convertToTimeZone(utcTime, timezone);
     return FixtureDetail(
       id: json['id'],
       name: json['name'],
@@ -100,6 +93,7 @@ class ChannelCommentator {
   int commentator;
   String commentatorName;
   int sound;
+  List<TvChannelLink> tvChannelLink;
 
   ChannelCommentator({
     required this.channel,
@@ -107,23 +101,56 @@ class ChannelCommentator {
     required this.commentator,
     required this.commentatorName,
     required this.sound,
+    required this.tvChannelLink,
   });
 
   factory ChannelCommentator.fromJson(Map<String, dynamic> json) {
+    var list = json['tv_channel_link'] as List;
+    List<TvChannelLink> tvChannelLinkList =
+        list.map((i) => TvChannelLink.fromJson(i)).toList();
     return ChannelCommentator(
-      channel: json['channel'],
-      channelName: json['channel_name'],
-      commentator: json['commentator'],
-      commentatorName: json['commentator_name'],
-      sound: json['sound'],
-    );
+        channel: json['channel'],
+        channelName: json['channel_name'],
+        commentator: json['commentator'],
+        commentatorName: json['commentator_name'],
+        sound: json['sound'],
+        tvChannelLink: tvChannelLinkList);
   }
 }
 
-DateTime _convertToTimeZone(DateTime utcTime, String timeZone) {
-  final location = tz.getLocation(timeZone);
-  final tz.TZDateTime tzTime = tz.TZDateTime.from(utcTime.toUtc(), location);
-  return tzTime;
+class TvChannelLink {
+  final int id;
+  final int groupId;
+  final String tvgId;
+  final String tvgName;
+  final String tvgLogo;
+  final String name;
+  final String url;
+  final String groupTitle;
+
+  TvChannelLink({
+    required this.id,
+    required this.groupId,
+    required this.tvgId,
+    required this.tvgName,
+    required this.tvgLogo,
+    required this.name,
+    required this.url,
+    required this.groupTitle,
+  });
+
+  factory TvChannelLink.fromJson(Map<String, dynamic> json) {
+    return TvChannelLink(
+      id: json['id'],
+      groupId: json['group_id'],
+      tvgId: json['tvg_id'],
+      tvgName: json['tvg_name'],
+      tvgLogo: json['tvg_logo'],
+      name: json['name'],
+      url: json['url'],
+      groupTitle: json['group_title'],
+    );
+  }
 }
 
 class Sideline {

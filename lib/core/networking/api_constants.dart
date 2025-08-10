@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const String apiBaseUrl = "http://172.105.81.117:3000/api";
+  static const String apiBaseUrl = "https://api.tvplus24.com/api";
   // fixtures/
   static const String fixtures = "/fixtures";
   static const String calendar = "/calendar";

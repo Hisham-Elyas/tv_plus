@@ -1,3 +1,5 @@
+// ignore_for_file: strict_top_level_inference, avoid_print
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';

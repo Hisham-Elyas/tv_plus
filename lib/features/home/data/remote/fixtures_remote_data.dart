@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 

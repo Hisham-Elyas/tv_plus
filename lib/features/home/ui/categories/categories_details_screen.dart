@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
-import '../../controllers/video_player_conteroller.dart';
 import '../../data/models/category_model.dart';
 import '../../widgets/channel_card_widget.dart';
 import '../../widgets/custom_app_bar.dart';
-import '../video_player_screen.dart';
+import '../../widgets/quality_options_popup.dart';
 
 class CategoriesDetailsScreen extends StatelessWidget {
   final CategoryWithChannels category;
@@ -38,12 +36,8 @@ class CategoriesDetailsScreen extends StatelessWidget {
                 // Get.to(() => VideoPlayerOptionScreen(
                 //       channel: channel,
                 //     ));
-                Get.to(() => VideoPlayerScreen(
-                      channel: channel,
-                    ));
 
-                await Get.find<VideoPlayerConteroller>()
-                    .setAllOrientationsToLandscape();
+                showFootballChannelPopup(channel);
               },
             );
           },

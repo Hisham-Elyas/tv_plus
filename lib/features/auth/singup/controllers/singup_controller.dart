@@ -1,5 +1,5 @@
-import '../../models/login_model.dart';
-import '../../../home/ui/home_screen.dart';
+// ignore_for_file: strict_top_level_inference
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,6 +7,8 @@ import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
+import '../../../home/ui/home_screen.dart';
+import '../../models/login_model.dart';
 import '../../models/sinup_model.dart';
 import '../../repos/auth_repo.dart';
 

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 
 import 'package:get/get.dart';
@@ -125,11 +127,12 @@ class FixtureDetailController extends GetxController {
     channelCommmId: '1',
     channelComm: [
       ChannelCommentator(
+          tvChannelLink: [],
           channel: 0,
           channelName: "Sample",
           commentator: 1,
           commentatorName: "Sample",
-          sound: 1)
+          sound: 1),
     ],
     id: 1,
     name: "Sample",

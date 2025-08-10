@@ -2,7 +2,6 @@ import 'package:faisal_tv/features/home/controllers/fixtures_controller.dart'
     show FixturesController;
 import 'package:faisal_tv/features/home/data/remote/fixtures_remote_data.dart';
 import 'package:faisal_tv/features/home/data/repos/fixtures_repo.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
@@ -36,7 +35,7 @@ Future init() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   // firebaseAuth.authStateChanges().listen((User? user) {
   //   if (user != null) {
   //     log(" User is login by ${user.uid}");

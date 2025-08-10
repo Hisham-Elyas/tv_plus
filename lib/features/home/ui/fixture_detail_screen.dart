@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +14,9 @@ import '../../../core/localization/constants.dart';
 import '../../../core/theming/colors.dart';
 import '../../../core/widgets/custom_snackbar.dart';
 import '../controllers/fixture_detail_controller.dart';
+import '../controllers/video_player_conteroller.dart';
 import '../data/models/fixture_detail_model.dart';
+import 'video_player2_for_math_screen.dart';
 
 class MatchDetailScreen extends StatelessWidget {
   final String fixtureId;
@@ -120,6 +124,7 @@ class MatchDetailScreen extends StatelessWidget {
     }
 
     final teamA = fixture.participants[0];
+    // ignore: unused_local_variable
     final teamB = fixture.participants[1];
 
     // Group events by period description (e.g., '2nd Half', '1st Half')
@@ -365,7 +370,7 @@ class MatchDetailScreen extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 15.h),
-        headerTitle(
+        HeaderTitle(
           home: homeTeam,
           away: awayTeam,
           title: StatisticsInfo.tr,
@@ -573,6 +578,7 @@ class MatchHeader extends StatelessWidget {
           boxShadow: isActive
               ? [
                   BoxShadow(
+                    // ignore: deprecated_member_use
                     color: Colors.black.withOpacity(0.07),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
@@ -808,29 +814,13 @@ class MatchPreviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<ChannelCommentator> dummyChannelCommentators = [
-      ChannelCommentator(
-        channel: 1,
-        channelName: 'Channel One',
-        commentator: 101,
-        commentatorName: 'John Doe',
-        sound: 5,
-      ),
-      ChannelCommentator(
-        channel: 2,
-        channelName: 'Channel Two',
-        commentator: 102,
-        commentatorName: 'Jane Smith',
-        sound: 8,
-      ),
-      // Add more dummy data if needed
-    ];
     final List<ChannelCommentator> channelCommentator = fixture.channelComm;
     // final List<ChannelCommentator> channelCommentator =
     //     dummyChannelCommentators;
     if (channelCommentator.isEmpty) {
       print("No channel commentators found, adding dummy data");
       channelCommentator.add(ChannelCommentator(
+          tvChannelLink: [],
           channel: 1,
           channelName: Unknown.tr,
           commentator: 1,
@@ -855,7 +845,7 @@ class MatchPreviewWidget extends StatelessWidget {
         children: [
           SizedBox(height: 10.h),
           // Channel & Commentators Section
-          headerTitle(
+          HeaderTitle(
               home: home, away: away, title: ChannelsAndCommentators.tr),
           SizedBox(height: 12.h),
           ListView.separated(
@@ -869,13 +859,16 @@ class MatchPreviewWidget extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   if (commentator.channelName != Unknown.tr) {
-                    print('get ');
-                  } else {
-                    /// show msg for user
-                    showCustomSnackBar(
-                        message: ChannelUnknown.tr,
-                        title: Channel_not_found.tr,
-                        isError: true);
+                    // showFootballChannelPopup(channel);
+
+                    if (commentator.tvChannelLink.isNotEmpty) {
+                      showFootballChannelPopup(commentator);
+                    } else {
+                      showCustomSnackBar(
+                          message: ChannelUnknown.tr,
+                          title: Channel_not_found.tr,
+                          isError: true);
+                    }
                   }
                 },
                 child: Card(
@@ -942,7 +935,7 @@ class MatchPreviewWidget extends StatelessWidget {
           ),
 
           SizedBox(height: 10.h),
-          headerTitle(home: home, away: away, title: Sidelined.tr),
+          HeaderTitle(home: home, away: away, title: Sidelined.tr),
 
           // Statistics Section
           Card(
@@ -975,7 +968,7 @@ class MatchPreviewWidget extends StatelessWidget {
           ),
           SizedBox(height: 15.h),
           // Location Info Section
-          headerTitle(
+          HeaderTitle(
             home: home,
             away: away,
             title: LocationInfo.tr,
@@ -1168,8 +1161,8 @@ class MatchPreviewWidget extends StatelessWidget {
   }
 }
 
-class headerTitle extends StatelessWidget {
-  const headerTitle({
+class HeaderTitle extends StatelessWidget {
+  const HeaderTitle({
     super.key,
     required this.home,
     required this.away,
@@ -1225,4 +1218,56 @@ class headerTitle extends StatelessWidget {
       ),
     );
   }
+}
+
+void showFootballChannelPopup(ChannelCommentator commentator) {
+  Get.defaultDialog(
+    title: commentator.channelName,
+    titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+    content: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // Quality Options Header
+
+        Text(QualityOptions.tr, style: TextStyle(fontWeight: FontWeight.bold)),
+
+        const SizedBox(height: 8),
+
+        // Scrollable list of quality buttons
+
+        SizedBox(
+          height: 200, // Limit height so it scrolls if long
+          child: ListView.builder(
+            itemCount: commentator.tvChannelLink.length,
+            itemBuilder: (context, index) {
+              final link = commentator.tvChannelLink[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: ElevatedButton.icon(
+                  onPressed: () =>
+                      _openVideoUrl(link.url, commentator.tvChannelLink),
+                  icon: const Icon(Icons.play_arrow),
+                  label: Text(link.name),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    ),
+    textConfirm: Close.tr,
+    confirmTextColor: Colors.white,
+    onConfirm: () => Get.back(),
+  );
+}
+
+void _openVideoUrl(String url, List<TvChannelLink> channel) async {
+  final controller = Get.find<VideoPlayerConteroller>();
+  controller.videoUrls = url;
+  Get.to(() => VideoPlayer2ForMathScreen(
+        channel: channel,
+      ));
+
+  controller.setAllOrientationsToLandscape();
 }

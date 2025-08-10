@@ -4,20 +4,20 @@ import 'package:modern_player/modern_player.dart';
 
 import '../../../core/localization/constants.dart';
 import '../controllers/video_player_conteroller.dart';
-import '../data/models/category_model.dart';
+import '../data/models/fixture_detail_model.dart' show TvChannelLink;
 
-class VideoPlayerScreen extends StatefulWidget {
-  final Channel channel;
-  const VideoPlayerScreen({
+class VideoPlayer2ForMathScreen extends StatefulWidget {
+  final List<TvChannelLink> channel;
+  const VideoPlayer2ForMathScreen({
     super.key,
     required this.channel,
   });
 
   @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+  State<VideoPlayer2ForMathScreen> createState() => _VideoPlayerScreenState();
 }
 
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+class _VideoPlayerScreenState extends State<VideoPlayer2ForMathScreen> {
   @override
   void dispose() async {
     super.dispose();
@@ -32,15 +32,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               video: ModernPlayerVideo.multiple([
                 ModernPlayerVideoData.network(
                   label: "Default",
-                  url: controller.videoUrls ?? widget.channel.url,
+                  url: controller.videoUrls ?? widget.channel.first.url,
                 ),
-                ...widget.channel.urlList
-                    .map((e) => ModernPlayerVideoData.network(
-                          label: "${server.tr} : ${e.name}",
-                          url: e.url,
-                        ))
-                    // ignore: unnecessary_to_list_in_spreads
-                    .toList()
+                ...widget.channel.map((e) => ModernPlayerVideoData.network(
+                      label: "${server.tr} : ${e.name}",
+                      url: e.url,
+                    ))
               ]),
               callbackOptions: ModernPlayerCallbackOptions(
                 onBackPressed: () async {

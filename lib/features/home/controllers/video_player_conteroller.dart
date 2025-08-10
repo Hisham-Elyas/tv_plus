@@ -16,21 +16,21 @@ class VideoPlayerConteroller extends GetxController {
     vlcController.dispose();
   }
 
-  Future initVlcControlle({required String videoUrl}) async {
-    videoUrls = videoUrl;
-    await setAllOrientationsToLandscape();
-    statusReq = StatusRequest.loading;
-    update();
-    vlcController = VlcPlayerController.network(
-      videoUrl,
-      hwAcc: HwAcc.full,
-      autoPlay: true,
-      options: VlcPlayerOptions(),
-    );
+  // Future initVlcControlle({required String videoUrl}) async {
+  //   videoUrls = videoUrl;
+  //   await setAllOrientationsToLandscape();
+  //   statusReq = StatusRequest.loading;
+  //   update();
+  //   vlcController = VlcPlayerController.network(
+  //     videoUrl,
+  //     hwAcc: HwAcc.full,
+  //     autoPlay: true,
+  //     options: VlcPlayerOptions(),
+  //   );
 
-    statusReq = StatusRequest.success;
-    update();
-  }
+  //   statusReq = StatusRequest.success;
+  //   update();
+  // }
 
   Future setAllOrientationsToLandscape() async {
     await SystemChrome.setEnabledSystemUIMode(
@@ -54,13 +54,13 @@ class VideoPlayerConteroller extends GetxController {
     ]);
   }
 
-  setUrlInVlcController({required String url, required int index}) {
-    urlIndex = index;
-    videoUrls = url;
-    vlcController.setMediaFromNetwork(url);
-    isPlaying = true;
-    update();
-  }
+  // setUrlInVlcController({required String url, required int index}) {
+  //   urlIndex = index;
+  //   videoUrls = url;
+  //   vlcController.setMediaFromNetwork(url);
+  //   isPlaying = true;
+  //   update();
+  // }
 
   bool isPlaying = true;
   void togglePlayPause() {

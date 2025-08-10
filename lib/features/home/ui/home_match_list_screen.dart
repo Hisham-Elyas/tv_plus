@@ -205,7 +205,7 @@ class MatchListScreen extends StatelessWidget {
             (s) => s.typeId == 1525 && s.score.participant == 'away')
         ?.score
         .goals;
-    print(fixture.scores.toString());
+    // print(fixture.scores.toString());
 
     // final now = DateTime.now();
     final now = controller.currentTime.value;
@@ -268,6 +268,7 @@ class MatchListScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: 8.w, vertical: 1.h),
                         child: Text(
+                          // ignore: unnecessary_null_comparison
                           matchStart != null
                               ? DateFormat('hh:mm a').format(matchStart)
                               : "--:--",
