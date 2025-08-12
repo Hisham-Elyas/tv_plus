@@ -9,6 +9,7 @@ import '../../../core/exceptions/format_exceptions.dart';
 import '../../../core/exceptions/platform_exceptions.dart';
 import '../../../core/helpers/shared_pref_helper.dart';
 import '../../../core/networking/api_client.dart';
+import '../../../core/networking/api_constants.dart';
 import '../../home/controllers/category_controller.dart';
 import '../models/login_model.dart';
 import '../models/sinup_model.dart';
@@ -33,21 +34,6 @@ abstract class AuthRemotData {
 
 class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   final ApiClent apiClent;
-
-  final String baseUrl = 'http://172.105.81.117:3000/api';
-
-  // Define all endpoints as variables
-  final String registerEndpoint = '/auth/register';
-  final String loginEndpoint = '/auth/login';
-  final String updateUserDetailsEndpoint = '/auth/update';
-  final String updateUserPasswordEndpoint = '/auth/update-password';
-  final String updateUserEmailEndpoint = '/auth/update-email';
-  final String deleteUserEndpoint = '/auth/delete';
-  final String getAllUsersEndpoint = '/auth/all-users';
-  final String getUserDataEndpoint = '/auth/user';
-  final String sendResetOtp = '/auth/send-reset-otp';
-
-  final String resetPasswordWithOtp = '/auth//reset-password-with-otp';
 
   bool get isAuthenticated => !_isExpired;
   bool _isExpired = true;
@@ -90,7 +76,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   Future<bool> signUp({required SinupModel sinupModel}) async {
     try {
       final response = await apiClent.posData(
-        uri: '$baseUrl$registerEndpoint',
+        uri: ApiConstants.apiBaseUrl + ApiConstants.registerEndpoint,
         body: {
           "username": sinupModel.userName,
           "email": sinupModel.email,
@@ -120,7 +106,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   Future<bool> logIn({required LoginModel loginModel}) async {
     try {
       final response = await apiClent.posData(
-        uri: '$baseUrl$loginEndpoint',
+        uri: ApiConstants.apiBaseUrl + ApiConstants.loginEndpoint,
         body: {
           "email": loginModel.email,
           "password": loginModel.password,
@@ -154,7 +140,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   Future<bool> updateUserInfo({required UserModel userModel}) async {
     try {
       final response = await apiClent.putData(
-        uri: '$baseUrl$updateUserDetailsEndpoint/${userModel.userId}',
+        uri:
+            '${ApiConstants.apiBaseUrl + ApiConstants.updateUserDetailsEndpoint}/${userModel.userId}',
         body: {
           "username": userModel.userName,
           "phone": userModel.phone,
@@ -184,7 +171,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   Future<bool> updatePassword({required String newPassword}) async {
     try {
       final response = await apiClent.putData(
-        uri: '$baseUrl$updateUserPasswordEndpoint/$userId',
+        uri:
+            '${ApiConstants.apiBaseUrl + ApiConstants.updateUserPasswordEndpoint}/$userId',
         body: {'password': newPassword},
         headers: {'Authorization': 'Bearer $token'},
       );
@@ -208,7 +196,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   Future<bool> updateEmail({required String newEmail}) async {
     try {
       final response = await apiClent.putData(
-        uri: '$baseUrl$updateUserEmailEndpoint/$userId',
+        uri:
+            '${ApiConstants.apiBaseUrl + ApiConstants.updateUserEmailEndpoint}/$userId',
         body: {'email': newEmail},
         headers: {'Authorization': 'Bearer $token'},
       );
@@ -232,7 +221,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   Future<bool> deleteAccount() async {
     try {
       final response = await apiClent.deleteData(
-        uri: '$baseUrl$sendResetOtp',
+        uri: ApiConstants.apiBaseUrl + ApiConstants.sendResetOtp,
         headers: {'Authorization': 'Bearer $token'},
       );
       if (response.statusCode == 200) {
@@ -265,7 +254,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         });
       }
       final response = await apiClent.getData(
-        uri: '$baseUrl$getUserDataEndpoint/$userId',
+        uri:
+            '${ApiConstants.apiBaseUrl + ApiConstants.getUserDataEndpoint}/$userId',
         headers: {'Authorization': 'Bearer $token'},
       );
       if (response.statusCode == 200) {
@@ -305,7 +295,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   Future<bool> forgotPassword({required String email}) async {
     try {
       final response = await apiClent.posData(
-        uri: '$baseUrl$sendResetOtp',
+        uri: ApiConstants.apiBaseUrl + ApiConstants.sendResetOtp,
         body: {'email': email},
       );
       if (response.statusCode == 200) {
@@ -325,7 +315,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       required String email}) async {
     try {
       final response = await apiClent.posData(
-        uri: '$baseUrl$sendResetOtp',
+        uri: ApiConstants.apiBaseUrl + ApiConstants.sendResetOtp,
         body: {"email": email, "otp": otp, "newPassword": newPassword},
       );
       if (response.statusCode == 200) {

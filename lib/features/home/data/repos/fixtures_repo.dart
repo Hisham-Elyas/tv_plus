@@ -11,6 +11,8 @@ import '../../../../core/helpers/enums.dart';
 import '../../../../core/helpers/snackbar_error_message.dart';
 import '../../../../core/networking/exception.dart';
 import '../models/fixtures_model.dart';
+import '../models/league_fixtures_response_model.dart';
+import '../models/leagues_response_model.dart';
 import '../models/standing_model.dart';
 import '../remote/fixtures_remote_data.dart';
 
@@ -28,6 +30,10 @@ abstract class FixturesRepo {
     required String seasonId,
     required ScorerType type,
   });
+  Future<Either<StatusRequest, LeaguesResponse>> getLeagues();
+
+  Future<Either<StatusRequest, LeagueFixturesResponse>> getMatchesForLeague(
+      {required String leagueId});
 }
 
 class FixturesRepoImpHttp implements FixturesRepo {
@@ -168,6 +174,56 @@ class FixturesRepoImpHttp implements FixturesRepo {
         log('from Server  ==> Today Matches Data');
 
         return right(remotData);
+      } on ServerException catch (e) {
+        print(e.message);
+        if (int.tryParse(e.message) == 204) {
+          return left(StatusRequest.noData);
+        } else if (int.tryParse(e.message) == 404) {
+          return left(StatusRequest.noData);
+        } else {
+          showErrorMessage(e.message);
+          return left(StatusRequest.serverFailure);
+        }
+      }
+    } else {
+      showNetworkError();
+      return left(StatusRequest.serverFailure);
+    }
+  }
+
+  @override
+  Future<Either<StatusRequest, LeaguesResponse>> getLeagues() async {
+    if (await checkInternet()) {
+      try {
+        final remoteData = await todayMatchesRemotData.getLeagues();
+        log('from Server  ==> Leagues Data');
+        return right(remoteData);
+      } on ServerException catch (e) {
+        print(e.message);
+        if (int.tryParse(e.message) == 204) {
+          return left(StatusRequest.noData);
+        } else if (int.tryParse(e.message) == 404) {
+          return left(StatusRequest.noData);
+        } else {
+          showErrorMessage(e.message);
+          return left(StatusRequest.serverFailure);
+        }
+      }
+    } else {
+      showNetworkError();
+      return left(StatusRequest.serverFailure);
+    }
+  }
+
+  @override
+  Future<Either<StatusRequest, LeagueFixturesResponse>> getMatchesForLeague(
+      {required String leagueId}) async {
+    if (await checkInternet()) {
+      try {
+        final remoteData = await todayMatchesRemotData.getMatchesByLeagueId(
+            leagueId: leagueId);
+        log('from Server  ==> Matches for League $leagueId');
+        return right(remoteData);
       } on ServerException catch (e) {
         print(e.message);
         if (int.tryParse(e.message) == 204) {

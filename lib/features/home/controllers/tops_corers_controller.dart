@@ -54,6 +54,7 @@ class TopScorersController extends GetxController {
   void changeType(ScorerType type, String seasonId) {
     selectedType.value = type;
     getTopScorers(seasonId: seasonId, type: type);
+    update();
   }
 
   final dummyScorersResponse = ScorersResponse(

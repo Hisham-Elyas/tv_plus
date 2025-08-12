@@ -7,7 +7,7 @@ import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
-import '../../../home/ui/home_screen.dart';
+import '../../../home/ui/home_match_list_screen.dart';
 import '../../models/login_model.dart';
 import '../../models/sinup_model.dart';
 import '../../repos/auth_repo.dart';
@@ -27,7 +27,7 @@ class SingupController extends GetxController {
       return;
     }
     singUpformKey.currentState!.save();
-    debugPrint('SingUp =>  userName : $userName');
+
     showOverlay(
       asyncFunction: () async {
         try {
@@ -39,6 +39,7 @@ class SingupController extends GetxController {
                   userName: userName.trim()));
 
           if (isSuccess) {
+            debugPrint('SingUp =>  userName : $userName');
             final isLogin = await authRepo.logIn(
                 loginModel: LoginModel(
               email: email.trim(),
@@ -46,10 +47,11 @@ class SingupController extends GetxController {
             ));
             if (isLogin) {
               /// save  user
-              Get.offAll(() => const HomeScreen());
+              Get.offAll(() => MatchListScreen());
             }
           }
         } catch (e) {
+          print(e);
           showCustomSnackBar(
             message: e.toString(),
             title: "",
@@ -64,7 +66,7 @@ class SingupController extends GetxController {
   String? emailvalidator(val) {
     if (val.isEmpty) {
       return Type_your_email_adress.tr;
-    } else if (!GetUtils.isEmail(val)) {
+    } else if (!GetUtils.isEmail(val.trim())) {
       return Type_in_valid_email_adress.tr;
     } else {
       return null;

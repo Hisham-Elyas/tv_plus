@@ -10,6 +10,8 @@ import '../../../../core/networking/api_constants.dart';
 import '../../../../core/networking/exception.dart';
 import '../models/fixture_detail_model.dart';
 import '../models/fixtures_model.dart';
+import '../models/league_fixtures_response_model.dart';
+import '../models/leagues_response_model.dart';
 import '../models/scorers_response_model.dart';
 import '../models/standing_model.dart';
 import '../models/team_fixtures_response_model.dart';
@@ -23,9 +25,11 @@ abstract class FixturesRemoteDate {
     required String seasonId,
     required ScorerType type,
   });
-
   Future<UpcomingFixturesResponse> getUpcomingMatchesByTeam(
       {required String teamId});
+  Future<LeaguesResponse> getLeagues();
+  Future<LeagueFixturesResponse> getMatchesByLeagueId(
+      {required String leagueId});
 }
 
 class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
@@ -40,7 +44,6 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
     required ScorerType type,
   }) async {
     final timeZone = await getDeviceTimeZone();
-
     final result = await apiClent.getData(
       uri:
           "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.topscorers}/$seasonId?type=${type.name}&timezone=$timeZone&locale=$locale",
@@ -58,9 +61,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   Future<UpcomingFixturesResponse> getUpcomingMatchesByTeam(
       {required String teamId}) async {
     final timeZone = await getDeviceTimeZone();
-
     final result = await apiClent.getData(
-      /// http://172.105.81.117:3000/api/fixtures/team/2447/matches
       uri:
           "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.team}/$teamId${ApiConstants.matches}?timezone=$timeZone&locale=$locale",
     );
@@ -77,17 +78,14 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   @override
   Future<StandingsResponse> getStandings({required String seasonId}) async {
     final timeZone = await getDeviceTimeZone();
-
     final result = await apiClent.getData(
       uri:
           "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.standings}/$seasonId?locale=$locale&timezone=$timeZone",
     );
 
-    // print("from getStandings: ${result.body}  ");
     if (result.statusCode == 200) {
-      final StandingsResponse response = StandingsResponse.fromJson(
-          result.body); // ✅ assuming `result.body` is a JSON map
-      print("from getStandings: ${response.data.length} standings loaded");
+      final StandingsResponse response =
+          StandingsResponse.fromJson(result.body);
       return response;
     } else {
       throw ServerException(message: "${result.statusCode}");
@@ -96,15 +94,12 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
 
   @override
   Future<FixturesResponse> getAllTodayMatches({required String date}) async {
-    final timeZone = await getDeviceTimeZone(); // ⬅️ Get timezone here
+    final timeZone = await getDeviceTimeZone();
     final resalt = await apiClent.getData(
         uri:
             "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.calendar}?date=$date&timezone=$timeZone&locale=$locale");
-    // print(resalt.body);
-    // print(resalt.statusCode);
     if (resalt.statusCode == 200) {
       final FixturesResponse response = FixturesResponse.fromJson(resalt.body);
-      print("from getAllTodayMatches : ${response.timezone}");
       return response;
     } else {
       throw ServerException(message: "${resalt.statusCode}");
@@ -114,33 +109,58 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   @override
   Future<FixtureDetailResponse> getFixturDetiels(
       {required String fixturId, required String channelCommmId}) async {
-    final timeZone = await getDeviceTimeZone(); // ⬅️ Get timezone here
+    final timeZone = await getDeviceTimeZone();
     final resalt = await apiClent.getData(
       uri:
           "${ApiConstants.apiBaseUrl + ApiConstants.fixtures}/$fixturId?timezone=$timeZone&locale=$locale&channel_commm_id=$channelCommmId",
     );
 
     if (resalt.statusCode == 200) {
-      // 🔥 Fix here: decode the JSON string into a map first
-      // final Map<String, dynamic> decodedJson = jsonDecode();
-
-      // print(resalt.body); // or any field to verify
-      // ✅ Now safely parse it into your model
       final FixtureDetailResponse response =
           FixtureDetailResponse.fromJson(resalt.body);
-      print("from getFixturDetiels : ${response.timezone}");
-
       return response;
     } else {
-      print("❌ Error fetching fixture details: ${resalt.statusCode}");
       throw ServerException(message: "${resalt.statusCode}");
+    }
+  }
+
+  @override
+  Future<LeaguesResponse> getLeagues() async {
+    final timeZone = await getDeviceTimeZone();
+    final result = await apiClent.getData(
+      uri:
+          "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.leagues}?timezone=$timeZone&locale=$locale",
+    );
+
+    if (result.statusCode == 200) {
+      final LeaguesResponse response = LeaguesResponse.fromJson(result.body);
+      return response;
+    } else {
+      throw ServerException(message: "${result.statusCode}");
+    }
+  }
+
+  @override
+  Future<LeagueFixturesResponse> getMatchesByLeagueId(
+      {required String leagueId}) async {
+    final timeZone = await getDeviceTimeZone();
+    final result = await apiClent.getData(
+      uri:
+          "${ApiConstants.apiBaseUrl}${ApiConstants.fixtures}${ApiConstants.leagueMatches}/$leagueId${ApiConstants.matches}?locale=$locale&timezone=$timeZone",
+    );
+
+    if (result.statusCode == 200) {
+      final LeagueFixturesResponse response =
+          LeagueFixturesResponse.fromJson(result.body);
+      return response;
+    } else {
+      throw ServerException(message: "${result.statusCode}");
     }
   }
 
   Future<String> getDeviceTimeZone() async {
     try {
       final timeZone = await FlutterTimezone.getLocalTimezone();
-      // print(timeZone);
       return timeZone;
     } catch (e) {
       return 'Asia/Riyadh';

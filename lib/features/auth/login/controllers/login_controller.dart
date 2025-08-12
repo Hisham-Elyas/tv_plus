@@ -7,7 +7,7 @@ import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
 import '../../../home/controllers/today_matches_controller.dart';
-import '../../../home/ui/home_screen.dart';
+import '../../../home/ui/home_match_list_screen.dart';
 import '../../models/login_model.dart';
 import '../../repos/auth_repo.dart';
 
@@ -37,7 +37,7 @@ class LoginController extends GetxController {
           if (isSuccess) {
             /// save  user
 
-            Get.offAll(() => const HomeScreen());
+            Get.offAll(() => MatchListScreen());
             Get.find<TodayMatchesController>();
           }
         } catch (e) {
@@ -65,7 +65,7 @@ class LoginController extends GetxController {
   String? emailvalidator(val) {
     if (val.isEmpty) {
       return Type_your_email_adress.tr;
-    } else if (!GetUtils.isEmail(val)) {
+    } else if (!GetUtils.isEmail(val.trim())) {
       return Type_in_valid_email_adress.tr;
     } else {
       return null;

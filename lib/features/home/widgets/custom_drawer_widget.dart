@@ -8,7 +8,6 @@ import '../ui/about_us/about_us_screen.dart';
 import '../ui/categories/categories_screen.dart';
 import '../ui/contact_us/contact_us_screen.dart';
 import '../ui/home_match_list_screen.dart';
-import '../ui/home_screen.dart';
 import '../ui/profile/profile_screen.dart';
 import '../ui/setting/settings_screen.dart';
 
@@ -95,7 +94,7 @@ class CustomListTile extends StatelessWidget {
             break;
 
           default:
-            Get.off(() => const HomeScreen());
+            Get.off(() => MatchListScreen());
         }
       },
       leading: Icon(
