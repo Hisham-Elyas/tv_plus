@@ -7,7 +7,7 @@ import '../../onboarding/widgets/logo_card_widget.dart';
 import '../ui/about_us/about_us_screen.dart';
 import '../ui/categories/categories_screen.dart';
 import '../ui/contact_us/contact_us_screen.dart';
-import '../ui/home_match_list_screen.dart';
+import '../ui/main_home_screen.dart';
 import '../ui/profile/profile_screen.dart';
 import '../ui/setting/settings_screen.dart';
 
@@ -71,7 +71,7 @@ class CustomListTile extends StatelessWidget {
       onTap: () {
         switch (index) {
           case 0:
-            Get.off(() => MatchListScreen());
+            Get.off(() => const MainHomeScreen());
             break;
           case 1:
             Get.off(() => const CategoriesScreen());
@@ -94,7 +94,7 @@ class CustomListTile extends StatelessWidget {
             break;
 
           default:
-            Get.off(() => MatchListScreen());
+            Get.off(() => const MainHomeScreen());
         }
       },
       leading: Icon(

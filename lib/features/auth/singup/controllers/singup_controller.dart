@@ -7,7 +7,7 @@ import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
-import '../../../home/ui/home_match_list_screen.dart';
+import '../../../home/ui/main_home_screen.dart';
 import '../../models/login_model.dart';
 import '../../models/sinup_model.dart';
 import '../../repos/auth_repo.dart';
@@ -47,7 +47,7 @@ class SingupController extends GetxController {
             ));
             if (isLogin) {
               /// save  user
-              Get.offAll(() => MatchListScreen());
+              Get.offAll(() => const MainHomeScreen());
             }
           }
         } catch (e) {

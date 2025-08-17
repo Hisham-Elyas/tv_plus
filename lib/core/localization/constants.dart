@@ -14,6 +14,10 @@ const String Channel_not_found = "Channel not found.";
 const String ChannelUnknown = "Channel Unknown";
 
 const String Categories = 'Categories';
+const String Leagues = 'Leagues';
+const String NoActiveSeason = 'No Active Season';
+const String NoActiveSeasonMessage =
+    'This league currently has no active season.';
 const String ContactUs = 'Contact us';
 const String AboutUs = 'About us';
 const String Profile = "Profile";

@@ -7,7 +7,7 @@ import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
 import '../../../home/controllers/today_matches_controller.dart';
-import '../../../home/ui/home_match_list_screen.dart';
+import '../../../home/ui/main_home_screen.dart';
 import '../../models/login_model.dart';
 import '../../repos/auth_repo.dart';
 
@@ -37,7 +37,7 @@ class LoginController extends GetxController {
           if (isSuccess) {
             /// save  user
 
-            Get.offAll(() => MatchListScreen());
+            Get.offAll(() => const MainHomeScreen());
             Get.find<TodayMatchesController>();
           }
         } catch (e) {

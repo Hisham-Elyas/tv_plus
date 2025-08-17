@@ -225,6 +225,8 @@ class MyTranslations extends Translations {
           NoMatchesFoundForDate: NoMatchesFoundForDate,
           Unknown: Unknown,
           QualityOptions: QualityOptions,
+          NoActiveSeason: NoActiveSeason,
+          NoActiveSeasonMessage: NoActiveSeasonMessage,
           MainLink: MainLink,
         },
         "ar": {
@@ -460,6 +462,8 @@ class MyTranslations extends Translations {
           Resend: 'إعادة إرسال',
           GetCode: 'احصل على رمز التحقق',
           VerificationCode: "رمز التحقق",
+          NoActiveSeason: "لا توجد موسم نشط",
+          NoActiveSeasonMessage: "هذه البطولة لا تحتوي حالياً على موسم نشط.",
           ChannelUnknown: "القناة غير معروفة",
           Channel_not_found: "لم يتم العثور على القناة",
 

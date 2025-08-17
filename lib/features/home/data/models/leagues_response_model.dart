@@ -9,7 +9,8 @@ class LeaguesResponse {
 
   factory LeaguesResponse.fromJson(Map<String, dynamic> json) {
     return LeaguesResponse(
-      data: List<LeagueData>.from(json['data'].map((item) => LeagueData.fromJson(item))),
+      data: List<LeagueData>.from(
+          json['data'].map((item) => LeagueData.fromJson(item))),
       timezone: json['timezone'],
     );
   }
@@ -78,7 +79,7 @@ class CurrentSeason {
   final bool isCurrent;
   final String startingAt;
   final String endingAt;
-  final String standingsRecalculatedAt;
+  final String? standingsRecalculatedAt;
   final bool gamesInCurrentWeek;
 
   CurrentSeason({
@@ -92,7 +93,7 @@ class CurrentSeason {
     required this.isCurrent,
     required this.startingAt,
     required this.endingAt,
-    required this.standingsRecalculatedAt,
+    this.standingsRecalculatedAt,
     required this.gamesInCurrentWeek,
   });
 

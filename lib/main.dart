@@ -13,7 +13,7 @@ import 'core/theming/app_themes.dart';
 import 'core/theming/theme_controller.dart';
 import 'features/auth/login/ui/login_screen.dart';
 import 'features/auth/remote/auth_remotdata.dart';
-import 'features/home/ui/home_match_list_screen.dart';
+import 'features/home/ui/main_home_screen.dart';
 import 'features/onboarding/ui/intro_screen.dart';
 
 void main() async {
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
               // ),
               home: isOnBordingView
                   ? auth.isAuthenticated
-                      ? MatchListScreen()
+                      ? const MainHomeScreen()
                       : const LoginScreen()
                   : const IntroScreen(),
               // home: HomeScreen(),
