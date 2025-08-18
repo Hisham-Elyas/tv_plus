@@ -566,19 +566,56 @@ class UpcomingMatchesTab extends StatelessWidget {
 
       final upcoming = controller.fixtures.value?.data.upcoming ?? [];
 
-      return ListView.builder(
-        itemCount: upcoming.length,
-        itemBuilder: (context, index) {
-          final match = upcoming[index];
-          final teamA =
-              match.participants.firstWhere((p) => p.meta.location == 'home');
-          final teamB =
-              match.participants.firstWhere((p) => p.meta.location == 'away');
+      // Group matches by date
+      final Map<String, List<dynamic>> matchesByDate = {};
 
-          return LeagueDetailScreen.matchCard(controller, match);
+      for (final match in upcoming) {
+        final matchDate = DateTime.tryParse(match.startingAt);
+        if (matchDate != null) {
+          final dateKey = DateFormat('yyyy-MM-dd').format(matchDate);
+          if (!matchesByDate.containsKey(dateKey)) {
+            matchesByDate[dateKey] = [];
+          }
+          matchesByDate[dateKey]!.add(match);
+        }
+      }
+
+      // Sort dates
+      final sortedDates = matchesByDate.keys.toList()..sort();
+
+      return ListView.builder(
+        itemCount: sortedDates.length,
+        itemBuilder: (context, index) {
+          final date = sortedDates[index];
+          final matches = matchesByDate[date] ?? [];
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Date header with format "Monday 2025-08-18"
+              Container(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  _formatDateHeader(date),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              // Matches for this date
+              ...matches.map(
+                  (match) => LeagueDetailScreen.matchCard(controller, match)),
+            ],
+          );
         },
       );
     });
+  }
+
+  String _formatDateHeader(String dateStr) {
+    final date = DateTime.parse(dateStr);
+    return DateFormat('EEEE yyyy-MM-dd').format(date);
   }
 }
 
@@ -607,29 +644,56 @@ class LatestMatchesTab extends StatelessWidget {
 
       final latest = controller.fixtures.value?.data.latest ?? [];
 
+      // Group matches by date
+      final Map<String, List<dynamic>> matchesByDate = {};
+
+      for (final match in latest) {
+        final matchDate = DateTime.tryParse(match.startingAt);
+        if (matchDate != null) {
+          final dateKey = DateFormat('yyyy-MM-dd').format(matchDate);
+          if (!matchesByDate.containsKey(dateKey)) {
+            matchesByDate[dateKey] = [];
+          }
+          matchesByDate[dateKey]!.add(match);
+        }
+      }
+
+      // Sort dates
+      final sortedDates = matchesByDate.keys.toList()..sort();
+
       return ListView.builder(
-        itemCount: latest.length,
+        itemCount: sortedDates.length,
         itemBuilder: (context, index) {
-          final match = latest[index];
-          final teamA =
-              match.participants.firstWhere((p) => p.meta.location == 'home');
-          final teamB =
-              match.participants.firstWhere((p) => p.meta.location == 'away');
+          final date = sortedDates[index];
+          final matches = matchesByDate[date] ?? [];
 
-          // Get scores for each team
-          final teamAScore = match.scores
-              .firstWhereOrNull((s) => s.participantId == teamA.id)
-              ?.score
-              .goals;
-          final teamBScore = match.scores
-              .firstWhereOrNull((s) => s.participantId == teamB.id)
-              ?.score
-              .goals;
-
-          return LeagueDetailScreen.matchCard(controller, match);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Date header with format "Monday 2025-08-18"
+              Container(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  _formatDateHeader(date),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              // Matches for this date
+              ...matches.map(
+                  (match) => LeagueDetailScreen.matchCard(controller, match)),
+            ],
+          );
         },
       );
     });
+  }
+
+  String _formatDateHeader(String dateStr) {
+    final date = DateTime.parse(dateStr);
+    return DateFormat('EEEE yyyy-MM-dd').format(date);
   }
 }
 
