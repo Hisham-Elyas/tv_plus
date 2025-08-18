@@ -15,6 +15,8 @@ import '../../features/home/controllers/category_controller.dart';
 import '../../features/home/controllers/contact_us_controller.dart';
 import '../../features/home/controllers/leaguematch_controller.dart';
 import '../../features/home/controllers/leagues_controller.dart';
+import '../../features/home/controllers/payment_controller.dart';
+import '../../features/home/controllers/profile_controller.dart';
 import '../../features/home/controllers/settings_controller.dart';
 import '../../features/home/controllers/today_matches_controller.dart';
 import '../../features/home/controllers/video_player_conteroller.dart';
@@ -103,5 +105,9 @@ Future<void> setupGetIt() async {
   Get.lazyPut(() => LeaguematchController(), fenix: true);
   Get.lazyPut(() => FixturesController(), fenix: true);
   Get.lazyPut(() => LeaguesController(), fenix: true);
+
+  // Profile and Payment controllers
+  Get.lazyPut(() => ProfileController(), fenix: true);
+  Get.lazyPut(() => PaymentController(), fenix: true);
   await init();
 }

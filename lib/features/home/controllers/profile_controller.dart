@@ -17,7 +17,7 @@ import '../../auth/repos/auth_repo.dart';
 import 'settings_controller.dart';
 
 class ProfileController extends GetxController {
-  late UserModel userInf;
+  UserModel? userInf;
 
   late StatusRequest statusReq = StatusRequest.loading;
   final AuthRepoImpHttp authRepo = Get.find();
@@ -47,11 +47,14 @@ class ProfileController extends GetxController {
         },
       );
     } catch (e) {
-      showCustomSnackBar(
-        message: e.toString(),
-        title: "",
-        isError: true,
-      );
+      statusReq = StatusRequest.serverFailure;
+      update();
+      print("Error in _getUserInfoFromServer: $e");
+      // showCustomSnackBar(
+      //   message: e.toString(),
+      //   title: "",
+      //   isError: true,
+      // );
     }
   }
 
@@ -78,11 +81,12 @@ class ProfileController extends GetxController {
       } catch (e) {
         statusReq = StatusRequest.serverFailure;
         update();
-        showCustomSnackBar(
-          message: e.toString(),
-          title: "",
-          isError: true,
-        );
+        print("Error in _getUserInfoFromServer: $e");
+        // showCustomSnackBar(
+        //   message: e.toString(),
+        //   title: "",
+        //   isError: true,
+        // );
       }
     } else if (userdata.isNotEmpty) {
       userInf = UserModel.fromMap(jsonDecode(userdata));
@@ -260,10 +264,13 @@ class ProfileController extends GetxController {
   }
 
   Widget _buildUserInfoUpdateSheet() {
+    // Handle case where userInf might be null
+    final userName = userInf?.userName ?? '';
+    final phone = userInf?.phone ?? '';
+
     TextEditingController userNameController =
-        TextEditingController(text: userInf.userName);
-    TextEditingController phoneController =
-        TextEditingController(text: userInf.phone);
+        TextEditingController(text: userName);
+    TextEditingController phoneController = TextEditingController(text: phone);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -289,7 +296,7 @@ class ProfileController extends GetxController {
           style: const ButtonStyle(elevation: WidgetStatePropertyAll(5)),
           onPressed: () async {
             await updateUserInfo(
-              userModel: userInf.copyWith(
+              userModel: userInf!.copyWith(
                 userName: userNameController.text,
                 phone: phoneController.text,
               ),

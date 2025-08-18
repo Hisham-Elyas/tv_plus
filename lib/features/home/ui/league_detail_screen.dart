@@ -15,6 +15,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/enums.dart';
 import '../../../core/localization/constants.dart';
+import '../../../core/localization/language_controller.dart';
 import '../controllers/league_detail_controller.dart';
 import '../controllers/standings_controller.dart' show StandingsController;
 import '../data/models/league_fixtures_response_model.dart';
@@ -221,7 +222,7 @@ class LeagueDetailScreen extends StatelessWidget {
             name,
             textAlign: TextAlign.center,
             // overflow: TextOverflow.visible,
-            style: TextStyle(fontSize: 12.sp),
+            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
           ),
         ),
         SizedBox(width: 15.w),
@@ -323,8 +324,8 @@ class LeagueHeader extends StatelessWidget {
               children: [
                 _tab(Scorers.tr, 0),
                 _tab(Standingss.tr, 1),
-                _tab("Upcoming", 2),
-                _tab("Latest", 3),
+                _tab(Upcoming.tr, 2),
+                _tab(Latest.tr, 3),
               ],
             ),
           ),
@@ -559,13 +560,15 @@ class UpcomingMatchesTab extends StatelessWidget {
     });
 
     return Obx(() {
-      if (controller.statusReq.value == StatusRequest.loading) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (controller.statusReq.value == StatusRequest.noData) {
-        return const Center(child: Text('No upcoming matches'));
+      final status = controller.statusReq.value;
+
+      if (status == StatusRequest.noData) {
+        return Center(child: Text(NoUpcomingMatches.tr));
       }
 
-      final upcoming = controller.fixtures.value?.data.upcoming ?? [];
+      final upcoming = status == StatusRequest.loading
+          ? controller.dummyLeagueFixturesResponse.data.upcoming
+          : controller.fixtures.value?.data.upcoming ?? [];
 
       // Group matches by date
       final Map<String, List<MatchDetails>> matchesByDate = {};
@@ -584,63 +587,71 @@ class UpcomingMatchesTab extends StatelessWidget {
       // Sort dates in ascending order (soonest first)
       final sortedDates = matchesByDate.keys.toList()..sort();
 
-      return ListView.builder(
-        itemCount: sortedDates.length,
-        itemBuilder: (context, index) {
-          final date = sortedDates[index];
-          final matches = matchesByDate[date] ?? [];
+      return Skeletonizer(
+        enabled: status == StatusRequest.loading,
+        child: ListView.builder(
+          itemCount: sortedDates.length,
+          itemBuilder: (context, index) {
+            final date = sortedDates[index];
+            final matches = matchesByDate[date] ?? [];
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Date header with format "Monday 2025-08-18"
-              Card(
-                shadowColor: ColorsManager.lightSecondary,
-                // surfaceTintColor: Theme.of(context).colorScheme.secondary,
-                elevation: 10,
-                color: Theme.of(Get.context!).colorScheme.surface,
-                clipBehavior: Clip.hardEdge,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Round ${matches.first.round?.name}",
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: 5.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Date header with format "Monday 2025-08-18"
+                  Card(
+                    shadowColor: ColorsManager.lightSecondary,
+                    // surfaceTintColor: Theme.of(context).colorScheme.secondary,
+                    elevation: 10,
+                    color: Theme.of(Get.context!).colorScheme.surface,
+                    clipBehavior: Clip.hardEdge,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${Rounds.tr} ${matches.first.round?.name ?? Unknown.tr}",
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            _formatDateHeader(date),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        _formatDateHeader(date),
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
 
-              // Matches for this date
-              ...matches.map(
-                  (match) => LeagueDetailScreen.matchCard(controller, match)),
-            ],
-          );
-        },
+                  // Matches for this date
+                  ...matches.map((match) =>
+                      LeagueDetailScreen.matchCard(controller, match)),
+                ],
+              ),
+            );
+          },
+        ),
       );
     });
   }
 
   String _formatDateHeader(String dateStr) {
+    final String locale = Get.find<LanguageController>().appLocale.languageCode;
     final date = DateTime.parse(dateStr);
-    return DateFormat('EEEE yyyy-MM-dd').format(date);
+
+    return " ${DateFormat('EEEE', locale).format(date)},  ${DateFormat('yyyy-MM-dd').format(date)}";
   }
 }
 
@@ -661,13 +672,15 @@ class LatestMatchesTab extends StatelessWidget {
     });
 
     return Obx(() {
-      if (controller.statusReq.value == StatusRequest.loading) {
-        return const Center(child: CircularProgressIndicator());
-      } else if (controller.statusReq.value == StatusRequest.noData) {
-        return const Center(child: Text('No latest matches'));
+      final status = controller.statusReq.value;
+
+      if (status == StatusRequest.noData) {
+        return Center(child: Text(NoLatestMatches.tr));
       }
 
-      final latest = controller.fixtures.value?.data.latest ?? [];
+      final latest = status == StatusRequest.loading
+          ? controller.dummyLeagueFixturesResponse.data.latest
+          : controller.fixtures.value?.data.latest ?? [];
 
       // Group matches by date
       final Map<String, List<MatchDetails>> matchesByDate = {};
@@ -683,60 +696,66 @@ class LatestMatchesTab extends StatelessWidget {
         }
       }
 
-      // Sort dates
+      // Sort dates in descending order (newest first)
       final sortedDates = matchesByDate.keys.toList()
         ..sort((a, b) => b.compareTo(a));
 
-      return ListView.builder(
-        itemCount: sortedDates.length,
-        itemBuilder: (context, index) {
-          final date = sortedDates[index];
-          final matches = matchesByDate[date] ?? [];
+      return Skeletonizer(
+        enabled: status == StatusRequest.loading,
+        child: ListView.builder(
+          itemCount: sortedDates.length,
+          itemBuilder: (context, index) {
+            final date = sortedDates[index];
+            final matches = matchesByDate[date] ?? [];
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Date header with format "Monday 2025-08-18"
-              Card(
-                shadowColor: ColorsManager.lightSecondary,
-                // surfaceTintColor: Theme.of(context).colorScheme.secondary,
-                elevation: 10,
-                color: Theme.of(Get.context!).colorScheme.surface,
-                clipBehavior: Clip.hardEdge,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.r),
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Round ${matches.first.round?.name}",
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: 5.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Date header with format "Monday 2025-08-18"
+                  Card(
+                    shadowColor: ColorsManager.lightSecondary,
+                    // surfaceTintColor: Theme.of(context).colorScheme.secondary,
+                    elevation: 10,
+                    color: Theme.of(Get.context!).colorScheme.surface,
+                    clipBehavior: Clip.hardEdge,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "${Rounds.tr} ${matches.first.round?.name ?? Unknown.tr}",
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            _formatDateHeader(date),
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        _formatDateHeader(date),
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
 
-              // Matches for this date
-              ...matches.map(
-                  (match) => LeagueDetailScreen.matchCard(controller, match)),
-            ],
-          );
-        },
+                  // Matches for this date
+                  ...matches.map((match) =>
+                      LeagueDetailScreen.matchCard(controller, match)),
+                ],
+              ),
+            );
+          },
+        ),
       );
     });
   }

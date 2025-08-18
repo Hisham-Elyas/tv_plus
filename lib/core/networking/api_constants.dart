@@ -27,4 +27,12 @@ class ApiConstants {
   static const String getUserDataEndpoint = '/auth/user';
   static const String sendResetOtp = '/auth/send-reset-otp';
   static const String resetPasswordWithOtp = '/auth//reset-password-with-otp';
+
+  // Payment and subscription endpoints
+  static const String getPaymentMethodsEndpoint = '/payment/methods';
+  static const String addPaymentMethodEndpoint = '/payment/methods';
+  static const String updatePaymentMethodEndpoint = '/payment/methods';
+  static const String deletePaymentMethodEndpoint = '/payment/methods';
+  static const String getCurrentSubscriptionEndpoint = '/subscription/current';
+  static const String subscribeToPlanEndpoint = '/subscription/subscribe';
 }

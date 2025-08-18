@@ -17,7 +17,6 @@ class SimplifiedProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(() => ProfileController());
     return GetBuilder<ProfileController>(
-      init: ProfileController(),
       builder: (controller) => controller.statusReq == StatusRequest.loading
           ? const Center(child: CircularProgressIndicator())
           : Skeletonizer(
@@ -60,7 +59,8 @@ class SimplifiedProfileScreen extends StatelessWidget {
                           ),
                           verticalSpace(20),
                           CustomListTileWidget(
-                              title: controller.userInf.userName!,
+                              title:
+                                  controller.userInf?.userName ?? 'User Name',
                               icon: Icons.person,
                               trailing: const Icon(Icons.edit),
                               onTap: () {
@@ -68,7 +68,7 @@ class SimplifiedProfileScreen extends StatelessWidget {
                               }),
                           verticalSpace(10),
                           CustomListTileWidget(
-                              title: controller.userInf.email ?? '',
+                              title: controller.userInf?.email ?? '',
                               icon: Icons.email,
                               trailing: const Icon(Icons.edit),
                               onTap: () {
@@ -76,7 +76,7 @@ class SimplifiedProfileScreen extends StatelessWidget {
                               }),
                           verticalSpace(10),
                           CustomListTileWidget(
-                              title: controller.userInf.phone ??
+                              title: controller.userInf?.phone ??
                                   'Add phone Number',
                               icon: Icons.phone,
                               trailing: const Icon(Icons.edit),
