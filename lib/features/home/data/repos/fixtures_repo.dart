@@ -66,7 +66,7 @@ class FixturesRepoImpHttp implements FixturesRepo {
         } else if (int.tryParse(e.message) == 404) {
           return left(StatusRequest.noData);
         } else {
-          showErrorMessage(e.message);
+          // showErrorMessage(e.message);
           return left(StatusRequest.serverFailure);
         }
       }
@@ -96,7 +96,7 @@ class FixturesRepoImpHttp implements FixturesRepo {
         } else if (int.tryParse(e.message) == 404) {
           return left(StatusRequest.noData);
         } else {
-          showErrorMessage(e.message);
+          // showErrorMessage(e.message);
           return left(StatusRequest.serverFailure);
         }
       }
@@ -123,7 +123,7 @@ class FixturesRepoImpHttp implements FixturesRepo {
         } else if (int.tryParse(e.message) == 404) {
           return left(StatusRequest.noData);
         } else {
-          showErrorMessage(e.message);
+          // showErrorMessage(e.message);
           return left(StatusRequest.serverFailure);
         }
       }
@@ -152,7 +152,7 @@ class FixturesRepoImpHttp implements FixturesRepo {
         } else if (int.tryParse(e.message) == 404) {
           return left(StatusRequest.noData);
         } else {
-          showErrorMessage(e.message);
+          // showErrorMessage(e.message);
           return left(StatusRequest.serverFailure);
         }
       }
@@ -181,7 +181,7 @@ class FixturesRepoImpHttp implements FixturesRepo {
         } else if (int.tryParse(e.message) == 404) {
           return left(StatusRequest.noData);
         } else {
-          showErrorMessage(e.message);
+          // showErrorMessage(e.message);
           return left(StatusRequest.serverFailure);
         }
       }
@@ -205,7 +205,7 @@ class FixturesRepoImpHttp implements FixturesRepo {
         } else if (int.tryParse(e.message) == 404) {
           return left(StatusRequest.noData);
         } else {
-          showErrorMessage(e.message);
+          // showErrorMessage(e.message);
           return left(StatusRequest.serverFailure);
         }
       }
@@ -231,7 +231,7 @@ class FixturesRepoImpHttp implements FixturesRepo {
         } else if (int.tryParse(e.message) == 404) {
           return left(StatusRequest.noData);
         } else {
-          showErrorMessage(e.message);
+          // showErrorMessage(e.message);
           return left(StatusRequest.serverFailure);
         }
       }

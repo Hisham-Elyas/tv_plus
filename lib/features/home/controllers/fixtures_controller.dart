@@ -98,7 +98,7 @@ class FixturesController extends GetxController {
       );
     } catch (e) {
       statusReq.value = StatusRequest.serverFailure;
-      Get.snackbar("Exception", e.toString());
+      // Get.snackbar("Exception", e.toString());
     } finally {
       isLoading(false);
     }

@@ -27,6 +27,7 @@ class LeaguematchController extends GetxController {
       );
     } catch (e) {
       statusReq.value = StatusRequest.serverFailure;
+      print('Error fetching league fixtures: $e');
     }
   }
 }

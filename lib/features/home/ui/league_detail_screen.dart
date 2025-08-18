@@ -17,6 +17,7 @@ import '../../../core/helpers/enums.dart';
 import '../../../core/localization/constants.dart';
 import '../controllers/league_detail_controller.dart';
 import '../controllers/standings_controller.dart' show StandingsController;
+import '../data/models/league_fixtures_response_model.dart';
 import 'fixture_detail_screen.dart';
 
 /// --- Main Screen ---
@@ -126,11 +127,11 @@ class LeagueDetailScreen extends StatelessWidget {
                 "0", // Default value since it's not available in this context
           )),
       child: Card(
-        // margin: const EdgeInsets.all(10),
-        elevation: 2,
-        borderOnForeground: false,
         shadowColor: ColorsManager.lightSecondary,
+        // surfaceTintColor: Theme.of(context).colorScheme.secondary,
+        elevation: 10,
         color: Theme.of(Get.context!).colorScheme.surface,
+        clipBehavior: Clip.hardEdge,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r),
         ),
@@ -567,7 +568,7 @@ class UpcomingMatchesTab extends StatelessWidget {
       final upcoming = controller.fixtures.value?.data.upcoming ?? [];
 
       // Group matches by date
-      final Map<String, List<dynamic>> matchesByDate = {};
+      final Map<String, List<MatchDetails>> matchesByDate = {};
 
       for (final match in upcoming) {
         final matchDate = DateTime.tryParse(match.startingAt);
@@ -580,7 +581,7 @@ class UpcomingMatchesTab extends StatelessWidget {
         }
       }
 
-      // Sort dates
+      // Sort dates in ascending order (soonest first)
       final sortedDates = matchesByDate.keys.toList()..sort();
 
       return ListView.builder(
@@ -593,16 +594,40 @@ class UpcomingMatchesTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Date header with format "Monday 2025-08-18"
-              Container(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  _formatDateHeader(date),
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+              Card(
+                shadowColor: ColorsManager.lightSecondary,
+                // surfaceTintColor: Theme.of(context).colorScheme.secondary,
+                elevation: 10,
+                color: Theme.of(Get.context!).colorScheme.surface,
+                clipBehavior: Clip.hardEdge,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Round ${matches.first.round?.name}",
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        _formatDateHeader(date),
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+
               // Matches for this date
               ...matches.map(
                   (match) => LeagueDetailScreen.matchCard(controller, match)),
@@ -645,7 +670,7 @@ class LatestMatchesTab extends StatelessWidget {
       final latest = controller.fixtures.value?.data.latest ?? [];
 
       // Group matches by date
-      final Map<String, List<dynamic>> matchesByDate = {};
+      final Map<String, List<MatchDetails>> matchesByDate = {};
 
       for (final match in latest) {
         final matchDate = DateTime.tryParse(match.startingAt);
@@ -659,7 +684,8 @@ class LatestMatchesTab extends StatelessWidget {
       }
 
       // Sort dates
-      final sortedDates = matchesByDate.keys.toList()..sort();
+      final sortedDates = matchesByDate.keys.toList()
+        ..sort((a, b) => b.compareTo(a));
 
       return ListView.builder(
         itemCount: sortedDates.length,
@@ -671,16 +697,40 @@ class LatestMatchesTab extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Date header with format "Monday 2025-08-18"
-              Container(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  _formatDateHeader(date),
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+              Card(
+                shadowColor: ColorsManager.lightSecondary,
+                // surfaceTintColor: Theme.of(context).colorScheme.secondary,
+                elevation: 10,
+                color: Theme.of(Get.context!).colorScheme.surface,
+                clipBehavior: Clip.hardEdge,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.r),
+                ),
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Round ${matches.first.round?.name}",
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        _formatDateHeader(date),
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+
               // Matches for this date
               ...matches.map(
                   (match) => LeagueDetailScreen.matchCard(controller, match)),

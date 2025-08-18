@@ -91,6 +91,7 @@ class MatchDetails {
   final bool hasOdds;
   final bool hasPremiumOdds;
   final int startingAtTimestamp;
+  final Round? round;
   final List<Participant> participants;
   final List<Score> scores;
 
@@ -116,6 +117,7 @@ class MatchDetails {
     required this.hasPremiumOdds,
     required this.startingAtTimestamp,
     required this.participants,
+    this.round,
     required this.scores,
   });
 
@@ -141,6 +143,7 @@ class MatchDetails {
       hasOdds: json['has_odds'],
       hasPremiumOdds: json['has_premium_odds'],
       startingAtTimestamp: json['starting_at_timestamp'],
+      round: json['round'] != null ? Round.fromJson(json['round']) : null,
       participants: json['participants'] != null
           ? List<Participant>.from(
               json['participants'].map((x) => Participant.fromJson(x)))
@@ -148,6 +151,52 @@ class MatchDetails {
       scores: json['scores'] != null
           ? List<Score>.from(json['scores'].map((x) => Score.fromJson(x)))
           : [],
+    );
+  }
+}
+
+/// Represents the data structure for a sports round.
+class Round {
+  final int id;
+  final int sportId;
+  final int leagueId;
+  final int seasonId;
+  final int stageId;
+  final String name;
+  final bool finished;
+  final bool isCurrent;
+  final String startingAt;
+  final String endingAt;
+  final bool gamesInCurrentWeek;
+
+  Round({
+    required this.id,
+    required this.sportId,
+    required this.leagueId,
+    required this.seasonId,
+    required this.stageId,
+    required this.name,
+    required this.finished,
+    required this.isCurrent,
+    required this.startingAt,
+    required this.endingAt,
+    required this.gamesInCurrentWeek,
+  });
+
+  /// Creates a [Round] instance from a JSON map.
+  factory Round.fromJson(Map<String, dynamic> json) {
+    return Round(
+      id: json['id'],
+      sportId: json['sport_id'],
+      leagueId: json['league_id'],
+      seasonId: json['season_id'],
+      stageId: json['stage_id'],
+      name: json['name'],
+      finished: json['finished'],
+      isCurrent: json['is_current'],
+      startingAt: json['starting_at'],
+      endingAt: json['ending_at'],
+      gamesInCurrentWeek: json['games_in_current_week'],
     );
   }
 }
