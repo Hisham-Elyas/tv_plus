@@ -13,6 +13,7 @@ import '../../features/auth/verification/controller/forget_password_controller.d
 import '../../features/auth/verification/controller/verification_controller.dart';
 import '../../features/home/controllers/category_controller.dart';
 import '../../features/home/controllers/contact_us_controller.dart';
+import '../../features/home/controllers/leaguematch_controller.dart';
 import '../../features/home/controllers/leagues_controller.dart';
 import '../../features/home/controllers/settings_controller.dart';
 import '../../features/home/controllers/today_matches_controller.dart';
@@ -99,6 +100,7 @@ Future<void> setupGetIt() async {
       fenix: true);
   Get.lazyPut(() => FixturesRepoImpHttp(todayMatchesRemotData: Get.find()),
       fenix: true);
+  Get.lazyPut(() => LeaguematchController(), fenix: true);
   Get.lazyPut(() => FixturesController(), fenix: true);
   Get.lazyPut(() => LeaguesController(), fenix: true);
   await init();

@@ -125,6 +125,7 @@ class MatchListScreen extends StatelessWidget {
                   leagueImageUrl: league.imagePath,
                   leagueName: league.name,
                   seasonId: fixtures.first.seasonId,
+                  leagueid: league.id,
                 ));
           },
           child: Card(

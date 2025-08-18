@@ -58,6 +58,7 @@ class LeaguesScreen extends StatelessWidget {
                           // Navigate to league detail screen
                           if (league.currentSeason != null) {
                             Get.to(() => LeagueDetailScreen(
+                                  leagueid: league.id,
                                   leagueName: league.name,
                                   leagueImageUrl: league.imagePath,
                                   seasonId: league.currentSeason!.id,
@@ -88,48 +89,52 @@ class _LeagueListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12.r),
-      ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12.r),
-        child: Padding(
-          padding: EdgeInsets.all(12.0.w),
-          child: Row(
-            children: [
-              CachedNetworkImage(
-                width: 50.w,
-                height: 50.w,
-                imageUrl: league.imagePath,
-                fit: BoxFit.contain,
-                progressIndicatorBuilder: (_, __, ___) => Skeletonizer(
-                  enabled: true,
-                  child: Icon(Icons.sports_soccer, size: 30.dm),
-                ),
-                errorWidget: (_, __, ___) => Icon(
-                  Icons.broken_image,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: Text(
-                  league.name,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold,
+    return SizedBox(
+      height: 75.h,
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12.r),
+          child: Padding(
+            padding: EdgeInsets.all(12.0.w),
+            child: Row(
+              children: [
+                CachedNetworkImage(
+                  width: 50.w,
+                  height: 50.w,
+                  imageUrl: league.imagePath,
+                  fit: BoxFit.contain,
+                  progressIndicatorBuilder: (_, __, ___) => Skeletonizer(
+                    enabled: true,
+                    child: Icon(Icons.sports_soccer, size: 30.dm),
+                  ),
+                  errorWidget: (_, __, ___) => Icon(
+                    Icons.broken_image,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-              ),
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 16.sp,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
-              ),
-            ],
+                SizedBox(width: 12.w),
+                Expanded(
+                  child: Text(
+                    league.name,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                // Icon(
+                //   Icons.arrow_forward_ios,
+                //   size: 16.sp,
+                //   color:
+                //       Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                // ),
+              ],
+            ),
           ),
         ),
       ),

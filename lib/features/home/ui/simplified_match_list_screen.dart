@@ -88,6 +88,7 @@ class SimplifiedMatchListScreen extends StatelessWidget {
         GestureDetector(
           onTap: () {
             Get.to(() => LeagueDetailScreen(
+                  leagueid: league.id,
                   leagueImageUrl: league.imagePath,
                   leagueName: league.name,
                   seasonId: fixtures.first.seasonId,

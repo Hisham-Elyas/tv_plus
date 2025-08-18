@@ -3,7 +3,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:faisal_tv/core/theming/colors.dart';
-import 'package:faisal_tv/features/home/controllers/team_upcoming_matches_controller.dart';
+import 'package:faisal_tv/features/home/controllers/leaguematch_controller.dart';
 import 'package:faisal_tv/features/home/controllers/tops_corers_controller.dart';
 import 'package:faisal_tv/features/home/data/models/scorers_response_model.dart';
 import 'package:faisal_tv/features/home/data/models/standing_model.dart';
@@ -17,16 +17,19 @@ import '../../../core/helpers/enums.dart';
 import '../../../core/localization/constants.dart';
 import '../controllers/league_detail_controller.dart';
 import '../controllers/standings_controller.dart' show StandingsController;
+import 'fixture_detail_screen.dart';
 
 /// --- Main Screen ---
 class LeagueDetailScreen extends StatelessWidget {
   final String leagueName;
   final String leagueImageUrl;
   final int seasonId;
+  final int leagueid;
 
   LeagueDetailScreen({
     super.key,
     required this.leagueName,
+    required this.leagueid,
     required this.leagueImageUrl,
     required this.seasonId,
   });
@@ -60,8 +63,9 @@ class LeagueDetailScreen extends StatelessWidget {
                   index: index,
                   children: [
                     ScorersTab(seasonId: seasonId),
-                    Standings(seasonId: seasonId),
-                    // UpcomingMatchesTab(teamId: '2447'),
+                    StandingsTab(seasonId: seasonId),
+                    UpcomingMatchesTab(leagueId: leagueid.toString()),
+                    LatestMatchesTab(leagueId: leagueid.toString()),
                   ],
                 ),
               );
@@ -69,6 +73,179 @@ class LeagueDetailScreen extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  /// Single Match Card
+  static Widget matchCard(dynamic controller, dynamic fixture) {
+    dynamic home;
+    dynamic away;
+
+    try {
+      home = fixture.participants.firstWhere((e) => e.meta.location == 'home');
+    } catch (e) {
+      home = null;
+    }
+
+    try {
+      away = fixture.participants.firstWhere((e) => e.meta.location == 'away');
+    } catch (e) {
+      away = null;
+    }
+
+    if (home == null || away == null) return const SizedBox();
+
+    // Get scores for each team
+    dynamic homeScore;
+    dynamic awayScore;
+
+    try {
+      homeScore = fixture.scores
+          .firstWhere((s) => s.participantId == home.id)
+          .score
+          .goals;
+    } catch (e) {
+      homeScore = null;
+    }
+
+    try {
+      awayScore = fixture.scores
+          .firstWhere((s) => s.participantId == away.id)
+          .score
+          .goals;
+    } catch (e) {
+      awayScore = null;
+    }
+
+    final matchStart = DateTime.tryParse(fixture.startingAt);
+
+    return InkWell(
+      onTap: () => Get.to(() => MatchDetailScreen(
+            fixtureId: fixture.id.toString(),
+            channelCommmId:
+                "0", // Default value since it's not available in this context
+          )),
+      child: Card(
+        // margin: const EdgeInsets.all(10),
+        elevation: 2,
+        borderOnForeground: false,
+        shadowColor: ColorsManager.lightSecondary,
+        color: Theme.of(Get.context!).colorScheme.surface,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+          child: Row(
+            children: [
+              Expanded(
+                  child: teamInfo(home.name, home.imagePath, TextAlign.right)),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (homeScore != null && awayScore != null)
+                    Card(
+                        elevation: 3,
+                        shadowColor: ColorsManager.lightSecondary,
+                        color: Theme.of(Get.context!).colorScheme.surface,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          child: Text(
+                            "$homeScore - $awayScore",
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                        ))
+                  else
+                    Card(
+                      elevation: 3,
+                      shadowColor: ColorsManager.lightSecondary,
+                      color: Theme.of(Get.context!).colorScheme.surface,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.w, vertical: 1.h),
+                        child: Text(
+                          // ignore: unnecessary_null_comparison
+                          matchStart != null
+                              ? DateFormat('hh:mm a').format(matchStart)
+                              : "--:--",
+                          style:
+                              const TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              Expanded(
+                  child: teamInfo(away.name, away.imagePath, TextAlign.left)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Team Info (Logo + Name)
+  static Widget teamInfo(String name, String logoUrl, TextAlign align) {
+    return Row(
+      mainAxisAlignment: align == TextAlign.left
+          ? MainAxisAlignment.start
+          : MainAxisAlignment.end,
+      children: [
+        SizedBox(width: 8.w),
+        if (align == TextAlign.left)
+          // Image.network(logoUrl, width: 24, height: 24,
+          //     errorBuilder: (context, error, stackTrace) {
+          //   return const Icon(Icons.error, size: 20);
+          // }),
+          CachedNetworkImage(
+            width: 24.w,
+            // height: 25.h,
+            fit: BoxFit.contain,
+            imageUrl: logoUrl,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                Skeletonizer(
+              enableSwitchAnimation: true,
+              enabled: true,
+              child: SizedBox(
+                width: 25.w,
+              ),
+            ),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
+        SizedBox(width: 15.w),
+        Flexible(
+          child: Text(
+            name,
+            textAlign: TextAlign.center,
+            // overflow: TextOverflow.visible,
+            style: TextStyle(fontSize: 12.sp),
+          ),
+        ),
+        SizedBox(width: 15.w),
+        if (align == TextAlign.right)
+          // Image.network(logoUrl, width: 24, height: 24,
+          //     errorBuilder: (context, error, stackTrace) {
+          //   return const Icon(Icons.error, size: 20);
+          // }),
+          CachedNetworkImage(
+            width: 24.w,
+            // height: 25.h,
+            fit: BoxFit.contain,
+            imageUrl: logoUrl,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                Skeletonizer(
+              enableSwitchAnimation: true,
+              enabled: true,
+              child: SizedBox(
+                width: 25.w,
+              ),
+            ),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
+        SizedBox(width: 8.w),
+      ],
     );
   }
 }
@@ -135,17 +312,18 @@ class LeagueHeader extends StatelessWidget {
           AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             height: 36,
-            width: 250,
+            // width: 350,
             decoration: BoxDecoration(
               color: Colors.white10,
               borderRadius: BorderRadius.circular(20.r),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
               children: [
                 _tab(Scorers.tr, 0),
                 _tab(Standingss.tr, 1),
-                // _tab("Upcoming", 1),
+                _tab("Upcoming", 2),
+                _tab("Latest", 3),
               ],
             ),
           ),
@@ -191,9 +369,9 @@ class LeagueHeader extends StatelessWidget {
 
 /// --- Placeholder Widgets ---
 
-class Standings extends StatelessWidget {
+class StandingsTab extends StatelessWidget {
   final int seasonId;
-  const Standings({super.key, required this.seasonId});
+  const StandingsTab({super.key, required this.seasonId});
 
   @override
   Widget build(BuildContext context) {
@@ -364,19 +542,18 @@ Widget _errorView(String message, VoidCallback onRetry) {
 }
 
 class UpcomingMatchesTab extends StatelessWidget {
-  final String teamId;
+  final String leagueId;
 
-  const UpcomingMatchesTab({super.key, required this.teamId});
+  const UpcomingMatchesTab({super.key, required this.leagueId});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(TeamUpcomingMatchesController());
+    final controller = Get.find<LeaguematchController>();
 
     // Trigger fetch
-
     Future.microtask(() {
-      if (controller.upcomingMatches.value == null) {
-        controller.getUpcomingMatches(teamId);
+      if (controller.fixtures.value == null) {
+        controller.getLeagueFixtures(leagueId);
       }
     });
 
@@ -387,7 +564,7 @@ class UpcomingMatchesTab extends StatelessWidget {
         return const Center(child: Text('No upcoming matches'));
       }
 
-      final upcoming = controller.upcomingMatches.value?.data.upcoming ?? [];
+      final upcoming = controller.fixtures.value?.data.upcoming ?? [];
 
       return ListView.builder(
         itemCount: upcoming.length,
@@ -398,43 +575,58 @@ class UpcomingMatchesTab extends StatelessWidget {
           final teamB =
               match.participants.firstWhere((p) => p.meta.location == 'away');
 
-          return ListTile(
-            leading: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  DateFormat.Hm()
-                      .format(DateTime.parse(match.startingAt).toLocal()),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            title: Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Image.network(teamA.imagePath, width: 25, height: 25),
-                      const SizedBox(width: 6),
-                      Text(teamA.name, overflow: TextOverflow.ellipsis),
-                    ],
-                  ),
-                ),
-                const Text('vs'),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(teamB.name, overflow: TextOverflow.ellipsis),
-                      const SizedBox(width: 6),
-                      Image.network(teamB.imagePath, width: 25, height: 25),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            subtitle: Text(match.league.name),
-          );
+          return LeagueDetailScreen.matchCard(controller, match);
+        },
+      );
+    });
+  }
+}
+
+class LatestMatchesTab extends StatelessWidget {
+  final String leagueId;
+
+  const LatestMatchesTab({super.key, required this.leagueId});
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.find<LeaguematchController>();
+
+    // Trigger fetch
+    Future.microtask(() {
+      if (controller.fixtures.value == null) {
+        controller.getLeagueFixtures(leagueId);
+      }
+    });
+
+    return Obx(() {
+      if (controller.statusReq.value == StatusRequest.loading) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (controller.statusReq.value == StatusRequest.noData) {
+        return const Center(child: Text('No latest matches'));
+      }
+
+      final latest = controller.fixtures.value?.data.latest ?? [];
+
+      return ListView.builder(
+        itemCount: latest.length,
+        itemBuilder: (context, index) {
+          final match = latest[index];
+          final teamA =
+              match.participants.firstWhere((p) => p.meta.location == 'home');
+          final teamB =
+              match.participants.firstWhere((p) => p.meta.location == 'away');
+
+          // Get scores for each team
+          final teamAScore = match.scores
+              .firstWhereOrNull((s) => s.participantId == teamA.id)
+              ?.score
+              .goals;
+          final teamBScore = match.scores
+              .firstWhereOrNull((s) => s.participantId == teamB.id)
+              ?.score
+              .goals;
+
+          return LeagueDetailScreen.matchCard(controller, match);
         },
       );
     });

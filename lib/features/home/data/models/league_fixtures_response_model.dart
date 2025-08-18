@@ -62,8 +62,10 @@ class LeagueData {
       lastPlayedAt: json['last_played_at'],
       category: json['category'],
       hasJerseys: json['has_jerseys'],
-      upcoming: List<MatchDetails>.from(json['upcoming'].map((item) => MatchDetails.fromJson(item))),
-      latest: List<MatchDetails>.from(json['latest'].map((item) => MatchDetails.fromJson(item))),
+      upcoming: List<MatchDetails>.from(
+          json['upcoming'].map((item) => MatchDetails.fromJson(item))),
+      latest: List<MatchDetails>.from(
+          json['latest'].map((item) => MatchDetails.fromJson(item))),
     );
   }
 }
@@ -89,6 +91,8 @@ class MatchDetails {
   final bool hasOdds;
   final bool hasPremiumOdds;
   final int startingAtTimestamp;
+  final List<Participant> participants;
+  final List<Score> scores;
 
   MatchDetails({
     required this.id,
@@ -111,6 +115,8 @@ class MatchDetails {
     required this.hasOdds,
     required this.hasPremiumOdds,
     required this.startingAtTimestamp,
+    required this.participants,
+    required this.scores,
   });
 
   factory MatchDetails.fromJson(Map<String, dynamic> json) {
@@ -135,6 +141,129 @@ class MatchDetails {
       hasOdds: json['has_odds'],
       hasPremiumOdds: json['has_premium_odds'],
       startingAtTimestamp: json['starting_at_timestamp'],
+      participants: json['participants'] != null
+          ? List<Participant>.from(
+              json['participants'].map((x) => Participant.fromJson(x)))
+          : [],
+      scores: json['scores'] != null
+          ? List<Score>.from(json['scores'].map((x) => Score.fromJson(x)))
+          : [],
+    );
+  }
+}
+
+class Participant {
+  final int id;
+  final int sportId;
+  final int countryId;
+  final int venueId;
+  final String gender;
+  final String name;
+  final String? shortCode;
+  final String imagePath;
+  final int founded;
+  final String type;
+  final bool placeholder;
+  final String lastPlayedAt;
+  final ParticipantMeta meta;
+
+  Participant({
+    required this.id,
+    required this.sportId,
+    required this.countryId,
+    required this.venueId,
+    required this.gender,
+    required this.name,
+    this.shortCode,
+    required this.imagePath,
+    required this.founded,
+    required this.type,
+    required this.placeholder,
+    required this.lastPlayedAt,
+    required this.meta,
+  });
+
+  factory Participant.fromJson(Map<String, dynamic> json) {
+    return Participant(
+      id: json['id'],
+      sportId: json['sport_id'],
+      countryId: json['country_id'],
+      venueId: json['venue_id'],
+      gender: json['gender'],
+      name: json['name'],
+      shortCode: json['short_code'],
+      imagePath: json['image_path'],
+      founded: json['founded'],
+      type: json['type'],
+      placeholder: json['placeholder'],
+      lastPlayedAt: json['last_played_at'],
+      meta: ParticipantMeta.fromJson(json['meta']),
+    );
+  }
+}
+
+class ParticipantMeta {
+  final String location;
+  final bool? winner;
+  final int? position;
+
+  ParticipantMeta({
+    required this.location,
+    this.winner,
+    this.position,
+  });
+
+  factory ParticipantMeta.fromJson(Map<String, dynamic> json) {
+    return ParticipantMeta(
+      location: json['location'],
+      winner: json['winner'],
+      position: json['position'],
+    );
+  }
+}
+
+class Score {
+  final int id;
+  final int fixtureId;
+  final int typeId;
+  final int participantId;
+  final ScoreDetails score;
+  final String description;
+
+  Score({
+    required this.id,
+    required this.fixtureId,
+    required this.typeId,
+    required this.participantId,
+    required this.score,
+    required this.description,
+  });
+
+  factory Score.fromJson(Map<String, dynamic> json) {
+    return Score(
+      id: json['id'],
+      fixtureId: json['fixture_id'],
+      typeId: json['type_id'],
+      participantId: json['participant_id'],
+      score: ScoreDetails.fromJson(json['score']),
+      description: json['description'],
+    );
+  }
+}
+
+class ScoreDetails {
+  final int goals;
+  final String participant;
+
+  ScoreDetails({
+    required this.goals,
+    required this.participant,
+  });
+
+  factory ScoreDetails.fromJson(Map<String, dynamic> json) {
+    return ScoreDetails(
+      goals: json['goals'],
+      participant: json['participant'],
     );
   }
 }
