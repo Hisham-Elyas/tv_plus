@@ -7,6 +7,7 @@ import 'package:faisal_tv/features/home/controllers/leaguematch_controller.dart'
 import 'package:faisal_tv/features/home/controllers/tops_corers_controller.dart';
 import 'package:faisal_tv/features/home/data/models/scorers_response_model.dart';
 import 'package:faisal_tv/features/home/data/models/standing_model.dart';
+import 'package:flutter/cupertino.dart' hide Form;
 import 'package:flutter/material.dart' hide Form;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -42,6 +43,7 @@ class LeagueDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.black,
+
       body: Column(
         children: [
           /// Header
@@ -287,6 +289,20 @@ class LeagueHeader extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Back button
+              Align(
+                alignment:
+                    AlignmentDirectional.topStart, // Left in LTR, Right in RTL
+                child: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: const Icon(
+                    CupertinoIcons.back,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Navigator.of(context).maybePop(),
+                ),
+              ),
+              Spacer(),
               CachedNetworkImage(
                 width: 100.w,
                 height: 100.w,
@@ -306,6 +322,7 @@ class LeagueHeader extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              Spacer()
             ],
           ),
           const SizedBox(height: 20),

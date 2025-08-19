@@ -107,6 +107,11 @@ const String MatchPreview = "Match Preview";
 const String Statistics = "Statistics";
 const String StatisticsInfo = "Statistics Info";
 const String Select_language = "Select language";
+const String AccountDetails = "Account Details";
+const String FullName = "Full Name";
+const String EmailAddress = "Email Address";
+const String PhoneNumber = "Phone Number";
+const String UpdateYourPassword = "Update your password";
 const String Errors = "Error";
 const String NoUserSignedIn = "No user is signed in.";
 const String AuthError = "Auth Error";
@@ -365,4 +370,17 @@ const String Who_We_Are_desc_ar =
     "\n\n3.	دوري المحترفين الإماراتي (الإمارات)"
     "\n\n4.	الدوري المصري الممتاز (مصر)"
     "\n\nبالإضافة لدوريات الأبطال المشهورة كدوري أبطال أوروبا ودوري أبطال افريقيا ودوري أبطال أسيا وكذلك دوري الأمم ومباريات كأس العالم."
+// Subscription translations
     "\n\nتمثل هذه الدوريات بعض من أرقى المسابقات الكروية في العالم، ولكل منها خصائصها الفريدة وأنديتها الكبرى، وكل منها يتمتع بأسلوب لعب فريد وثقافة كروية غنية. تجذب هذه الدوريات ملايين المشاهدين في جميع أنحاء العالم وتساهم بشكل كبير في المشهد الكروي العالمي";
+
+const String SubscriptionDetails = "Subscription Details";
+const String Active = "Active";
+const String Expired = "Expired";
+const String StartDate = "Start Date";
+const String EndDate = "End Date";
+const String RenewalDate = "Renewal Date";
+const String DaysRemaining = "Days Remaining";
+const String Status = "Status";
+const String NoActiveSubscription = "No active subscription";
+const String SubscribeToPlan = "Subscribe to a plan to unlock premium features";
+const String SubscribeNow = "Subscribe Now";

@@ -10,7 +10,9 @@ import '../controllers/fixtures_controller.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer_widget.dart';
 import 'leagues_screen.dart';
+import 'simplified_categories_screen.dart';
 import 'simplified_match_list_screen.dart';
+import 'simplified_profile_screen.dart';
 
 class MainHomeScreen extends StatefulWidget {
   const MainHomeScreen({super.key});
@@ -24,17 +26,17 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
 
   final List<Widget> _screens = [
     SimplifiedMatchListScreen(),
-    // const SimplifiedCategoriesScreen(),
+    const SimplifiedCategoriesScreen(),
     const LeaguesScreen(),
-    // const SimplifiedProfileScreen(),
+    const SimplifiedProfileScreen(),
     // const SimplifiedSettingsScreen(),
   ];
 
   final List<String> _titles = [
     appName,
-    // Categories.tr,
+    Categories.tr,
     Leagues.tr,
-    // Profile.tr,
+    Profile.tr,
     // Settings.tr,
   ];
 
@@ -113,22 +115,22 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
             activeIcon: Icon(Icons.sports_soccer, size: 28.sp),
             label: Home.tr,
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.category, size: 24.sp),
-          //   activeIcon: Icon(Icons.category, size: 26.sp),
-          //   label: Categories.tr,
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category, size: 24.sp),
+            activeIcon: Icon(Icons.category, size: 26.sp),
+            label: Categories.tr,
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.emoji_events, size: 24.sp),
             activeIcon: Icon(Icons.emoji_events,
                 color: Colors.yellow.shade500, size: 28.sp),
             label: Leagues.tr,
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.person, size: 24.sp),
-          //   activeIcon: Icon(Icons.person, size: 26.sp),
-          //   label: Profile.tr,
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person, size: 24.sp),
+            activeIcon: Icon(Icons.person, size: 26.sp),
+            label: Profile.tr,
+          ),
           // BottomNavigationBarItem(
           //   icon: Icon(Icons.settings, size: 24.sp),
           //   activeIcon: Icon(Icons.settings, size: 26.sp),

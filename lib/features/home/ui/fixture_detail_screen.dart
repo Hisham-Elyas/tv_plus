@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -495,7 +496,7 @@ class MatchHeader extends StatelessWidget {
 
     return Container(
       decoration: _headerDecoration(),
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
       child: SafeArea(
         child: Column(
           children: [
@@ -643,6 +644,19 @@ class MatchHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(children: [
+            // Back button
+            Align(
+              alignment:
+                  AlignmentDirectional.topStart, // Left in LTR, Right in RTL
+              child: CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: const Icon(
+                  CupertinoIcons.back,
+                  color: Colors.white,
+                ),
+                onPressed: () => Navigator.of(Get.context!).maybePop(),
+              ),
+            ),
             const Icon(Icons.calendar_today, color: Colors.white70, size: 16),
             const SizedBox(width: 6),
             Text(DateFormat('yyyy-MM-dd').format(fixture.startingAt),
