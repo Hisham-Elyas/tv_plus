@@ -21,116 +21,110 @@ class LoginScreen extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.symmetric(vertical: 30),
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              ImageAssets.bgImage,
-            ),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: SafeArea(
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 21.h,
-              ).copyWith(top: 57.h),
-              width: double.infinity,
-              child: Column(
-                children: [
-                  LogoCardWidget(
-                    width: 335.w,
-                    height: 152.h,
-                  ),
-                  verticalSpace(35),
-                  CardWidget(
-                    horizontal: 32.w,
-                    vertical: 32.h,
-                    width: 335.w,
-                    // height: 473.h,
-                    child: Form(
-                      key: controller.loginformKey,
-                      child: Column(
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage(
+        //       ImageAssets.bgImage,
+        //     ),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 21.h,
+          ).copyWith(top: 57.h),
+          width: double.infinity,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              LogoCardWidget(
+                width: 335.w,
+                height: 152.h,
+              ),
+              verticalSpace(75),
+              CardWidget(
+                horizontal: 32.w,
+                vertical: 32.h,
+                width: 335.w,
+                // height: 473.h,
+                child: Form(
+                  key: controller.loginformKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(LOGIN.tr,
+                          style: TextStyle(
+                              fontSize: 26.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Theme.of(context).colorScheme.onSurface)),
+                      verticalSpace(15),
+                      AppTextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        onSaved: (val) => controller.setuEmail = val,
+                        hintText: Enter_your_email.tr,
+                        validator: controller.emailvalidator,
+                      ),
+                      verticalSpace(15),
+                      PasswordAppTextFormField(
+                        onSaved: (val) => controller.setPassword = val,
+                        hintText: Enter_your_password.tr,
+                        obscureText: true,
+                        validator: controller.passwordvalidator,
+                      ),
+                      verticalSpace(10),
+                      TextButton(
+                        onPressed: () =>
+                            Get.to(() => const ForgetPasswordScreen()),
+                        child: Text(
+                          Forgot_Your_Password.tr,
+                          style: TextStyle(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w700,
+                              color: ColorsManager.mainRed),
+                        ),
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(LOGIN.tr,
-                              style: TextStyle(
-                                  fontSize: 26.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface)),
-                          verticalSpace(15),
-                          AppTextFormField(
-                            onSaved: (val) => controller.setuEmail = val,
-                            hintText: Enter_your_email.tr,
-                            validator: controller.emailvalidator,
+                          Text(
+                            Dont_have_an_account.tr,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 15.sp),
                           ),
-                          verticalSpace(15),
-                          AppTextFormField(
-                            onSaved: (val) => controller.setPassword = val,
-                            hintText: Enter_your_password.tr,
-                            obscureText: true,
-                            validator: controller.passwordvalidator,
-                          ),
-                          verticalSpace(10),
                           TextButton(
-                            onPressed: () =>
-                                Get.to(() => const ForgetPasswordScreen()),
+                            onPressed: () => Get.to(() => const SingupScreen()),
                             child: Text(
-                              Forgot_Your_Password.tr,
+                              Sign_Up.tr,
                               style: TextStyle(
                                   fontSize: 15.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: ColorsManager.mainRed),
+                                  fontWeight: FontWeight.w900,
+                                  color: Theme.of(context).colorScheme.primary),
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                Dont_have_an_account.tr,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
-                                    fontSize: 15.sp),
-                              ),
-                              TextButton(
-                                onPressed: () =>
-                                    Get.to(() => const SingupScreen()),
-                                child: Text(
-                                  Sign_Up.tr,
-                                  style: TextStyle(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w900,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary),
-                                ),
-                              ),
-                            ],
-                          ),
-                          AppTextButton(
-                            backgroundColor: ColorsManager.mainRed,
-                            buttonHeight: 50,
-                            buttonWidth: 302,
-                            borderRadius: 152,
-                            buttonText: LOGIN.tr,
-                            onPressed: controller.login,
-                            textStyle: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w700,
-                                color: Theme.of(context).colorScheme.surface),
-                          )
                         ],
                       ),
-                    ),
+                      AppTextButton(
+                        backgroundColor: ColorsManager.mainRed,
+                        buttonHeight: 50,
+                        buttonWidth: 302,
+                        borderRadius: 152,
+                        buttonText: LOGIN.tr,
+                        onPressed: controller.login,
+                        textStyle: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).colorScheme.surface),
+                      )
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

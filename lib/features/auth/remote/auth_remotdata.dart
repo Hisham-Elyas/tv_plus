@@ -81,13 +81,13 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
           "username": sinupModel.userName,
           "email": sinupModel.email,
           "password": sinupModel.password,
-          "phone": sinupModel.phone,
+          // "phone": sinupModel.phone,
         },
       );
       if (response.statusCode == 201) {
         // save user data in shared preferences
         UserModel userModel = UserModel(
-          phone: sinupModel.phone,
+          //  phone: sinupModel.phone,
           email: sinupModel.email,
           userName: sinupModel.userName,
           userId: response.body['userId'].toString(),
@@ -144,7 +144,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
             '${ApiConstants.apiBaseUrl + ApiConstants.updateUserDetailsEndpoint}/${userModel.userId}',
         body: {
           "username": userModel.userName,
-          "phone": userModel.phone,
+          // "phone": userModel.phone,
         },
         headers: {'Authorization': 'Bearer $token'},
       );

@@ -23,14 +23,16 @@ class OTPScreen extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              ImageAssets.bgImage,
-            ),
-            fit: BoxFit.cover,
-          ),
-        ),
+
+        padding: EdgeInsets.symmetric(vertical: 30),
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage(
+        //       ImageAssets.bgImage,
+        //     ),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
         child: SingleChildScrollView(
           child: SafeArea(
             child: Container(

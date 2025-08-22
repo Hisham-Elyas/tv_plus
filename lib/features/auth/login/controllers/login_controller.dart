@@ -15,7 +15,12 @@ class LoginController extends GetxController {
   final GlobalKey<FormState> loginformKey = GlobalKey<FormState>();
   late String email;
   late String password;
+  bool obscureText = false;
   final AuthRepoImpHttp authRepo = Get.find();
+  void togglePasswordVisibility() {
+    obscureText = !obscureText;
+    update(); // Notify listeners to rebuild the UI
+  }
 
   void login() {
     Get.focusScope!.unfocus();

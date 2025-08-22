@@ -19,16 +19,17 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.symmetric(vertical: 30),
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              ImageAssets.bgImage,
-            ),
-            fit: BoxFit.cover,
-          ),
-        ),
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage(
+        //       ImageAssets.bgImage,
+        //     ),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
         child: SingleChildScrollView(
           child: SafeArea(
             child: Container(

@@ -35,9 +35,9 @@ import '../networking/api_client.dart';
 import '../theming/theme_controller.dart';
 
 Future init() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   // firebaseAuth.authStateChanges().listen((User? user) {
@@ -59,7 +59,7 @@ Future<void> setupGetIt() async {
 
   Get.lazyPut(() => ThemeController(), fenix: true);
   Get.lazyPut(() => LanguageController(), fenix: true);
-  Get.lazyPut(() => OnboardingController());
+  Get.lazyPut(() => OnboardingController(), fenix: true);
   Get.lazyPut(() => LoginController(), fenix: true);
   Get.lazyPut(() => SingupController(), fenix: true);
   Get.lazyPut(() => ForgetPasswordController(), fenix: true);

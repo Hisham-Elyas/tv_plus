@@ -38,7 +38,7 @@ class SinupModel {
       'userName': userName,
       'email': email,
       'password': password,
-      'phone': phone,
+      'phone': "0551333333",
     };
   }
 
@@ -59,7 +59,7 @@ class SinupModel {
 
   @override
   String toString() {
-    return 'SinupModel(userId: $userId, userName: $userName, email: $email, password: $password, phone: $phone)';
+    return 'SinupModel(userId: $userId, userName: $userName, email: $email, password: $password,phone:$phone)';
   }
 
   @override

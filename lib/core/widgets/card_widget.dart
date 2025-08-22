@@ -22,13 +22,15 @@ class CardWidget extends StatelessWidget {
     return Material(
         borderRadius: BorderRadius.circular(15.r),
         elevation: 10,
-        shadowColor: ColorsManager.lightSecondary,
+        // shadowColor: ColorsManager.lightSecondary,
         child: Container(
             padding: EdgeInsets.symmetric(
                 horizontal: horizontal ?? 0, vertical: vertical ?? 0),
             width: width,
             height: height,
             decoration: BoxDecoration(
+                border: Border.all(
+                    color: Theme.of(context).colorScheme.onSecondary),
                 borderRadius: BorderRadius.circular(15.r),
                 color: Theme.of(context).colorScheme.surface),
             child: child));

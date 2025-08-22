@@ -19,95 +19,100 @@ class SingupScreen extends GetView<SingupController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding: EdgeInsets.symmetric(vertical: 30),
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(
-              ImageAssets.bgImage,
-            ),
-            fit: BoxFit.cover,
-          ),
-        ),
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage(
+        //       ImageAssets.bgImage,
+        //     ),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
         child: SingleChildScrollView(
-          child: SafeArea(
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 21.h,
-              ).copyWith(top: 20.h),
-              width: double.infinity,
-              child: Column(
-                children: [
-                  LogoCardWidget(
-                    width: 335.w,
-                    height: 140.h,
-                  ),
-                  verticalSpace(25),
-                  CardWidget(
-                    horizontal: 32.w,
-                    vertical: 17.h,
-                    width: 335.w,
-                    // height: 600.h,
-                    child: Form(
-                      key: controller.singUpformKey,
-                      child: Column(
-                        children: [
-                          Text(Sign_Up.tr,
-                              style: TextStyle(
-                                  fontSize: 26.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface)),
-                          verticalSpace(15),
-                          AppTextFormField(
-                            onSaved: (val) => controller.setuserName = val,
-                            hintText: UserName.tr,
-                            validator: controller.userNamevalidator,
-                          ),
-                          verticalSpace(15),
-                          AppTextFormField(
-                            onSaved: (val) => controller.setEmail = val,
-                            hintText: Enter_your_email.tr,
-                            validator: controller.emailvalidator,
-                          ),
-                          verticalSpace(15),
-                          AppTextFormField(
-                            onSaved: (val) => controller.setPassword = val,
-                            hintText: Enter_your_password.tr,
-                            validator: controller.passwordvalidator,
-                          ),
-                          verticalSpace(15),
-                          AppTextFormField(
-                            onSaved: (val) =>
-                                controller.setconfirmPassword = val,
-                            hintText: Confirm_password.tr,
-                            validator: controller.passwordvalidator,
-                          ),
-                          verticalSpace(15),
-                          AppTextFormField(
-                            onSaved: (val) => controller.setphoneNumber = val,
-                            hintText: Phone_number.tr,
-                            validator: controller.phonevalidator,
-                          ),
-                          verticalSpace(20),
-                          AppTextButton(
-                            backgroundColor: ColorsManager.mainRed,
-                            buttonHeight: 40,
-                            buttonWidth: 271,
-                            borderRadius: 152,
-                            buttonText: Sign_Up.tr,
-                            onPressed: controller.singUp,
-                            textStyle: TextStyle(
-                                fontSize: 12.sp,
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 15.h,
+            ).copyWith(top: 20.h),
+            width: double.infinity,
+            child: Column(
+              children: [
+                LogoCardWidget(
+                  width: 335.w,
+                  height: 140.h,
+                ),
+                verticalSpace(50),
+                CardWidget(
+                  horizontal: 32.w,
+                  vertical: 17.h,
+                  width: 335.w,
+                  // height: 600.h,
+                  child: Form(
+                    key: controller.singUpformKey,
+                    child: Column(
+                      children: [
+                        Text(Sign_Up.tr,
+                            style: TextStyle(
+                                fontSize: 26.sp,
                                 fontWeight: FontWeight.w700,
-                                color: Theme.of(context).colorScheme.surface),
-                          )
-                        ],
-                      ),
+                                color:
+                                    Theme.of(context).colorScheme.onSurface)),
+                        verticalSpace(15),
+                        AppTextFormField(
+                          onSaved: (val) => controller.setuserName = val,
+                          hintText: UserName.tr,
+                          validator: controller.userNamevalidator,
+                        ),
+                        verticalSpace(15),
+                        AppTextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          onSaved: (val) => controller.setEmail = val,
+                          hintText: Enter_your_email.tr,
+                          validator: controller.emailvalidator,
+                        ),
+                        verticalSpace(15),
+                        AppTextFormField(
+                          onChanged: (value) {
+                            controller.phoneNumber = value;
+                          },
+                          keyboardType: TextInputType.phone,
+                          onSaved: (val) => controller.phoneNumber = val!,
+                          hintText: PhoneNumber.tr,
+                          validator: controller.phonevalidator,
+                        ),
+                        verticalSpace(15),
+                        PasswordAppTextFormField(
+                          obscureText: true,
+                          onSaved: (val) => controller.setPassword = val,
+                          hintText: Enter_your_password.tr,
+                          validator: controller.passwordvalidator,
+                        ),
+                        verticalSpace(15),
+                        PasswordAppTextFormField(
+                          obscureText: true,
+                          onSaved: (val) => controller.setconfirmPassword = val,
+                          hintText: Confirm_password.tr,
+                          validator: controller.passwordvalidator,
+                        ),
+                        verticalSpace(20),
+                        AppTextButton(
+                          backgroundColor: ColorsManager.mainRed,
+                          buttonHeight: 40,
+                          buttonWidth: 271,
+                          borderRadius: 152,
+                          buttonText: Sign_Up.tr,
+                          onPressed: controller.singUp,
+                          textStyle: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w700,
+                              color: Theme.of(context).colorScheme.surface),
+                        )
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

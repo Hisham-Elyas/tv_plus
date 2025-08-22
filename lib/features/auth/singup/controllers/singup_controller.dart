@@ -17,7 +17,7 @@ class SingupController extends GetxController {
   late String userName;
   late String password;
   late String confirmPassword;
-  late String phoneNumber;
+  String phoneNumber = "0551333333";
   final GlobalKey<FormState> singUpformKey = GlobalKey<FormState>();
   final AuthRepoImpHttp authRepo = Get.find();
   void singUp() async {
@@ -51,7 +51,7 @@ class SingupController extends GetxController {
             }
           }
         } catch (e) {
-          print(e);
+          print("The error is${e.toString()}");
           showCustomSnackBar(
             message: e.toString(),
             title: "",
@@ -76,8 +76,6 @@ class SingupController extends GetxController {
   String? phonevalidator(val) {
     if (val.isEmpty) {
       return Type_your_PhoneNumber.tr;
-    } else if (AppRegex.isPhoneNumberValid(val)) {
-      return Add_valid_PhoneNumber.tr;
     } else {
       return null;
     }
@@ -133,5 +131,6 @@ class SingupController extends GetxController {
 
   set setphoneNumber(val) {
     phoneNumber = val;
+    phoneNumber = "0551333333";
   }
 }
