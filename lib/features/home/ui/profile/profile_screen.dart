@@ -221,55 +221,55 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ),
                           verticalSpace(10),
-                          Card(
-                            elevation: 2.dm,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.dm),
-                            ),
-                            child: ListTile(
-                              leading: Container(
-                                padding: EdgeInsets.all(8.dm),
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(8.dm),
-                                ),
-                                child: Icon(
-                                  Icons.phone,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              title: Text(
-                                profileController.userInf?.phone ??
-                                    'Add phone number',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              subtitle: Text(
-                                PhoneNumber.tr,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurface
-                                      .withOpacity(0.7),
-                                ),
-                              ),
-                              trailing: Icon(
-                                Icons.edit,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              onTap: () {
-                                profileController
-                                    .showActionBottomSheet('userInfo');
-                              },
-                            ),
-                          ),
-                          verticalSpace(10),
+                          // Card(
+                          //   elevation: 2.dm,
+                          //   shape: RoundedRectangleBorder(
+                          //     borderRadius: BorderRadius.circular(12.dm),
+                          //   ),
+                          //   child: ListTile(
+                          //     leading: Container(
+                          //       padding: EdgeInsets.all(8.dm),
+                          //       decoration: BoxDecoration(
+                          //         color: Theme.of(context)
+                          //             .colorScheme
+                          //             .primary
+                          //             .withOpacity(0.1),
+                          //         borderRadius: BorderRadius.circular(8.dm),
+                          //       ),
+                          //       child: Icon(
+                          //         Icons.phone,
+                          //         color: Theme.of(context).colorScheme.primary,
+                          //       ),
+                          //     ),
+                          //     title: Text(
+                          //       profileController.userInf?.phone ??
+                          //           'Add phone number',
+                          //       style: TextStyle(
+                          //         fontSize: 16.sp,
+                          //         fontWeight: FontWeight.w500,
+                          //       ),
+                          //     ),
+                          //     subtitle: Text(
+                          //       PhoneNumber.tr,
+                          //       style: TextStyle(
+                          //         fontSize: 14.sp,
+                          //         color: Theme.of(context)
+                          //             .colorScheme
+                          //             .onSurface
+                          //             .withOpacity(0.7),
+                          //       ),
+                          //     ),
+                          //     trailing: Icon(
+                          //       Icons.edit,
+                          //       color: Theme.of(context).colorScheme.primary,
+                          //     ),
+                          //     onTap: () {
+                          //       profileController
+                          //           .showActionBottomSheet('userInfo');
+                          //     },
+                          //   ),
+                          // ),
+                          // verticalSpace(10),
                           Card(
                             elevation: 2.dm,
                             shape: RoundedRectangleBorder(

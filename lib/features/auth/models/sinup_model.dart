@@ -6,14 +6,14 @@ class SinupModel {
   final String userName;
   final String email;
   final String password;
-  final String phone;
+  // final String phone;
 
   SinupModel({
     this.userId,
     required this.userName,
     required this.email,
     required this.password,
-    required this.phone,
+    // required this.phone,
   });
 
   SinupModel copyWith({
@@ -21,14 +21,14 @@ class SinupModel {
     String? userName,
     String? email,
     String? password,
-    String? phone,
+    // String? phone,
   }) {
     return SinupModel(
       userId: userId ?? this.userId,
       userName: userName ?? this.userName,
       email: email ?? this.email,
       password: password ?? this.password,
-      phone: phone ?? this.phone,
+      // phone: phone ?? this.phone,
     );
   }
 
@@ -38,7 +38,7 @@ class SinupModel {
       'userName': userName,
       'email': email,
       'password': password,
-      'phone': phone,
+      // 'phone': phone,
     };
   }
 
@@ -48,7 +48,7 @@ class SinupModel {
       userName: map['userName'] as String,
       email: map['email'] as String,
       password: map['password'] as String,
-      phone: map['phone'] as String,
+      // phone: map['phone'] as String,
     );
   }
 
@@ -59,7 +59,7 @@ class SinupModel {
 
   @override
   String toString() {
-    return 'SinupModel(userId: $userId, userName: $userName, email: $email, password: $password, phone: $phone)';
+    return 'SinupModel(userId: $userId, userName: $userName, email: $email, password: $password)';
   }
 
   @override
@@ -69,8 +69,7 @@ class SinupModel {
     return other.userId == userId &&
         other.userName == userName &&
         other.email == email &&
-        other.password == password &&
-        other.phone == phone;
+        other.password == password;
   }
 
   @override
@@ -78,7 +77,6 @@ class SinupModel {
     return userId.hashCode ^
         userName.hashCode ^
         email.hashCode ^
-        password.hashCode ^
-        phone.hashCode;
+        password.hashCode;
   }
 }

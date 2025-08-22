@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use, avoid_print
 
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -81,13 +83,15 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
           "username": sinupModel.userName,
           "email": sinupModel.email,
           "password": sinupModel.password,
-          "phone": sinupModel.phone,
+          // "phone": sinupModel.phone,
         },
       );
+      print(response.body);
+
       if (response.statusCode == 201) {
         // save user data in shared preferences
         UserModel userModel = UserModel(
-          phone: sinupModel.phone,
+          // phone: sinupModel.phone, Q
           email: sinupModel.email,
           userName: sinupModel.userName,
           userId: response.body['userId'].toString(),
@@ -95,10 +99,20 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         await SharedPrefHelper.setData('user_info', userModel.toMap());
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to sign up.';
+        final data = jsonDecode(response.body);
+        // print(data);
+        String message = data['error'] ?? 'Failed to sign up.';
+        // print(message);
+        throw message;
       }
+    } on FormatException catch (_) {
+      throw const HFormatException();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      throw HPlatformException(e.code).message;
     } catch (e) {
-      throw e.toString();
+      print(e.toString());
+      throw "Someting went weong. pleas try agin";
     }
   }
 
@@ -123,7 +137,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
 
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to log in.';
+        final data = jsonDecode(response.body);
+        String message = data['error'] ?? 'Failed to log in.';
+        throw message;
       }
     } on FormatException catch (_) {
       throw const HFormatException();
@@ -144,7 +160,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
             '${ApiConstants.apiBaseUrl + ApiConstants.updateUserDetailsEndpoint}/${userModel.userId}',
         body: {
           "username": userModel.userName,
-          "phone": userModel.phone,
+          // "phone": userModel.phone,
         },
         headers: {'Authorization': 'Bearer $token'},
       );
@@ -154,7 +170,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         await SharedPrefHelper.setData('user_info', userModel.toMap());
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to update user info.';
+        final data = jsonDecode(response.body);
+        String message = data['error'] ?? 'Failed to update user info.';
+        throw message;
       }
     } on FormatException catch (_) {
       throw const HFormatException();
@@ -179,7 +197,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to update password.';
+        final data = jsonDecode(response.body);
+        String message = data['error'] ?? 'Failed to update password.';
+        throw message;
       }
     } on FormatException catch (_) {
       throw const HFormatException();
@@ -204,7 +224,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to update email.';
+        final data = jsonDecode(response.body);
+        String message = data['error'] ?? 'Failed to update email.';
+        throw message;
       }
     } on FormatException catch (_) {
       throw const HFormatException();
@@ -231,7 +253,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         SharedPrefHelper.removeData('user_id');
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to delete account.';
+        final data = jsonDecode(response.body);
+        String message = data['error'] ?? 'Failed to delete account.';
+        throw message;
       }
     } on FormatException catch (_) {
       throw const HFormatException();
@@ -262,13 +286,21 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         return UserModel(
             email: response.body["user"]['email'],
             userName: response.body["user"]['username'],
-            phone: response.body["user"]['phone'],
+            // phone: response.body["user"]['phone'],
             userId: response.body["user"]['id'].toString());
       } else {
-        throw response.body['error'] ?? 'Failed to fetch user info.';
+        final data = jsonDecode(response.body);
+        String message = data['error'] ?? 'Failed to fetch user info.';
+        throw message;
       }
+    } on FormatException catch (_) {
+      throw const HFormatException();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      throw HPlatformException(e.code).message;
     } catch (e) {
-      throw e.toString();
+      print(e.toString());
+      throw "Someting went weong. pleas try agin";
     }
   }
 
@@ -301,10 +333,19 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to send password reset email.';
+        final data = jsonDecode(response.body);
+        String message =
+            data['error'] ?? 'Failed to send password reset email.';
+        throw message;
       }
+    } on FormatException catch (_) {
+      throw const HFormatException();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      throw HPlatformException(e.code).message;
     } catch (e) {
-      throw e.toString();
+      print(e.toString());
+      throw "Someting went weong. pleas try agin";
     }
   }
 
@@ -321,10 +362,19 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to send password reset email.';
+        final data = jsonDecode(response.body);
+        String message =
+            data['error'] ?? 'Failed to send password reset email.';
+        throw message;
       }
+    } on FormatException catch (_) {
+      throw const HFormatException();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      throw HPlatformException(e.code).message;
     } catch (e) {
-      throw e.toString();
+      print(e.toString());
+      throw "Someting went weong. pleas try agin";
     }
   }
 }

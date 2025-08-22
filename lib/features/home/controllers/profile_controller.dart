@@ -266,11 +266,11 @@ class ProfileController extends GetxController {
   Widget _buildUserInfoUpdateSheet() {
     // Handle case where userInf might be null
     final userName = userInf?.userName ?? '';
-    final phone = userInf?.phone ?? '';
+    // final phone = userInf?.phone ?? '';
 
     TextEditingController userNameController =
         TextEditingController(text: userName);
-    TextEditingController phoneController = TextEditingController(text: phone);
+    // TextEditingController phoneController = TextEditingController(text: phone);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -285,12 +285,12 @@ class ProfileController extends GetxController {
           controller: userNameController,
           hintText: Username.tr,
         ),
-        const SizedBox(height: 10),
-        AppTextFormField(
-          controller: phoneController,
-          hintText: Phone.tr,
-          keyboardType: TextInputType.phone,
-        ),
+        // const SizedBox(height: 10),
+        // AppTextFormField(
+        //   controller: phoneController,
+        //   hintText: Phone.tr,
+        //   keyboardType: TextInputType.phone,
+        // ),
         const SizedBox(height: 20),
         ElevatedButton(
           style: const ButtonStyle(elevation: WidgetStatePropertyAll(5)),
@@ -298,7 +298,7 @@ class ProfileController extends GetxController {
             await updateUserInfo(
               userModel: userInf!.copyWith(
                 userName: userNameController.text,
-                phone: phoneController.text,
+                // phone: phoneController.text,
               ),
             );
             Get.back();

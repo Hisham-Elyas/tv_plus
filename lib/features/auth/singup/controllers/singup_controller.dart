@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/helpers/app_regex.dart';
 import '../../../../core/helpers/coustom_overlay.dart';
 import '../../../../core/localization/constants.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
@@ -17,7 +16,7 @@ class SingupController extends GetxController {
   late String userName;
   late String password;
   late String confirmPassword;
-  late String phoneNumber;
+  // late String phoneNumber;
   final GlobalKey<FormState> singUpformKey = GlobalKey<FormState>();
   final AuthRepoImpHttp authRepo = Get.find();
   void singUp() async {
@@ -35,7 +34,7 @@ class SingupController extends GetxController {
               sinupModel: SinupModel(
                   email: email.trim(),
                   password: confirmPassword.trim(),
-                  phone: phoneNumber.trim(),
+                  // phone: phoneNumber.trim(),
                   userName: userName.trim()));
 
           if (isSuccess) {
@@ -73,15 +72,15 @@ class SingupController extends GetxController {
     }
   }
 
-  String? phonevalidator(val) {
-    if (val.isEmpty) {
-      return Type_your_PhoneNumber.tr;
-    } else if (AppRegex.isPhoneNumberValid(val)) {
-      return Add_valid_PhoneNumber.tr;
-    } else {
-      return null;
-    }
-  }
+  // String? phonevalidator(val) {
+  //   if (val.isEmpty) {
+  //     return Type_your_PhoneNumber.tr;
+  //   } else if (AppRegex.isPhoneNumberValid(val)) {
+  //     return Add_valid_PhoneNumber.tr;
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   String? userNamevalidator(val) {
     if (val.isEmpty) {
@@ -131,7 +130,7 @@ class SingupController extends GetxController {
     userName = val;
   }
 
-  set setphoneNumber(val) {
-    phoneNumber = val;
-  }
+  // set setphoneNumber(val) {
+  //   phoneNumber = val;
+  // }
 }

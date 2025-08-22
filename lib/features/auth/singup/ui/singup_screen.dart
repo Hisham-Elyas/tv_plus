@@ -83,12 +83,12 @@ class SingupScreen extends GetView<SingupController> {
                             hintText: Confirm_password.tr,
                             validator: controller.passwordvalidator,
                           ),
-                          verticalSpace(15),
-                          AppTextFormField(
-                            onSaved: (val) => controller.setphoneNumber = val,
-                            hintText: Phone_number.tr,
-                            validator: controller.phonevalidator,
-                          ),
+                          // verticalSpace(15),
+                          // AppTextFormField(
+                          //   onSaved: (val) => controller.setphoneNumber = val,
+                          //   hintText: Phone_number.tr,
+                          //   validator: controller.phonevalidator,
+                          // ),
                           verticalSpace(20),
                           AppTextButton(
                             backgroundColor: ColorsManager.mainRed,
