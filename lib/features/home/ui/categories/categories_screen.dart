@@ -21,6 +21,7 @@ class CategoriesScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: Categories.tr,
       ),
+      drawerEnableOpenDragGesture: false,
       drawer: CustomDrawerWidget(),
       body: GetBuilder<CategoryController>(
         builder: (controller) => RefreshIndicator(

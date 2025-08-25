@@ -15,6 +15,7 @@ class ContactUsScreen extends GetView<ContactUsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawerEnableOpenDragGesture: false,
       appBar: CustomAppBar(title: ContactUs.tr),
       drawer: CustomDrawerWidget(),
       body: Padding(

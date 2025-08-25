@@ -19,6 +19,7 @@
 //     return GetBuilder<TodayMatchesController>(
 //       builder: (controller) => Scaffold(
 //           appBar: CustomAppBar(
+// drawerEnableOpenDragGesture: false,
 //             title: appName,
 //             actions: [
 //               // /// previous day button
