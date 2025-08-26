@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/helpers/coustom_overlay.dart';
+import '../../../../core/localization/constants.dart';
 import '../../../../core/widgets/custom_snackbar.dart';
 import '../../login/ui/login_screen.dart';
 import '../../repos/auth_repo.dart';
@@ -33,7 +34,7 @@ class VerificationController extends GetxController {
         } catch (e) {
           showCustomSnackBar(
             message: e.toString(),
-            title: "",
+            title: Errors.tr,
             isError: true,
           );
         }

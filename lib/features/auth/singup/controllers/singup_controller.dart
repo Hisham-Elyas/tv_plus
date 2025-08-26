@@ -53,7 +53,7 @@ class SingupController extends GetxController {
           print(e);
           showCustomSnackBar(
             message: e.toString(),
-            title: "",
+            title: Sign_Up.tr,
             isError: true,
           );
           authRepo.logeOut();
