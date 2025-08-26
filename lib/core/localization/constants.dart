@@ -63,6 +63,9 @@ const String ServerError = "❌ Server error. Please try again later.";
 
 const String NoMatchesFoundForDate = "No matches found for this date.";
 
+const String NoMatchesFoundForSelectedFilters =
+    'No matches found for selected league filters.';
+
 const String StartsIn = "Starts in";
 const String Goals = "Goals";
 const String Assists = "Assists";

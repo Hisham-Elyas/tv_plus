@@ -250,8 +250,11 @@ class MyTranslations extends Translations {
           NoActiveSubscription: NoActiveSubscription,
           SubscribeToPlan: SubscribeToPlan,
           SubscribeNow: SubscribeNow,
+          NoMatchesFoundForSelectedFilters: NoMatchesFoundForSelectedFilters,
         },
         "ar": {
+          NoMatchesFoundForSelectedFilters:
+              'لم يتم العثور على مباريات للبطولات المحددة.',
           Leagues: "الدوريات",
           Upcoming: "القادمة",
           Latest: "الأخيرة",
