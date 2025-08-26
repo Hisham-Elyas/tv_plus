@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 
 import '../../../core/helpers/enums.dart';
+import '../../../core/helpers/shared_pref_helper.dart';
 import '../data/models/leagues_response_model.dart';
 import '../data/repos/fixtures_repo.dart';
 
@@ -28,8 +31,41 @@ class LeaguesController extends GetxController {
     ),
   );
 
+  static const String favoriteLeaguesKey = 'favorite_leagues';
+  final RxList<int> favoriteLeagues = <int>[].obs;
+
+  Future<void> saveFavoriteLeagues() async {
+    await SharedPrefHelper.setData(
+      favoriteLeaguesKey,
+      jsonEncode(favoriteLeagues),
+    );
+  }
+
+  Future<void> loadFavoriteLeagues() async {
+    final leaguesString = await SharedPrefHelper.getString(favoriteLeaguesKey);
+    if (leaguesString.isNotEmpty) {
+      final List<dynamic> ids = jsonDecode(leaguesString);
+      favoriteLeagues.assignAll(ids.cast<int>());
+    }
+  }
+
+  void toggleFavorite(int leagueId) {
+    if (favoriteLeagues.contains(leagueId)) {
+      favoriteLeagues.remove(leagueId);
+    } else {
+      favoriteLeagues.add(leagueId);
+    }
+    saveFavoriteLeagues();
+    update();
+  }
+
+  bool isFavorite(int leagueId) {
+    return favoriteLeagues.contains(leagueId);
+  }
+
   @override
   void onInit() {
+    loadFavoriteLeagues();
     getAllLeagues();
     super.onInit();
   }

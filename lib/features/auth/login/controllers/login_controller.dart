@@ -43,7 +43,7 @@ class LoginController extends GetxController {
         } catch (e) {
           showCustomSnackBar(
             message: e.toString(),
-            title: "",
+            title: LOGIN.tr,
             isError: true,
           );
         }

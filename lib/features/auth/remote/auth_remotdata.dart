@@ -1,7 +1,5 @@
 // ignore_for_file: deprecated_member_use, avoid_print
 
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -99,7 +97,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         await SharedPrefHelper.setData('user_info', userModel.toMap());
         return true;
       } else {
-        final data = jsonDecode(response.body);
+        final data = response.body as Map<String, dynamic>;
         // print(data);
         String message = data['error'] ?? 'Failed to sign up.';
         // print(message);
@@ -112,7 +110,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -137,8 +135,12 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
 
         return true;
       } else {
-        final data = jsonDecode(response.body);
-        String message = data['error'] ?? 'Failed to log in.';
+        // print(response.body);
+        final data = response.body as Map<String, dynamic>;
+        // print(data);
+        // print(data.toString());
+        String message = data['error']?.toString() ?? 'Failed to log in.';
+        print(message);
         throw message;
       }
     } on FormatException catch (_) {
@@ -148,7 +150,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -170,7 +172,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         await SharedPrefHelper.setData('user_info', userModel.toMap());
         return true;
       } else {
-        final data = jsonDecode(response.body);
+        final data = response.body as Map<String, dynamic>;
         String message = data['error'] ?? 'Failed to update user info.';
         throw message;
       }
@@ -181,7 +183,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -197,7 +199,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        final data = jsonDecode(response.body);
+        final data = response.body as Map<String, dynamic>;
         String message = data['error'] ?? 'Failed to update password.';
         throw message;
       }
@@ -208,7 +210,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -224,7 +226,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        final data = jsonDecode(response.body);
+        final data = response.body as Map<String, dynamic>;
         String message = data['error'] ?? 'Failed to update email.';
         throw message;
       }
@@ -235,7 +237,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -253,7 +255,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         SharedPrefHelper.removeData('user_id');
         return true;
       } else {
-        final data = jsonDecode(response.body);
+        final data = response.body as Map<String, dynamic>;
         String message = data['error'] ?? 'Failed to delete account.';
         throw message;
       }
@@ -264,7 +266,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -289,7 +291,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
             // phone: response.body["user"]['phone'],
             userId: response.body["user"]['id'].toString());
       } else {
-        final data = jsonDecode(response.body);
+        final data = response.body as Map<String, dynamic>;
         String message = data['error'] ?? 'Failed to fetch user info.';
         throw message;
       }
@@ -300,7 +302,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -333,7 +335,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        final data = jsonDecode(response.body);
+        final data = response.body as Map<String, dynamic>;
         String message =
             data['error'] ?? 'Failed to send password reset email.';
         throw message;
@@ -345,7 +347,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -362,7 +364,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        final data = jsonDecode(response.body);
+        final data = response.body as Map<String, dynamic>;
         String message =
             data['error'] ?? 'Failed to send password reset email.';
         throw message;
@@ -374,7 +376,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 }
