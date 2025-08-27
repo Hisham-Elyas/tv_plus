@@ -136,7 +136,6 @@ class FixtureDetailController extends GetxController {
     ],
     id: 1,
     name: "Sample",
-    resultInfo: "2-1",
     startingAt: DateTime.now(),
     participants: [
       Participant(

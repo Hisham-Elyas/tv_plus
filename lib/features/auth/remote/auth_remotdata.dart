@@ -45,7 +45,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
     // get token from shared preferences
     await SharedPrefHelper.getString('TOKEN').then((value) {
       token = value;
-      debugPrint("Token: $token");
+      // debugPrint("Token: $token");
     });
     if (token.isNotEmpty) {
       _isExpired = Jwt.isExpired(token);
@@ -97,6 +97,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         await SharedPrefHelper.setData('user_info', userModel.toMap());
         return true;
       } else {
+        if (response.body == null) {
+          throw 'Failed to sign up.';
+        }
         final data = response.body as Map<String, dynamic>;
         // print(data);
         String message = data['error'] ?? 'Failed to sign up.';
@@ -135,6 +138,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
 
         return true;
       } else {
+        if (response.body == null) {
+          throw 'Failed to log in.';
+        }
         // print(response.body);
         final data = response.body as Map<String, dynamic>;
         // print(data);
@@ -172,6 +178,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         await SharedPrefHelper.setData('user_info', userModel.toMap());
         return true;
       } else {
+        if (response.body == null) {
+          throw 'Failed to update user info.';
+        }
         final data = response.body as Map<String, dynamic>;
         String message = data['error'] ?? 'Failed to update user info.';
         throw message;
@@ -199,6 +208,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
+        if (response.body == null) {
+          throw 'Failed to update password.';
+        }
         final data = response.body as Map<String, dynamic>;
         String message = data['error'] ?? 'Failed to update password.';
         throw message;
@@ -226,6 +238,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
+        if (response.body == null) {
+          throw 'Failed to update email.';
+        }
         final data = response.body as Map<String, dynamic>;
         String message = data['error'] ?? 'Failed to update email.';
         throw message;
@@ -255,6 +270,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         SharedPrefHelper.removeData('user_id');
         return true;
       } else {
+        if (response.body == null) {
+          throw 'Failed to delete account.';
+        }
         final data = response.body as Map<String, dynamic>;
         String message = data['error'] ?? 'Failed to delete account.';
         throw message;
@@ -291,6 +309,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
             // phone: response.body["user"]['phone'],
             userId: response.body["user"]['id'].toString());
       } else {
+        if (response.body == null) {
+          throw 'Failed to fetch user info.';
+        }
         final data = response.body as Map<String, dynamic>;
         String message = data['error'] ?? 'Failed to fetch user info.';
         throw message;
@@ -335,6 +356,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
+        if (response.body == null) {
+          throw 'Failed to send password reset email.';
+        }
         final data = response.body as Map<String, dynamic>;
         String message =
             data['error'] ?? 'Failed to send password reset email.';
@@ -364,6 +388,9 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
+        if (response.body == null) {
+          throw 'Failed to send password reset email.';
+        }
         final data = response.body as Map<String, dynamic>;
         String message =
             data['error'] ?? 'Failed to send password reset email.';

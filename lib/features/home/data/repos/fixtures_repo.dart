@@ -146,7 +146,7 @@ class FixturesRepoImpHttp implements FixturesRepo {
 
         return right(remotData);
       } on ServerException catch (e) {
-        print(e);
+        print(e.message);
         if (int.tryParse(e.message) == 204) {
           return left(StatusRequest.noData);
         } else if (int.tryParse(e.message) == 404) {

@@ -531,9 +531,9 @@ class MatchHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: _teamBlock(home)),
-                FittedBox(child: _buildScoreOrCountdown(homeScore, awayScore)),
-                Expanded(child: _teamBlock(away)),
+                Expanded(flex: 2, child: _teamBlock(home)),
+                Expanded(child: _buildScoreOrCountdown(homeScore, awayScore)),
+                Expanded(flex: 2, child: _teamBlock(away)),
               ],
             ),
             const SizedBox(height: 16),
@@ -643,31 +643,38 @@ class MatchHeader extends StatelessWidget {
   Widget _dateAndVenueRow() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(children: [
-            // Back button
-            Align(
-              alignment:
-                  AlignmentDirectional.topStart, // Left in LTR, Right in RTL
-              child: CupertinoButton(
-                padding: EdgeInsets.zero,
-                child: const Icon(
-                  CupertinoIcons.back,
-                  color: Colors.white,
+          Expanded(
+            child: Row(children: [
+              // Back button
+              Align(
+                alignment:
+                    AlignmentDirectional.topStart, // Left in LTR, Right in RTL
+                child: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: const Icon(
+                    CupertinoIcons.back,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Navigator.of(Get.context!).maybePop(),
                 ),
-                onPressed: () => Navigator.of(Get.context!).maybePop(),
               ),
-            ),
-            const Icon(Icons.calendar_today, color: Colors.white70, size: 16),
-            const SizedBox(width: 6),
-            Text(DateFormat('yyyy-MM-dd').format(fixture.startingAt),
-                style: const TextStyle(color: Colors.white70)),
-          ]),
-          Row(children: [
-            const Icon(Icons.location_on, color: Colors.white70, size: 16),
-            const SizedBox(width: 6),
-            Text(fixture.venue.name,
-                style: const TextStyle(color: Colors.white70)),
-          ]),
+              const Icon(Icons.calendar_today, color: Colors.white70, size: 16),
+              const SizedBox(width: 6),
+              Text(DateFormat('yyyy-MM-dd').format(fixture.startingAt),
+                  style: const TextStyle(color: Colors.white70)),
+            ]),
+          ),
+          Expanded(
+            child: Row(children: [
+              const Icon(Icons.location_on, color: Colors.white70, size: 16),
+              const SizedBox(width: 6),
+              Flexible(
+                child: Text(fixture.venue.name,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: Colors.white70)),
+              ),
+            ]),
+          ),
         ],
       );
 
@@ -682,9 +689,12 @@ class MatchHeader extends StatelessWidget {
             errorWidget: (_, __, ___) => const Icon(Icons.error),
           ),
           const SizedBox(height: 4),
-          Text(team.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white)),
+          FittedBox(
+            child: Text(team.name,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white)),
+          ),
         ],
       );
 
@@ -725,6 +735,7 @@ class MatchHeader extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(fixture.state.name,
+                textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white60)),
           ],
         );
@@ -784,7 +795,9 @@ class MatchHeader extends StatelessWidget {
         Text(label, style: const TextStyle(color: Colors.white70)),
         if (subtitle != null) ...[
           const SizedBox(height: 6),
-          Text(subtitle, style: const TextStyle(color: Colors.orangeAccent)),
+          Text(subtitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.orangeAccent)),
           // const SizedBox(height: 4),
           // Text(fixture.state.name,
           //     style: const TextStyle(color: Colors.white60)),
@@ -792,6 +805,7 @@ class MatchHeader extends StatelessWidget {
         if (mainText != null) ...[
           const SizedBox(height: 6),
           Text(mainText,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: isBoldMain ? 24 : 32,
                 fontWeight: FontWeight.bold,
@@ -803,13 +817,17 @@ class MatchHeader extends StatelessWidget {
         ],
         if (subText != null) ...[
           const SizedBox(height: 4),
-          Text(subText, style: const TextStyle(color: Colors.white60)),
+          Text(subText,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.white60)),
           const SizedBox(height: 4),
           // Text(fixture.state.name,
           //     style: const TextStyle(color: Colors.white60)),
         ],
         const SizedBox(height: 4),
-        Text(fixture.state.name, style: const TextStyle(color: Colors.white60)),
+        Text(fixture.state.name,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.white60)),
       ],
     );
   }
@@ -892,7 +910,7 @@ class MatchPreviewWidget extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r),
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.h),
+                  margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 0.h),
                   child: Container(
                     padding:
                         EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
@@ -904,41 +922,37 @@ class MatchPreviewWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Skeleton.shade(
-                                child: Icon(Icons.live_tv_outlined,
-                                    color: Colors.grey, size: 15.dm),
+                        Row(
+                          children: [
+                            Skeleton.shade(
+                              child: Icon(Icons.live_tv_outlined,
+                                  color: Colors.grey, size: 15.dm),
+                            ),
+                            horizontalSpace(5),
+                            Text(
+                              commentator.channelName,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
                               ),
-                              horizontalSpace(5),
-                              Text(
-                                commentator.channelName,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Skeleton.shade(
-                                  child: Icon(Icons.mic,
-                                      color: Colors.grey, size: 15.dm)),
-                              horizontalSpace(5),
-                              Text(
-                                commentator.commentatorName,
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                        Row(
+                          children: [
+                            Skeleton.shade(
+                                child: Icon(Icons.mic,
+                                    color: Colors.grey, size: 15.dm)),
+                            horizontalSpace(5),
+                            Text(
+                              commentator.commentatorName,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

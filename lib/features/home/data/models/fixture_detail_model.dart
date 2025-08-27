@@ -1,3 +1,6 @@
+import 'package:faisal_tv/core/localization/constants.dart';
+import 'package:get/get.dart';
+
 class FixtureDetailResponse {
   final FixtureDetail data;
   final String timezone;
@@ -16,7 +19,7 @@ class FixtureDetail {
   final int id;
   final String name;
   final String channelCommmId;
-  final String? resultInfo;
+  // final String? resultInfo;
   final DateTime startingAt;
   final List<Participant> participants;
   final List<Event> events;
@@ -33,7 +36,7 @@ class FixtureDetail {
     required this.id,
     required this.channelCommmId,
     required this.name,
-    this.resultInfo,
+    // this.resultInfo,
     required this.startingAt,
     required this.participants,
     required this.events,
@@ -53,7 +56,7 @@ class FixtureDetail {
       id: json['id'],
       name: json['name'],
       channelCommmId: json['channel_commm_id'],
-      resultInfo: json['result_info'],
+      // resultInfo: json['result_info'],
       startingAt: DateTime.parse(json['starting_at']),
       // startingAt: localTime,
       participants: List<Participant>.from(
@@ -323,26 +326,26 @@ class Participant {
 class Event {
   final int id;
   final int fixtureId;
-  final int periodId;
+  // final int periodId;
   final int participantId;
-  final int typeId;
-  final String section;
-  final int? playerId;
-  final int? relatedPlayerId;
+  // final int typeId;
+  // final String section;
+  // final int? playerId;
+  // final int? relatedPlayerId;
   final String? playerName;
   final String? relatedPlayerName;
-  final String? result;
+  // final String? result;
   final String? info;
   final String? addition;
   final int minute;
   final int? extraMinute;
-  final bool? injured;
-  final bool onBench;
-  final int? coachId;
-  final int? subTypeId;
-  final int? detailedPeriodId;
-  final bool? rescinded;
-  final int sortOrder;
+  // final bool? injured;
+  // final bool onBench;
+  // final int? coachId;
+  // final int? subTypeId;
+  // final int? detailedPeriodId;
+  // final bool? rescinded;
+  // final int sortOrder;
   final EventType type;
   final Period period;
   final Player? player;
@@ -350,26 +353,26 @@ class Event {
   Event({
     required this.id,
     required this.fixtureId,
-    required this.periodId,
+    // required this.periodId,
     required this.participantId,
-    required this.typeId,
-    required this.section,
-    this.playerId,
-    this.relatedPlayerId,
+    // required this.typeId,
+    // required this.section,
+    // this.playerId,
+    // this.relatedPlayerId,
     this.playerName,
     this.relatedPlayerName,
-    this.result,
+    // this.result,
     this.info,
     this.addition,
     required this.minute,
     this.extraMinute,
-    this.injured,
-    required this.onBench,
-    this.coachId,
-    this.subTypeId,
-    this.detailedPeriodId,
-    this.rescinded,
-    required this.sortOrder,
+    // this.injured,
+    // required this.onBench,
+    // this.coachId,
+    // this.subTypeId,
+    // this.detailedPeriodId,
+    // this.rescinded,
+    // required this.sortOrder,
     required this.type,
     required this.period,
     this.player,
@@ -379,26 +382,26 @@ class Event {
     return Event(
       id: json['id'],
       fixtureId: json['fixture_id'],
-      periodId: json['period_id'],
+      // periodId: json['period_id'],
       participantId: json['participant_id'],
-      typeId: json['type_id'],
-      section: json['section'],
-      playerId: json['player_id'],
-      relatedPlayerId: json['related_player_id'],
+      // typeId: json['type_id'],
+      // section: json['section'],
+      // playerId: json['player_id'],
+      // relatedPlayerId: json['related_player_id'],
       playerName: json['player_name'],
       relatedPlayerName: json['related_player_name'],
-      result: json['result'],
+      // result: json['result'],
       info: json['info'],
       addition: json['addition'],
       minute: json['minute'],
       extraMinute: json['extra_minute'],
-      injured: json['injured'],
-      onBench: json['on_bench'] ?? false,
-      coachId: json['coach_id'],
-      subTypeId: json['sub_type_id'],
-      detailedPeriodId: json['detailed_period_id'],
-      rescinded: json['rescinded'],
-      sortOrder: json['sort_order'],
+      // injured: json['injured'],
+      // onBench: json['on_bench'] ?? false,
+      // coachId: json['coach_id'],
+      // subTypeId: json['sub_type_id'],
+      // detailedPeriodId: json['detailed_period_id'],
+      // rescinded: json['rescinded'],
+      // sortOrder: json['sort_order'],
       type: EventType.fromJson(json['type']),
       period: Period.fromJson(json['period']),
       player: json['player'] != null ? Player.fromJson(json['player']) : null,
@@ -411,16 +414,16 @@ class EventType {
   final String name;
   final String code;
   final String developerName;
-  final String modelType;
-  final dynamic statGroup;
+  // final String modelType;
+  // final dynamic statGroup;
 
   EventType({
     required this.id,
     required this.name,
     required this.code,
     required this.developerName,
-    required this.modelType,
-    this.statGroup,
+    // required this.modelType,
+    // this.statGroup,
   });
 
   factory EventType.fromJson(Map<String, dynamic> json) {
@@ -429,8 +432,8 @@ class EventType {
       name: json['name'],
       code: json['code'],
       developerName: json['developer_name'],
-      modelType: json['model_type'],
-      statGroup: json['stat_group'],
+      // modelType: json['model_type'],
+      // statGroup: json['stat_group'],
     );
   }
 }
@@ -438,52 +441,52 @@ class EventType {
 class Period {
   final int id;
   final int fixtureId;
-  final int typeId;
-  final int started;
-  final int? ended;
-  final int countsFrom;
-  final bool ticking;
-  final int sortOrder;
+  // final int typeId;
+  // final int started;
+  // final int? ended;
+  // final int countsFrom;
+  // final bool ticking;
+  // final int sortOrder;
   final String description;
-  final int? timeAdded;
-  final int periodLength;
-  final int minutes;
-  final int seconds;
-  final bool hasTimer;
+  // final int? timeAdded;
+  // final int periodLength;
+  // final int minutes;
+  // final int seconds;
+  // final bool hasTimer;
 
   Period({
     required this.id,
     required this.fixtureId,
-    required this.typeId,
-    required this.started,
-    this.ended,
-    required this.countsFrom,
-    required this.ticking,
-    required this.sortOrder,
+    // required this.typeId,
+    // required this.started,
+    // this.ended,
+    // required this.countsFrom,
+    // required this.ticking,
+    // required this.sortOrder,
     required this.description,
-    this.timeAdded,
-    required this.periodLength,
-    required this.minutes,
-    required this.seconds,
-    required this.hasTimer,
+    // this.timeAdded,
+    // required this.periodLength,
+    // required this.minutes,
+    // required this.seconds,
+    // required this.hasTimer,
   });
 
   factory Period.fromJson(Map<String, dynamic> json) {
     return Period(
       id: json['id'],
       fixtureId: json['fixture_id'],
-      typeId: json['type_id'],
-      started: json['started'],
-      ended: json['ended'],
-      countsFrom: json['counts_from'],
-      ticking: json['ticking'],
-      sortOrder: json['sort_order'],
+      // typeId: json['type_id'],
+      // started: json['started'],
+      // ended: json['ended'],
+      // countsFrom: json['counts_from'],
+      // ticking: json['ticking'],
+      // sortOrder: json['sort_order'],
       description: json['description'],
-      timeAdded: json['time_added'],
-      periodLength: json['period_length'],
-      minutes: json['minutes'],
-      seconds: json['seconds'],
-      hasTimer: json['has_timer'],
+      // timeAdded: json['time_added'],
+      // periodLength: json['period_length'],
+      // minutes: json['minutes'],
+      // seconds: json['seconds'],
+      // hasTimer: json['has_timer'],
     );
   }
 }
@@ -596,7 +599,7 @@ class Venue {
     return Venue(
       id: json['id'],
       name: json['name'],
-      address: json['address'],
+      address: json['address'] ?? Unknown.tr,
       cityName: json['city_name'],
       imagePath: json['image_path'],
       surface: json['surface'],

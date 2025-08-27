@@ -116,6 +116,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
     );
 
     if (resalt.statusCode == 200) {
+      print(fixturId);
       final FixtureDetailResponse response =
           FixtureDetailResponse.fromJson(resalt.body);
       return response;
