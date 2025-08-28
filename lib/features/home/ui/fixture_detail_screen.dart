@@ -975,7 +975,7 @@ class MatchPreviewWidget extends StatelessWidget {
             ),
             margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
+              padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 12.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -983,11 +983,15 @@ class MatchPreviewWidget extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _sidelinedList(homeSidelined,
-                          '${homeSidelined.length} ${Players.tr} ${homeSidelined.length != 1 ? '' : ''}'),
-                      Spacer(),
-                      _sidelinedList(awaySidelined,
-                          '${awaySidelined.length} ${Players.tr} ${awaySidelined.length != 1 ? '' : ''}'),
+                      Expanded(
+                        child: _sidelinedList(homeSidelined,
+                            '${homeSidelined.length} ${Players.tr} ${homeSidelined.length != 1 ? '' : ''}'),
+                      ),
+                      // Spacer(),
+                      Expanded(
+                        child: _sidelinedList(awaySidelined,
+                            '${awaySidelined.length} ${Players.tr} ${awaySidelined.length != 1 ? '' : ''}'),
+                      ),
                     ],
                   ),
                 ],
@@ -1119,7 +1123,7 @@ class MatchPreviewWidget extends StatelessWidget {
         //   defaultText,
         //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
         // ),
-        const SizedBox(height: 8),
+        // const SizedBox(height: 8),
         ...sidelined.map((s) {
           return Padding(
             padding: EdgeInsets.symmetric(vertical: 4.0.w),
@@ -1127,22 +1131,23 @@ class MatchPreviewWidget extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   imageUrl: s.sideline.player.imagePath,
-                  height: 40.h,
+                  height: 35.h,
                   placeholder: (context, url) => Skeletonizer(
                     enabled: true,
-                    child: Icon(Icons.sports_soccer, size: 40.h),
+                    child: Icon(Icons.sports_soccer, size: 30.h),
                   ),
                   errorWidget: (context, url, error) => Icon(
                     Icons.broken_image,
+                    size: 30.h,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                SizedBox(width: 10.w),
+                SizedBox(width: 5.w),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 110.w,
+                      // width: 110.w,
                       child: Text(
                         s.sideline.player.displayName,
                         overflow: TextOverflow.ellipsis,
@@ -1150,13 +1155,16 @@ class MatchPreviewWidget extends StatelessWidget {
                             fontWeight: FontWeight.bold, fontSize: 12.sp),
                       ),
                     ),
-                    Text(
-                      s.sideline.type.name,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      // width: 110.w,
+                      child: Text(
+                        s.sideline.type.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -1249,44 +1257,85 @@ class HeaderTitle extends StatelessWidget {
 }
 
 void showFootballChannelPopup(ChannelCommentator commentator) {
-  Get.defaultDialog(
-    title: commentator.channelName,
-    titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-    content: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Quality Options Header
-
-        Text(QualityOptions.tr, style: TextStyle(fontWeight: FontWeight.bold)),
-
-        const SizedBox(height: 8),
-
-        // Scrollable list of quality buttons
-
-        SizedBox(
-          height: 200, // Limit height so it scrolls if long
-          child: ListView.builder(
-            itemCount: commentator.tvChannelLink.length,
-            itemBuilder: (context, index) {
-              final link = commentator.tvChannelLink[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: ElevatedButton.icon(
-                  onPressed: () =>
-                      _openVideoUrl(link.url, commentator.tvChannelLink),
-                  icon: const Icon(Icons.play_arrow),
-                  label: Text(link.name),
+  showDialog(
+    context: Get.context!,
+    builder: (context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxHeight: 400,
+            minWidth: 280,
+            maxWidth: 400,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  commentator.channelName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              );
-            },
+                const SizedBox(height: 12),
+                Text(
+                  QualityOptions.tr,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                Flexible(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: commentator.tvChannelLink.length,
+                    itemBuilder: (context, index) {
+                      final link = commentator.tvChannelLink[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 3,
+                            shadowColor: ColorsManager.lightSecondary,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.surface,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  10.r), // assuming you use flutter_screenutil
+                            ),
+                          ),
+                          onPressed: () => _openVideoUrl(
+                              link.url, commentator.tvChannelLink),
+                          icon: const Icon(Icons.play_arrow),
+                          label: Text(link.name),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 3,
+                    shadowColor: ColorsManager.lightSecondary,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          10.r), // assuming you use flutter_screenutil
+                    ),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text(Close.tr),
+                ),
+              ],
+            ),
           ),
         ),
-      ],
-    ),
-    textConfirm: Close.tr,
-    confirmTextColor: Colors.white,
-    onConfirm: () => Get.back(),
+      );
+    },
   );
 }
 

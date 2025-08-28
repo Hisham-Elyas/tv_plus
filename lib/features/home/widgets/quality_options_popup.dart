@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../core/localization/constants.dart';
+import '../../../core/theming/colors.dart';
 import '../controllers/video_player_conteroller.dart';
 import '../data/models/category_model.dart';
 import '../ui/video_player_screen.dart';
@@ -35,6 +37,15 @@ void showFootballChannelPopup(Channel channel) {
 
                 // Main Link Button
                 ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 3,
+                    shadowColor: ColorsManager.lightSecondary,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          10.r), // assuming you use flutter_screenutil
+                    ),
+                  ),
                   onPressed: () => _openVideoUrl(channel.url, channel),
                   icon: const Icon(Icons.play_circle_fill),
                   label: Text(MainLink.tr),
@@ -43,8 +54,8 @@ void showFootballChannelPopup(Channel channel) {
 
                 // Quality Options Header
                 if (channel.urlList.isNotEmpty)
-                  const Text(
-                    'Quality Options',
+                  Text(
+                    QualityOptions.tr,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 const SizedBox(height: 8),
@@ -59,6 +70,16 @@ void showFootballChannelPopup(Channel channel) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 3,
+                              shadowColor: ColorsManager.lightSecondary,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.surface,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10
+                                    .r), // assuming you use flutter_screenutil
+                              ),
+                            ),
                             onPressed: () => _openVideoUrl(link.url, channel),
                             icon: const Icon(Icons.play_arrow),
                             label: Text(link.name),
@@ -70,6 +91,15 @@ void showFootballChannelPopup(Channel channel) {
 
                 const SizedBox(height: 8),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 3,
+                    shadowColor: ColorsManager.lightSecondary,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          10.r), // assuming you use flutter_screenutil
+                    ),
+                  ),
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(Close.tr),
                 ),
