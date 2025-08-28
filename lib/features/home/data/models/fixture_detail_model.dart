@@ -500,10 +500,10 @@ class Player {
   // final int positionId;
   // final int? detailedPositionId;
   // final int? typeId;
-  final String commonName;
-  final String firstname;
-  final String lastname;
-  final String name;
+  final String? commonName; // Make nullable
+  final String? firstname; // Make nullable
+  final String? lastname; // Make nullable
+  final String? name; // Make nullable
   final String displayName;
   final String imagePath;
   // final int? height;

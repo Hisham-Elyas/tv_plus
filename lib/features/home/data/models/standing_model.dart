@@ -20,12 +20,12 @@ class Standing {
   final int sportId;
   final int leagueId;
   final int seasonId;
-  final int stageId;
-  final int? groupId;
-  final int? roundId;
+  // final int stageId;
+  // final int? groupId;
+  // final int? roundId;
   // final int standingRuleId;
   final int position;
-  final String result;
+  // final String result;
   final int points;
   final Participant participant;
   // final Rule? rule;
@@ -40,12 +40,12 @@ class Standing {
     required this.sportId,
     required this.leagueId,
     required this.seasonId,
-    required this.stageId,
-    required this.groupId,
-    this.roundId,
+    // required this.stageId,
+    // required this.groupId,
+    // this.roundId,
     // required this.standingRuleId,
     required this.position,
-    required this.result,
+    // required this.result,
     required this.points,
     required this.participant,
     // required this.rule,
@@ -62,12 +62,12 @@ class Standing {
       sportId: json['sport_id'],
       leagueId: json['league_id'],
       seasonId: json['season_id'],
-      stageId: json['stage_id'],
-      groupId: json['group_id'],
-      roundId: json['round_id'],
+      // stageId: json['stage_id'],
+      // groupId: json['group_id'],
+      // roundId: json['round_id'],
       // standingRuleId: json['standing_rule_id'],
       position: json['position'],
-      result: json['result'],
+      // result: json['result'],
       points: json['points'],
       participant: Participant.fromJson(json['participant']),
       // rule: Rule.fromJson(json['rule']),
