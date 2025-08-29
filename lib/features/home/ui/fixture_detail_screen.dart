@@ -669,7 +669,7 @@ class MatchHeader extends StatelessWidget {
               const Icon(Icons.location_on, color: Colors.white70, size: 16),
               const SizedBox(width: 6),
               Flexible(
-                child: Text(fixture.venue.name,
+                child: Text(fixture.venue?.name ?? Unknown.tr,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(color: Colors.white70)),
               ),
@@ -979,20 +979,27 @@ class MatchPreviewWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Sidelined Players
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: _sidelinedList(homeSidelined,
-                            '${homeSidelined.length} ${Players.tr} ${homeSidelined.length != 1 ? '' : ''}'),
-                      ),
-                      // Spacer(),
-                      Expanded(
-                        child: _sidelinedList(awaySidelined,
-                            '${awaySidelined.length} ${Players.tr} ${awaySidelined.length != 1 ? '' : ''}'),
-                      ),
-                    ],
+                  // Sidelined Players Title or Header can go here
+
+                  // Use IntrinsicHeight to make both columns the same height
+                  IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: _sidelinedList(
+                            homeSidelined,
+                            '${homeSidelined.length} ${Players.tr}',
+                          ),
+                        ),
+                        Expanded(
+                          child: _sidelinedList(
+                            awaySidelined,
+                            '${awaySidelined.length} ${Players.tr}',
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -1030,7 +1037,7 @@ class MatchPreviewWidget extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: CachedNetworkImage(
-                      imageUrl: fixture.venue.imagePath ?? '',
+                      imageUrl: fixture.venue?.imagePath ?? '',
                       height: 150,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -1047,11 +1054,26 @@ class MatchPreviewWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _infoRow(Venues.tr, fixture.venue.name),
-                  _infoRow(Capacity.tr, fixture.venue.capacity.toString()),
-                  _infoRow(Surface.tr, fixture.venue.surface),
-                  _infoRow(City.tr, fixture.venue.cityName),
-                  _infoRow(Address.tr, fixture.venue.address),
+                  _infoRow(
+                    Venues.tr,
+                    fixture.venue?.name ?? Unknown.tr,
+                  ),
+                  _infoRow(
+                    Capacity.tr,
+                    fixture.venue?.capacity.toString() ?? Unknown.tr,
+                  ),
+                  _infoRow(
+                    Surface.tr,
+                    fixture.venue?.surface ?? Unknown.tr,
+                  ),
+                  _infoRow(
+                    City.tr,
+                    fixture.venue?.cityName ?? Unknown.tr,
+                  ),
+                  _infoRow(
+                    Address.tr,
+                    fixture.venue?.address ?? Unknown.tr,
+                  ),
                 ],
               ),
             ),
@@ -1102,72 +1124,92 @@ class MatchPreviewWidget extends StatelessWidget {
     );
   }
 
-  Widget _sidelinedList(List<Sideline> sidelined, String defaultText) {
+  Widget _sidelinedList(List<Sideline> sidelined, String title) {
     if (sidelined.isEmpty) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            defaultText,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
-          ),
-        ],
+      // You can return an empty container or a placeholder if you wish
+      // So the IntrinsicHeight can balance it against a non-empty list.
+      return Padding(
+        padding: EdgeInsets.symmetric(vertical: 4.0.h),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.check_circle_outline,
+              color: Colors.green, // Green color to indicate "all good"
+              size: 30.h,
+            ),
+            SizedBox(width: 8.h),
+            Text(
+              AllPlayersAvailable
+                  .tr, // You can replace this with a translation key
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12.sp,
+              ),
+            ),
+          ],
+        ),
       );
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Optional: Add a title for each list
         // Text(
-        //   defaultText,
+        //   title,
         //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
         // ),
-        // const SizedBox(height: 8),
+        // SizedBox(height: 8.h),
         ...sidelined.map((s) {
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 4.0.w),
+            padding: EdgeInsets.symmetric(vertical: 4.0.h),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CachedNetworkImage(
-                  imageUrl: s.sideline.player.imagePath,
+                  imageUrl: s.sideline.player.imagePath ?? '',
                   height: 35.h,
+                  width: 35.w, // Good practice to set width too
+                  fit: BoxFit.cover,
                   placeholder: (context, url) => Skeletonizer(
                     enabled: true,
-                    child: Icon(Icons.sports_soccer, size: 30.h),
+                    child: Icon(Icons.person, size: 30.h),
                   ),
                   errorWidget: (context, url, error) => Icon(
-                    Icons.broken_image,
+                    Icons.person_off,
                     size: 30.h,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                SizedBox(width: 5.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      // width: 110.w,
-                      child: Text(
-                        s.sideline.player.displayName,
+                SizedBox(width: 8.w),
+                // Use Expanded to allow text to take remaining space and prevent overflow
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        s.sideline.player.displayName ?? 'Unknown Player',
                         overflow: TextOverflow.ellipsis,
+                        maxLines: 1, // Prevent wrapping to multiple lines
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 12.sp),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.sp,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      // width: 110.w,
-                      child: Text(
+                      SizedBox(width: 4.w),
+                      Text(
                         s.sideline.type.name,
                         overflow: TextOverflow.ellipsis,
+                        maxLines: 1, // Prevent wrapping
                         style: TextStyle(
                           color: Colors.grey[600],
                           fontSize: 10.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

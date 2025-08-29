@@ -24,7 +24,7 @@ class FixtureDetail {
   final List<Participant> participants;
   final List<Event> events;
   final League league;
-  final Venue venue;
+  final Venue? venue;
   final State state;
   final List<Score> scores;
   final List<Sideline>? sidelined;
@@ -41,7 +41,7 @@ class FixtureDetail {
     required this.participants,
     required this.events,
     required this.league,
-    required this.venue,
+    this.venue,
     required this.state,
     required this.scores,
     this.sidelined,
@@ -66,7 +66,8 @@ class FixtureDetail {
         (json['events'] ?? []).map((x) => Event.fromJson(x)),
       ),
       league: League.fromJson(json['league']),
-      venue: Venue.fromJson(json['venue']),
+      // venue: Venue.fromJson(json['venue']),
+      venue: json['venue'] == null ? null : Venue.fromJson(json['venue']),
       state: State.fromJson(json['state']),
       statistics: json['statistics'] != null
           ? List<Statistic>.from(
@@ -520,10 +521,10 @@ class Player {
     // required this.positionId,
     // this.detailedPositionId,
     // this.typeId,
-    required this.commonName,
-    required this.firstname,
-    required this.lastname,
-    required this.name,
+    this.commonName,
+    this.firstname,
+    this.lastname,
+    this.name,
     required this.displayName,
     required this.imagePath,
     // this.height,
@@ -542,12 +543,12 @@ class Player {
       // positionId: json['position_id'],
       // detailedPositionId: json['detailed_position_id'],
       // typeId: json['type_id'],
-      commonName: json['common_name'],
-      firstname: json['firstname'],
-      lastname: json['lastname'],
-      name: json['name'],
-      displayName: json['display_name'],
-      imagePath: json['image_path'],
+      commonName: json['common_name'] ?? '',
+      firstname: json['firstname'] ?? '',
+      lastname: json['lastname'] ?? '',
+      name: json['name'] ?? '',
+      displayName: json['display_name'] ?? '', // Also made this safe
+      imagePath: json['image_path'] ?? '', // Also made this safe
       // height: json['height'],
       // weight: json['weight'],
       // dateOfBirth: json['date_of_birth'],
@@ -579,11 +580,11 @@ class League {
 class Venue {
   final int id;
   final String name;
-  final String address;
+  final String address; // Kept your original fix
   final String cityName;
   final String? imagePath;
-  final String surface;
-  final int capacity;
+  final String surface; // Changed to nullable String?
+  final int? capacity; // Changed to nullable int? for safety
 
   Venue({
     required this.id,
@@ -592,17 +593,17 @@ class Venue {
     required this.cityName,
     this.imagePath,
     required this.surface,
-    required this.capacity,
+    this.capacity,
   });
 
   factory Venue.fromJson(Map<String, dynamic> json) {
     return Venue(
       id: json['id'],
-      name: json['name'],
+      name: json['name'] ?? Unknown.tr,
       address: json['address'] ?? Unknown.tr,
-      cityName: json['city_name'],
+      cityName: json['city_name'] ?? Unknown.tr,
       imagePath: json['image_path'],
-      surface: json['surface'],
+      surface: json['surface'] ?? Unknown.tr, // Added default value
       capacity: json['capacity'],
     );
   }

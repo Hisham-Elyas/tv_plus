@@ -34,7 +34,6 @@ abstract class FixturesRemoteDate {
 
 class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   final ApiClent apiClent;
-  final String locale = Get.find<LanguageController>().appLocale.languageCode;
 
   FixturesRemoteDateImpHttp({required this.apiClent});
 
@@ -43,6 +42,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
     required String seasonId,
     required ScorerType type,
   }) async {
+    final String locale = Get.find<LanguageController>().appLocale.languageCode;
     final timeZone = await getDeviceTimeZone();
     final result = await apiClent.getData(
       uri:
@@ -61,6 +61,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   Future<UpcomingFixturesResponse> getUpcomingMatchesByTeam(
       {required String teamId}) async {
     final timeZone = await getDeviceTimeZone();
+    final String locale = Get.find<LanguageController>().appLocale.languageCode;
     final result = await apiClent.getData(
       uri:
           "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.team}/$teamId${ApiConstants.matches}?timezone=$timeZone&locale=$locale",
@@ -78,6 +79,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   @override
   Future<StandingsResponse> getStandings({required String seasonId}) async {
     final timeZone = await getDeviceTimeZone();
+    final String locale = Get.find<LanguageController>().appLocale.languageCode;
     final result = await apiClent.getData(
       uri:
           "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.standings}/$seasonId?locale=$locale&timezone=$timeZone",
@@ -95,6 +97,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   @override
   Future<FixturesResponse> getAllTodayMatches({required String date}) async {
     final timeZone = await getDeviceTimeZone();
+    final String locale = Get.find<LanguageController>().appLocale.languageCode;
     final resalt = await apiClent.getData(
         uri:
             "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.calendar}?date=$date&timezone=$timeZone&locale=$locale");
@@ -110,6 +113,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   Future<FixtureDetailResponse> getFixturDetiels(
       {required String fixturId, required String channelCommmId}) async {
     final timeZone = await getDeviceTimeZone();
+    final String locale = Get.find<LanguageController>().appLocale.languageCode;
     final resalt = await apiClent.getData(
       uri:
           "${ApiConstants.apiBaseUrl + ApiConstants.fixtures}/$fixturId?timezone=$timeZone&locale=$locale&channel_commm_id=$channelCommmId",
@@ -128,6 +132,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   @override
   Future<LeaguesResponse> getLeagues() async {
     final timeZone = await getDeviceTimeZone();
+    final String locale = Get.find<LanguageController>().appLocale.languageCode;
     final result = await apiClent.getData(
       uri:
           "${ApiConstants.apiBaseUrl + ApiConstants.fixtures + ApiConstants.leagues}?timezone=$timeZone&locale=$locale",
@@ -145,6 +150,7 @@ class FixturesRemoteDateImpHttp implements FixturesRemoteDate {
   Future<LeagueFixturesResponse> getMatchesByLeagueId(
       {required String leagueId}) async {
     final timeZone = await getDeviceTimeZone();
+    final String locale = Get.find<LanguageController>().appLocale.languageCode;
     final result = await apiClent.getData(
       uri:
           "${ApiConstants.apiBaseUrl}${ApiConstants.fixtures}${ApiConstants.leagueMatches}/$leagueId${ApiConstants.matches}?locale=$locale&timezone=$timeZone",

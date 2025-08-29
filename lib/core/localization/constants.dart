@@ -83,6 +83,8 @@ const String Scorers = "Scorers";
 const String Standingss = "Standings";
 const String Sidelined = "Sidelined";
 const String Unknown = "Unknown";
+const String AllPlayersAvailable = "All Players Available";
+
 const String ChannelsAndCommentators = 'Channels & Commentators';
 const String Players = "Player";
 const String WeatherReports = "Weather Report";

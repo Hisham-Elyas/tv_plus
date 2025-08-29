@@ -251,8 +251,10 @@ class MyTranslations extends Translations {
           SubscribeToPlan: SubscribeToPlan,
           SubscribeNow: SubscribeNow,
           NoMatchesFoundForSelectedFilters: NoMatchesFoundForSelectedFilters,
+          AllPlayersAvailable: AllPlayersAvailable,
         },
         "ar": {
+          AllPlayersAvailable: "كل اللاعبين متاحون",
           NoMatchesFoundForSelectedFilters:
               'لم يتم العثور على مباريات للبطولات المحددة.',
           Leagues: "الدوريات",
