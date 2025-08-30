@@ -31,7 +31,7 @@ class ForgetPasswordController extends GetxController {
         } catch (e) {
           showCustomSnackBar(
             message: e.toString(),
-            title: "",
+            title: Errors.tr,
             isError: true,
           );
         }

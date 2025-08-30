@@ -17,33 +17,33 @@ class LeagueFixturesResponse {
 
 class LeagueData {
   final int id;
-  final int sportId;
-  final int countryId;
-  final String name;
-  final bool active;
-  final String? shortCode;
-  final String imagePath;
-  final String type;
-  final String subType;
-  final String lastPlayedAt;
-  final int category;
-  final bool hasJerseys;
+  // final int sportId;
+  // final int countryId;
+  // final String name;
+  // final bool active;
+  // final String? shortCode;
+  // final String imagePath;
+  // final String type;
+  // final String subType;
+  // final String lastPlayedAt;
+  // final int category;
+  // final bool hasJerseys;
   final List<MatchDetails> upcoming;
   final List<MatchDetails> latest;
 
   LeagueData({
     required this.id,
-    required this.sportId,
-    required this.countryId,
-    required this.name,
-    required this.active,
-    this.shortCode,
-    required this.imagePath,
-    required this.type,
-    required this.subType,
-    required this.lastPlayedAt,
-    required this.category,
-    required this.hasJerseys,
+    // required this.sportId,
+    // required this.countryId,
+    // required this.name,
+    // required this.active,
+    // this.shortCode,
+    // required this.imagePath,
+    // required this.type,
+    // required this.subType,
+    // required this.lastPlayedAt,
+    // required this.category,
+    // required this.hasJerseys,
     required this.upcoming,
     required this.latest,
   });
@@ -51,17 +51,17 @@ class LeagueData {
   factory LeagueData.fromJson(Map<String, dynamic> json) {
     return LeagueData(
       id: json['id'],
-      sportId: json['sport_id'],
-      countryId: json['country_id'],
-      name: json['name'],
-      active: json['active'],
-      shortCode: json['short_code'],
-      imagePath: json['image_path'],
-      type: json['type'],
-      subType: json['sub_type'],
-      lastPlayedAt: json['last_played_at'],
-      category: json['category'],
-      hasJerseys: json['has_jerseys'],
+      // sportId: json['sport_id'],
+      // countryId: json['country_id'],
+      // name: json['name'],
+      // active: json['active'],
+      // shortCode: json['short_code'],
+      // imagePath: json['image_path'],
+      // type: json['type'],
+      // subType: json['sub_type'],
+      // lastPlayedAt: json['last_played_at'],
+      // category: json['category'],
+      // hasJerseys: json['has_jerseys'],
       upcoming: List<MatchDetails>.from(
           json['upcoming'].map((item) => MatchDetails.fromJson(item))),
       latest: List<MatchDetails>.from(
@@ -75,22 +75,22 @@ class MatchDetails {
   final int sportId;
   final int leagueId;
   final int seasonId;
-  final int stageId;
-  final int? groupId;
-  final int? aggregateId;
-  final int? roundId;
-  final int stateId;
-  final int venueId;
-  final String name;
+  // final int stageId;
+  // final int? groupId;
+  // final int? aggregateId;
+  // final int? roundId;
+  // final int stateId;
+  // final int venueId;
+  // final String name;
   final String startingAt;
-  final String? resultInfo;
-  final String leg;
-  final String? details;
-  final int length;
-  final bool placeholder;
-  final bool hasOdds;
-  final bool hasPremiumOdds;
-  final int startingAtTimestamp;
+  // final String? resultInfo;
+  // final String leg;
+  // final String? details;
+  // final int length;
+  // final bool placeholder;
+  // final bool hasOdds;
+  // final bool hasPremiumOdds;
+  // final int startingAtTimestamp;
   final Round? round;
   final List<Participant> participants;
   final List<Score> scores;
@@ -100,22 +100,22 @@ class MatchDetails {
     required this.sportId,
     required this.leagueId,
     required this.seasonId,
-    required this.stageId,
-    this.groupId,
-    this.aggregateId,
-    this.roundId,
-    required this.stateId,
-    required this.venueId,
-    required this.name,
+    // required this.stageId,
+    // this.groupId,
+    // this.aggregateId,
+    // this.roundId,
+    // required this.stateId,
+    // required this.venueId,
+    // required this.name,
     required this.startingAt,
-    this.resultInfo,
-    required this.leg,
-    this.details,
-    required this.length,
-    required this.placeholder,
-    required this.hasOdds,
-    required this.hasPremiumOdds,
-    required this.startingAtTimestamp,
+    // this.resultInfo,
+    // required this.leg,
+    // this.details,
+    // required this.length,
+    // required this.placeholder,
+    // required this.hasOdds,
+    // required this.hasPremiumOdds,
+    // required this.startingAtTimestamp,
     required this.participants,
     this.round,
     required this.scores,
@@ -127,22 +127,22 @@ class MatchDetails {
       sportId: json['sport_id'],
       leagueId: json['league_id'],
       seasonId: json['season_id'],
-      stageId: json['stage_id'],
-      groupId: json['group_id'],
-      aggregateId: json['aggregate_id'],
-      roundId: json['round_id'],
-      stateId: json['state_id'],
-      venueId: json['venue_id'],
-      name: json['name'],
+      // stageId: json['stage_id'],
+      // groupId: json['group_id'],
+      // aggregateId: json['aggregate_id'],
+      // roundId: json['round_id'],
+      // stateId: json['state_id'],
+      // venueId: json['venue_id'],
+      // name: json['name'],
       startingAt: json['starting_at'],
-      resultInfo: json['result_info'],
-      leg: json['leg'],
-      details: json['details'],
-      length: json['length'],
-      placeholder: json['placeholder'],
-      hasOdds: json['has_odds'],
-      hasPremiumOdds: json['has_premium_odds'],
-      startingAtTimestamp: json['starting_at_timestamp'],
+      // resultInfo: json['result_info'],
+      // leg: json['leg'],
+      // details: json['details'],
+      // length: json['length'],
+      // placeholder: json['placeholder'],
+      // hasOdds: json['has_odds'],
+      // hasPremiumOdds: json['has_premium_odds'],
+      // startingAtTimestamp: json['starting_at_timestamp'],
       round: json['round'] != null ? Round.fromJson(json['round']) : null,
       participants: json['participants'] != null
           ? List<Participant>.from(
@@ -160,27 +160,27 @@ class Round {
   final int id;
   final int sportId;
   final int leagueId;
-  final int seasonId;
-  final int stageId;
+  // final int seasonId;
+  // final int stageId;
   final String name;
-  final bool finished;
-  final bool isCurrent;
-  final String startingAt;
-  final String endingAt;
-  final bool gamesInCurrentWeek;
+  // final bool finished;
+  // final bool isCurrent;
+  // final String startingAt;
+  // final String endingAt;
+  // final bool gamesInCurrentWeek;
 
   Round({
     required this.id,
     required this.sportId,
     required this.leagueId,
-    required this.seasonId,
-    required this.stageId,
+    // required this.seasonId,
+    // required this.stageId,
     required this.name,
-    required this.finished,
-    required this.isCurrent,
-    required this.startingAt,
-    required this.endingAt,
-    required this.gamesInCurrentWeek,
+    // required this.finished,
+    // required this.isCurrent,
+    // required this.startingAt,
+    // required this.endingAt,
+    // required this.gamesInCurrentWeek,
   });
 
   /// Creates a [Round] instance from a JSON map.
@@ -189,14 +189,14 @@ class Round {
       id: json['id'],
       sportId: json['sport_id'],
       leagueId: json['league_id'],
-      seasonId: json['season_id'],
-      stageId: json['stage_id'],
+      // seasonId: json['season_id'],
+      // stageId: json['stage_id'],
       name: json['name'],
-      finished: json['finished'],
-      isCurrent: json['is_current'],
-      startingAt: json['starting_at'],
-      endingAt: json['ending_at'],
-      gamesInCurrentWeek: json['games_in_current_week'],
+      // finished: json['finished'],
+      // isCurrent: json['is_current'],
+      // startingAt: json['starting_at'],
+      // endingAt: json['ending_at'],
+      // gamesInCurrentWeek: json['games_in_current_week'],
     );
   }
 }
@@ -205,14 +205,14 @@ class Participant {
   final int id;
   final int sportId;
   final int countryId;
-  final int venueId;
-  final String gender;
+  // final int venueId;
+  // final String gender;
   final String name;
-  final String? shortCode;
+  // final String? shortCode;
   final String imagePath;
-  final int founded;
-  final String type;
-  final bool placeholder;
+  // final int founded;
+  // final String type;
+  // final bool placeholder;
   final String lastPlayedAt;
   final ParticipantMeta meta;
 
@@ -220,14 +220,14 @@ class Participant {
     required this.id,
     required this.sportId,
     required this.countryId,
-    required this.venueId,
-    required this.gender,
+    // required this.venueId,
+    // required this.gender,
     required this.name,
-    this.shortCode,
+    // this.shortCode,
     required this.imagePath,
-    required this.founded,
-    required this.type,
-    required this.placeholder,
+    // required this.founded,
+    // required this.type,
+    // required this.placeholder,
     required this.lastPlayedAt,
     required this.meta,
   });
@@ -237,14 +237,14 @@ class Participant {
       id: json['id'],
       sportId: json['sport_id'],
       countryId: json['country_id'],
-      venueId: json['venue_id'],
-      gender: json['gender'],
+      // venueId: json['venue_id'],
+      // gender: json['gender'],
       name: json['name'],
-      shortCode: json['short_code'],
+      // shortCode: json['short_code'],
       imagePath: json['image_path'],
-      founded: json['founded'],
-      type: json['type'],
-      placeholder: json['placeholder'],
+      // founded: json['founded'],
+      // type: json['type'],
+      // placeholder: json['placeholder'],
       lastPlayedAt: json['last_played_at'],
       meta: ParticipantMeta.fromJson(json['meta']),
     );

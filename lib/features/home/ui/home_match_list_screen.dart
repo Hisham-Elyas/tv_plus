@@ -26,6 +26,7 @@ class MatchListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: CustomDrawerWidget(),
+      drawerEnableOpenDragGesture: false,
       appBar: CustomAppBar(
         title: appName,
         actions: [

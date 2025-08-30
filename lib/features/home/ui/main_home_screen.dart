@@ -43,6 +43,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawerEnableOpenDragGesture: false,
       drawer: CustomDrawerWidget(),
       appBar: CustomAppBar(
         title: _currentIndex == 0 ? appName : _titles[_currentIndex].tr,

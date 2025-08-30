@@ -45,7 +45,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
     // get token from shared preferences
     await SharedPrefHelper.getString('TOKEN').then((value) {
       token = value;
-      debugPrint("Token: $token");
+      // debugPrint("Token: $token");
     });
     if (token.isNotEmpty) {
       _isExpired = Jwt.isExpired(token);
@@ -82,8 +82,11 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
           "email": sinupModel.email,
           "password": sinupModel.password,
           // "phone": sinupModel.phone,
+          // "phone": sinupModel.phone,
         },
       );
+      print(response.body);
+
       if (response.statusCode == 201) {
         // save user data in shared preferences
         UserModel userModel = UserModel(
@@ -95,9 +98,22 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         await SharedPrefHelper.setData('user_info', userModel.toMap());
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to sign up.';
+        if (response.body == null) {
+          throw 'Failed to sign up.';
+        }
+        final data = response.body as Map<String, dynamic>;
+        // print(data);
+        String message = data['error'] ?? 'Failed to sign up.';
+        // print(message);
+        throw message;
       }
+    } on FormatException catch (_) {
+      throw const HFormatException();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      throw HPlatformException(e.code).message;
     } catch (e) {
+      print(e.toString());
       throw e.toString();
     }
   }
@@ -123,7 +139,16 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
 
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to log in.';
+        if (response.body == null) {
+          throw 'Failed to log in.';
+        }
+        // print(response.body);
+        final data = response.body as Map<String, dynamic>;
+        // print(data);
+        // print(data.toString());
+        String message = data['error']?.toString() ?? 'Failed to log in.';
+        print(message);
+        throw message;
       }
     } on FormatException catch (_) {
       throw const HFormatException();
@@ -132,7 +157,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -145,6 +170,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         body: {
           "username": userModel.userName,
           // "phone": userModel.phone,
+          // "phone": userModel.phone,
         },
         headers: {'Authorization': 'Bearer $token'},
       );
@@ -154,7 +180,12 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         await SharedPrefHelper.setData('user_info', userModel.toMap());
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to update user info.';
+        if (response.body == null) {
+          throw 'Failed to update user info.';
+        }
+        final data = response.body as Map<String, dynamic>;
+        String message = data['error'] ?? 'Failed to update user info.';
+        throw message;
       }
     } on FormatException catch (_) {
       throw const HFormatException();
@@ -163,7 +194,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -179,7 +210,12 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to update password.';
+        if (response.body == null) {
+          throw 'Failed to update password.';
+        }
+        final data = response.body as Map<String, dynamic>;
+        String message = data['error'] ?? 'Failed to update password.';
+        throw message;
       }
     } on FormatException catch (_) {
       throw const HFormatException();
@@ -188,7 +224,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -204,7 +240,12 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to update email.';
+        if (response.body == null) {
+          throw 'Failed to update email.';
+        }
+        final data = response.body as Map<String, dynamic>;
+        String message = data['error'] ?? 'Failed to update email.';
+        throw message;
       }
     } on FormatException catch (_) {
       throw const HFormatException();
@@ -213,7 +254,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -231,7 +272,12 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         SharedPrefHelper.removeData('user_id');
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to delete account.';
+        if (response.body == null) {
+          throw 'Failed to delete account.';
+        }
+        final data = response.body as Map<String, dynamic>;
+        String message = data['error'] ?? 'Failed to delete account.';
+        throw message;
       }
     } on FormatException catch (_) {
       throw const HFormatException();
@@ -240,7 +286,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw e.toString();
     }
   }
 
@@ -262,12 +308,23 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         return UserModel(
             email: response.body["user"]['email'],
             userName: response.body["user"]['username'],
-            phone: response.body["user"]['phone'],
+            // phone: response.body["user"]['phone'],
             userId: response.body["user"]['id'].toString());
       } else {
-        throw response.body['error'] ?? 'Failed to fetch user info.';
+        if (response.body == null) {
+          throw 'Failed to fetch user info.';
+        }
+        final data = response.body as Map<String, dynamic>;
+        String message = data['error'] ?? 'Failed to fetch user info.';
+        throw message;
       }
+    } on FormatException catch (_) {
+      throw const HFormatException();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      throw HPlatformException(e.code).message;
     } catch (e) {
+      print(e.toString());
       throw e.toString();
     }
   }
@@ -301,9 +358,21 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to send password reset email.';
+        if (response.body == null) {
+          throw 'Failed to send password reset email.';
+        }
+        final data = response.body as Map<String, dynamic>;
+        String message =
+            data['error'] ?? 'Failed to send password reset email.';
+        throw message;
       }
+    } on FormatException catch (_) {
+      throw const HFormatException();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      throw HPlatformException(e.code).message;
     } catch (e) {
+      print(e.toString());
       throw e.toString();
     }
   }
@@ -321,9 +390,21 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       if (response.statusCode == 200) {
         return true;
       } else {
-        throw response.body['error'] ?? 'Failed to send password reset email.';
+        if (response.body == null) {
+          throw 'Failed to send password reset email.';
+        }
+        final data = response.body as Map<String, dynamic>;
+        String message =
+            data['error'] ?? 'Failed to send password reset email.';
+        throw message;
       }
+    } on FormatException catch (_) {
+      throw const HFormatException();
+    } on PlatformException catch (e) {
+      print(e.toString());
+      throw HPlatformException(e.code).message;
     } catch (e) {
+      print(e.toString());
       throw e.toString();
     }
   }

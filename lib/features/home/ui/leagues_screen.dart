@@ -6,6 +6,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../core/helpers/enums.dart';
 import '../../../core/localization/constants.dart';
+import '../../../core/theming/colors.dart';
 import '../../../core/widgets/custom_snackbar.dart';
 import '../controllers/leagues_controller.dart';
 import '../data/models/leagues_response_model.dart';
@@ -71,6 +72,10 @@ class LeaguesScreen extends StatelessWidget {
                             );
                           }
                         },
+                        isFavorite: controller.isFavorite(league.id),
+                        onFavoriteTap: () {
+                          controller.toggleFavorite(league.id);
+                        },
                       );
                     },
                   ),
@@ -84,17 +89,27 @@ class LeaguesScreen extends StatelessWidget {
 class _LeagueListTile extends StatelessWidget {
   final LeagueData league;
   final VoidCallback onTap;
+  final bool isFavorite;
+  final VoidCallback onFavoriteTap;
 
-  const _LeagueListTile({required this.league, required this.onTap});
+  const _LeagueListTile({
+    required this.league,
+    required this.onTap,
+    required this.isFavorite,
+    required this.onFavoriteTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 75.h,
       child: Card(
-        elevation: 4,
+        shadowColor: ColorsManager.lightSecondary,
+        elevation: 3,
+        color: Theme.of(Get.context!).colorScheme.surface.withOpacity(0.7),
+        clipBehavior: Clip.hardEdge,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(10.r),
         ),
         child: InkWell(
           onTap: onTap,
@@ -127,11 +142,17 @@ class _LeagueListTile extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Icon(
-                //   Icons.arrow_forward_ios,
-                //   size: 16.sp,
-                //   color:
-                //       Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                // IconButton(
+                //   icon: Icon(
+                //     isFavorite ? Icons.star : Icons.star_border,
+                //     color: isFavorite
+                //         ? Colors.amber
+                //         : Theme.of(context)
+                //             .colorScheme
+                //             .onSurface
+                //             .withOpacity(0.6),
+                //   ),
+                //   onPressed: onFavoriteTap,
                 // ),
               ],
             ),

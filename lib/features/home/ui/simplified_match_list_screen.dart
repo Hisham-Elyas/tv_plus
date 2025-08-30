@@ -66,10 +66,18 @@ class SimplifiedMatchListScreen extends StatelessWidget {
               /// 🔍 No data
               if (status == StatusRequest.noData)
                 Center(
-                    child: Padding(
-                  padding: EdgeInsets.only(top: 100),
-                  child: Text(NoMatchesFoundForDate.tr),
-                ))
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 100),
+                    child: Text(NoMatchesFoundForDate.tr),
+                  ),
+                )
+              else if (controller.filteredFixtures.isEmpty)
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 100),
+                    child: Text(NoMatchesFoundForSelectedFilters.tr),
+                  ),
+                )
               else
                 ...controller.filteredFixtures
                     .map((league) => matchGroup(league, league.today)),

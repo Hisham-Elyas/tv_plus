@@ -72,7 +72,7 @@ class CurrentSeason {
   final int id;
   final int sportId;
   final int leagueId;
-  final int tieBreakerRuleId;
+  final int? tieBreakerRuleId;
   final String name;
   final bool finished;
   final bool pending;

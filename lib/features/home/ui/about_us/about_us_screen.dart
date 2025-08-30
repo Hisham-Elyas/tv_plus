@@ -14,6 +14,7 @@ class AboutUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawerEnableOpenDragGesture: false,
       appBar: CustomAppBar(
         title: AboutUs.tr,
       ),

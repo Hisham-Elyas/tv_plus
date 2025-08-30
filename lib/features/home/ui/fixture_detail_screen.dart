@@ -531,9 +531,9 @@ class MatchHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: _teamBlock(home)),
-                FittedBox(child: _buildScoreOrCountdown(homeScore, awayScore)),
-                Expanded(child: _teamBlock(away)),
+                Expanded(flex: 2, child: _teamBlock(home)),
+                Expanded(child: _buildScoreOrCountdown(homeScore, awayScore)),
+                Expanded(flex: 2, child: _teamBlock(away)),
               ],
             ),
             const SizedBox(height: 16),
@@ -643,31 +643,38 @@ class MatchHeader extends StatelessWidget {
   Widget _dateAndVenueRow() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(children: [
-            // Back button
-            Align(
-              alignment:
-                  AlignmentDirectional.topStart, // Left in LTR, Right in RTL
-              child: CupertinoButton(
-                padding: EdgeInsets.zero,
-                child: const Icon(
-                  CupertinoIcons.back,
-                  color: Colors.white,
+          Expanded(
+            child: Row(children: [
+              // Back button
+              Align(
+                alignment:
+                    AlignmentDirectional.topStart, // Left in LTR, Right in RTL
+                child: CupertinoButton(
+                  padding: EdgeInsets.zero,
+                  child: const Icon(
+                    CupertinoIcons.back,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Navigator.of(Get.context!).maybePop(),
                 ),
-                onPressed: () => Navigator.of(Get.context!).maybePop(),
               ),
-            ),
-            const Icon(Icons.calendar_today, color: Colors.white70, size: 16),
-            const SizedBox(width: 6),
-            Text(DateFormat('yyyy-MM-dd').format(fixture.startingAt),
-                style: const TextStyle(color: Colors.white70)),
-          ]),
-          Row(children: [
-            const Icon(Icons.location_on, color: Colors.white70, size: 16),
-            const SizedBox(width: 6),
-            Text(fixture.venue.name,
-                style: const TextStyle(color: Colors.white70)),
-          ]),
+              const Icon(Icons.calendar_today, color: Colors.white70, size: 16),
+              const SizedBox(width: 6),
+              Text(DateFormat('yyyy-MM-dd').format(fixture.startingAt),
+                  style: const TextStyle(color: Colors.white70)),
+            ]),
+          ),
+          Expanded(
+            child: Row(children: [
+              const Icon(Icons.location_on, color: Colors.white70, size: 16),
+              const SizedBox(width: 6),
+              Flexible(
+                child: Text(fixture.venue?.name ?? Unknown.tr,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: Colors.white70)),
+              ),
+            ]),
+          ),
         ],
       );
 
@@ -682,9 +689,12 @@ class MatchHeader extends StatelessWidget {
             errorWidget: (_, __, ___) => const Icon(Icons.error),
           ),
           const SizedBox(height: 4),
-          Text(team.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.white)),
+          FittedBox(
+            child: Text(team.name,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: Colors.white)),
+          ),
         ],
       );
 
@@ -725,6 +735,7 @@ class MatchHeader extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(fixture.state.name,
+                textAlign: TextAlign.center,
                 style: const TextStyle(color: Colors.white60)),
           ],
         );
@@ -784,7 +795,9 @@ class MatchHeader extends StatelessWidget {
         Text(label, style: const TextStyle(color: Colors.white70)),
         if (subtitle != null) ...[
           const SizedBox(height: 6),
-          Text(subtitle, style: const TextStyle(color: Colors.orangeAccent)),
+          Text(subtitle,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.orangeAccent)),
           // const SizedBox(height: 4),
           // Text(fixture.state.name,
           //     style: const TextStyle(color: Colors.white60)),
@@ -792,6 +805,7 @@ class MatchHeader extends StatelessWidget {
         if (mainText != null) ...[
           const SizedBox(height: 6),
           Text(mainText,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: isBoldMain ? 24 : 32,
                 fontWeight: FontWeight.bold,
@@ -803,13 +817,17 @@ class MatchHeader extends StatelessWidget {
         ],
         if (subText != null) ...[
           const SizedBox(height: 4),
-          Text(subText, style: const TextStyle(color: Colors.white60)),
+          Text(subText,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.white60)),
           const SizedBox(height: 4),
           // Text(fixture.state.name,
           //     style: const TextStyle(color: Colors.white60)),
         ],
         const SizedBox(height: 4),
-        Text(fixture.state.name, style: const TextStyle(color: Colors.white60)),
+        Text(fixture.state.name,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.white60)),
       ],
     );
   }
@@ -892,7 +910,7 @@ class MatchPreviewWidget extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r),
                   ),
-                  margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0.h),
+                  margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 0.h),
                   child: Container(
                     padding:
                         EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
@@ -904,41 +922,37 @@ class MatchPreviewWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Skeleton.shade(
-                                child: Icon(Icons.live_tv_outlined,
-                                    color: Colors.grey, size: 15.dm),
+                        Row(
+                          children: [
+                            Skeleton.shade(
+                              child: Icon(Icons.live_tv_outlined,
+                                  color: Colors.grey, size: 15.dm),
+                            ),
+                            horizontalSpace(5),
+                            Text(
+                              commentator.channelName,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
                               ),
-                              horizontalSpace(5),
-                              Text(
-                                commentator.channelName,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Skeleton.shade(
-                                  child: Icon(Icons.mic,
-                                      color: Colors.grey, size: 15.dm)),
-                              horizontalSpace(5),
-                              Text(
-                                commentator.commentatorName,
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                        Row(
+                          children: [
+                            Skeleton.shade(
+                                child: Icon(Icons.mic,
+                                    color: Colors.grey, size: 15.dm)),
+                            horizontalSpace(5),
+                            Text(
+                              commentator.commentatorName,
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -961,20 +975,31 @@ class MatchPreviewWidget extends StatelessWidget {
             ),
             margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 16.h),
+              padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 12.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Sidelined Players
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _sidelinedList(homeSidelined,
-                          '${homeSidelined.length} ${Players.tr} ${homeSidelined.length != 1 ? '' : ''}'),
-                      Spacer(),
-                      _sidelinedList(awaySidelined,
-                          '${awaySidelined.length} ${Players.tr} ${awaySidelined.length != 1 ? '' : ''}'),
-                    ],
+                  // Sidelined Players Title or Header can go here
+
+                  // Use IntrinsicHeight to make both columns the same height
+                  IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: _sidelinedList(
+                            homeSidelined,
+                            '${homeSidelined.length} ${Players.tr}',
+                          ),
+                        ),
+                        Expanded(
+                          child: _sidelinedList(
+                            awaySidelined,
+                            '${awaySidelined.length} ${Players.tr}',
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -1012,7 +1037,7 @@ class MatchPreviewWidget extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: CachedNetworkImage(
-                      imageUrl: fixture.venue.imagePath ?? '',
+                      imageUrl: fixture.venue?.imagePath ?? '',
                       height: 150,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -1029,11 +1054,26 @@ class MatchPreviewWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _infoRow(Venues.tr, fixture.venue.name),
-                  _infoRow(Capacity.tr, fixture.venue.capacity.toString()),
-                  _infoRow(Surface.tr, fixture.venue.surface),
-                  _infoRow(City.tr, fixture.venue.cityName),
-                  _infoRow(Address.tr, fixture.venue.address),
+                  _infoRow(
+                    Venues.tr,
+                    fixture.venue?.name ?? Unknown.tr,
+                  ),
+                  _infoRow(
+                    Capacity.tr,
+                    fixture.venue?.capacity.toString() ?? Unknown.tr,
+                  ),
+                  _infoRow(
+                    Surface.tr,
+                    fixture.venue?.surface ?? Unknown.tr,
+                  ),
+                  _infoRow(
+                    City.tr,
+                    fixture.venue?.cityName ?? Unknown.tr,
+                  ),
+                  _infoRow(
+                    Address.tr,
+                    fixture.venue?.address ?? Unknown.tr,
+                  ),
                 ],
               ),
             ),
@@ -1084,68 +1124,92 @@ class MatchPreviewWidget extends StatelessWidget {
     );
   }
 
-  Widget _sidelinedList(List<Sideline> sidelined, String defaultText) {
+  Widget _sidelinedList(List<Sideline> sidelined, String title) {
     if (sidelined.isEmpty) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Text(
-            defaultText,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
-          ),
-        ],
+      // You can return an empty container or a placeholder if you wish
+      // So the IntrinsicHeight can balance it against a non-empty list.
+      return Padding(
+        padding: EdgeInsets.symmetric(vertical: 4.0.h),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.check_circle_outline,
+              color: Colors.green, // Green color to indicate "all good"
+              size: 30.h,
+            ),
+            SizedBox(width: 8.h),
+            Text(
+              AllPlayersAvailable
+                  .tr, // You can replace this with a translation key
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12.sp,
+              ),
+            ),
+          ],
+        ),
       );
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Optional: Add a title for each list
         // Text(
-        //   defaultText,
+        //   title,
         //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
         // ),
-        const SizedBox(height: 8),
+        // SizedBox(height: 8.h),
         ...sidelined.map((s) {
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 4.0.w),
+            padding: EdgeInsets.symmetric(vertical: 4.0.h),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CachedNetworkImage(
-                  imageUrl: s.sideline.player.imagePath,
-                  height: 40.h,
+                  imageUrl: s.sideline.player.imagePath ?? '',
+                  height: 35.h,
+                  width: 35.w, // Good practice to set width too
+                  fit: BoxFit.cover,
                   placeholder: (context, url) => Skeletonizer(
                     enabled: true,
-                    child: Icon(Icons.sports_soccer, size: 40.h),
+                    child: Icon(Icons.person, size: 30.h),
                   ),
                   errorWidget: (context, url, error) => Icon(
-                    Icons.broken_image,
+                    Icons.person_off,
+                    size: 30.h,
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
-                SizedBox(width: 10.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 110.w,
-                      child: Text(
-                        s.sideline.player.displayName,
+                SizedBox(width: 8.w),
+                // Use Expanded to allow text to take remaining space and prevent overflow
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        s.sideline.player.displayName ?? 'Unknown Player',
                         overflow: TextOverflow.ellipsis,
+                        maxLines: 1, // Prevent wrapping to multiple lines
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 12.sp),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.sp,
+                        ),
                       ),
-                    ),
-                    Text(
-                      s.sideline.type.name,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 10.sp,
-                        fontWeight: FontWeight.bold,
+                      SizedBox(width: 4.w),
+                      Text(
+                        s.sideline.type.name,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1, // Prevent wrapping
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 10.sp,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -1235,44 +1299,85 @@ class HeaderTitle extends StatelessWidget {
 }
 
 void showFootballChannelPopup(ChannelCommentator commentator) {
-  Get.defaultDialog(
-    title: commentator.channelName,
-    titleStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-    content: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        // Quality Options Header
-
-        Text(QualityOptions.tr, style: TextStyle(fontWeight: FontWeight.bold)),
-
-        const SizedBox(height: 8),
-
-        // Scrollable list of quality buttons
-
-        SizedBox(
-          height: 200, // Limit height so it scrolls if long
-          child: ListView.builder(
-            itemCount: commentator.tvChannelLink.length,
-            itemBuilder: (context, index) {
-              final link = commentator.tvChannelLink[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: ElevatedButton.icon(
-                  onPressed: () =>
-                      _openVideoUrl(link.url, commentator.tvChannelLink),
-                  icon: const Icon(Icons.play_arrow),
-                  label: Text(link.name),
+  showDialog(
+    context: Get.context!,
+    builder: (context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            maxHeight: 400,
+            minWidth: 280,
+            maxWidth: 400,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  commentator.channelName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              );
-            },
+                const SizedBox(height: 12),
+                Text(
+                  QualityOptions.tr,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                Flexible(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: commentator.tvChannelLink.length,
+                    itemBuilder: (context, index) {
+                      final link = commentator.tvChannelLink[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 3,
+                            shadowColor: ColorsManager.lightSecondary,
+                            backgroundColor:
+                                Theme.of(context).colorScheme.surface,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  10.r), // assuming you use flutter_screenutil
+                            ),
+                          ),
+                          onPressed: () => _openVideoUrl(
+                              link.url, commentator.tvChannelLink),
+                          icon: const Icon(Icons.play_arrow),
+                          label: Text(link.name),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 3,
+                    shadowColor: ColorsManager.lightSecondary,
+                    backgroundColor: Theme.of(context).colorScheme.surface,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          10.r), // assuming you use flutter_screenutil
+                    ),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text(Close.tr),
+                ),
+              ],
+            ),
           ),
         ),
-      ],
-    ),
-    textConfirm: Close.tr,
-    confirmTextColor: Colors.white,
-    onConfirm: () => Get.back(),
+      );
+    },
   );
 }
 

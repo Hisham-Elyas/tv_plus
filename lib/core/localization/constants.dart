@@ -63,6 +63,9 @@ const String ServerError = "❌ Server error. Please try again later.";
 
 const String NoMatchesFoundForDate = "No matches found for this date.";
 
+const String NoMatchesFoundForSelectedFilters =
+    'No matches found for selected league filters.';
+
 const String StartsIn = "Starts in";
 const String Goals = "Goals";
 const String Assists = "Assists";
@@ -80,6 +83,8 @@ const String Scorers = "Scorers";
 const String Standingss = "Standings";
 const String Sidelined = "Sidelined";
 const String Unknown = "Unknown";
+const String AllPlayersAvailable = "All Players Available";
+
 const String ChannelsAndCommentators = 'Channels & Commentators';
 const String Players = "Player";
 const String WeatherReports = "Weather Report";

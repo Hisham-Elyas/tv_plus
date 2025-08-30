@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
@@ -6,6 +8,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/enums.dart';
+import '../../../core/helpers/shared_pref_helper.dart';
 import '../../../core/localization/language_controller.dart';
 import '../data/models/fixtures_model.dart';
 import '../data/repos/fixtures_repo.dart';
@@ -24,10 +27,27 @@ class FixturesController extends GetxController {
 
   var currentTime = Rxn<DateTime>();
   var fixtureTimezone = Rxn<String>();
+  static const String selectedLeaguesKey = 'selected_leagues';
+
+  Future<void> saveSelectedLeagues() async {
+    await SharedPrefHelper.setData(
+      selectedLeaguesKey,
+      jsonEncode(selectedLeagues),
+    );
+  }
+
+  Future<void> loadSelectedLeagues() async {
+    final leaguesString = await SharedPrefHelper.getString(selectedLeaguesKey);
+    if (leaguesString.isNotEmpty) {
+      final List<dynamic> ids = jsonDecode(leaguesString);
+      selectedLeagues.assignAll(ids.cast<int>());
+    }
+  }
 
   @override
   void onInit() async {
     super.onInit();
+    await loadSelectedLeagues();
     await Future.delayed(
       Duration.zero,
       () async {
@@ -110,6 +130,7 @@ class FixturesController extends GetxController {
     } else {
       selectedLeagues.add(leagueId); // this triggers update
     }
+    saveSelectedLeagues();
     update();
   }
 
@@ -119,6 +140,7 @@ class FixturesController extends GetxController {
 
   void clearFilters() {
     selectedLeagues.clear();
+    saveSelectedLeagues();
     update();
   }
 
