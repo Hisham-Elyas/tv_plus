@@ -10,7 +10,7 @@ class CustomListTileWidget extends StatelessWidget {
   final Widget? trailing;
   final TextStyle? style;
 
-  const CustomListTileWidget({
+  const   CustomListTileWidget({
     super.key,
     this.onTap,
     required this.title,
