@@ -72,15 +72,15 @@ class SingupScreen extends GetView<SingupController> {
                           validator: controller.emailvalidator,
                         ),
                         verticalSpace(15),
-                        AppTextFormField(
-                          onChanged: (value) {
-                            controller.phoneNumber = value;
-                          },
-                          keyboardType: TextInputType.phone,
-                          onSaved: (val) => controller.phoneNumber = val!,
-                          hintText: PhoneNumber.tr,
-                          validator: controller.phonevalidator,
-                        ),
+                        // AppTextFormField(
+                        //   onChanged: (value) {
+                        //     controller.phoneNumber = value;
+                        //   },
+                        //   keyboardType: TextInputType.phone,
+                        //   onSaved: (val) => controller.phoneNumber = val!,
+                        //   hintText: PhoneNumber.tr,
+                        //   validator: controller.phonevalidator,
+                        // ),
                         verticalSpace(15),
                         PasswordAppTextFormField(
                           obscureText: true,
