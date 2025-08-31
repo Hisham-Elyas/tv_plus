@@ -306,21 +306,32 @@ class Participant {
   final String name;
   final String imagePath;
   final bool winner;
+  final String location;
 
   Participant({
     required this.id,
     required this.name,
     required this.imagePath,
     required this.winner,
+    required this.location,
   });
 
   factory Participant.fromJson(Map<String, dynamic> json) {
+    final meta = json['meta'];
+    String location = '';
+
+    if (meta != null && meta is Map<String, dynamic>) {
+      final loc = meta['location'];
+      if (loc != null && loc is String) {
+        location = loc;
+      }
+    }
     return Participant(
-      id: json['id'],
-      name: json['name'],
-      imagePath: json['image_path'],
-      winner: json['meta']['winner'] ?? false,
-    );
+        id: json['id'],
+        name: json['name'],
+        imagePath: json['image_path'],
+        winner: json['meta']['winner'] ?? false,
+        location: location);
   }
 }
 
@@ -634,12 +645,16 @@ class State {
 
 class Score {
   final int id;
+  final int fixtureId;
+  final int typeId;
   final int participantId;
   final ScoreDetail score;
   final String description;
 
   Score({
     required this.id,
+    required this.fixtureId,
+    required this.typeId,
     required this.participantId,
     required this.score,
     required this.description,
@@ -648,10 +663,39 @@ class Score {
   factory Score.fromJson(Map<String, dynamic> json) {
     return Score(
       id: json['id'],
+      fixtureId: json['fixture_id'],
+      typeId: json['type_id'],
       participantId: json['participant_id'],
       score: ScoreDetail.fromJson(json['score']),
-      description: json['description'],
+      description: json['description'] ?? '',
     );
+  }
+
+  @override
+  String toString() {
+    return 'Score(id: $id, fixtureId: $fixtureId, typeId: $typeId, participantId: $participantId, score: $score, description: $description)';
+  }
+
+  @override
+  bool operator ==(covariant Score other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.fixtureId == fixtureId &&
+        other.typeId == typeId &&
+        other.participantId == participantId &&
+        other.score == score &&
+        other.description == description;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        fixtureId.hashCode ^
+        typeId.hashCode ^
+        participantId.hashCode ^
+        score.hashCode ^
+        description.hashCode;
   }
 }
 

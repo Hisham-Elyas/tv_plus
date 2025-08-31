@@ -139,12 +139,14 @@ class FixtureDetailController extends GetxController {
     startingAt: DateTime.now(),
     participants: [
       Participant(
+        location: 'home',
         id: 1,
         name: "Team A",
         imagePath: "https://cdn.sportmonks.com/images/soccer/teams/22/86.png",
         winner: true,
       ),
       Participant(
+        location: 'away',
         id: 2,
         name: "Team B",
         imagePath: "https://cdn.sportmonks.com/images/soccer/teams/22/86.png",
@@ -174,12 +176,16 @@ class FixtureDetailController extends GetxController {
     ),
     scores: [
       Score(
+        fixtureId: 0,
+        typeId: 0,
         id: 1,
         participantId: 1,
         score: ScoreDetail(goals: 2, participant: "Team"),
         description: "Final",
       ),
       Score(
+        fixtureId: 0,
+        typeId: 0,
         id: 2,
         participantId: 2,
         score: ScoreDetail(goals: 1, participant: "Team"),
