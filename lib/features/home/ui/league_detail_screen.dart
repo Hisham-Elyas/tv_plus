@@ -81,7 +81,24 @@ class LeagueDetailScreen extends StatelessWidget {
   }
 
   /// Single Match Card
-  static Widget matchCard(dynamic controller, dynamic fixture) {
+  static Widget matchCard(dynamic controller, MatchDetails fixture) {
+    int? goalsFor(String participant) {
+      return fixture.scores
+          .firstWhereOrNull(
+              (s) => s.typeId == 1525 && s.score.participant == participant)
+          ?.score
+          .goals;
+      //     orElse: () => Score(
+      //         fixtureId: 0,
+      //         typeId: 0,
+      //         id: 0,
+      //         participantId: 0,
+      //         score: ScoreDetails(goals: 0, participant: ''),
+      //         description: ''))
+      // .score
+      // .goals;
+    }
+
     dynamic home;
     dynamic away;
 
@@ -100,26 +117,29 @@ class LeagueDetailScreen extends StatelessWidget {
     if (home == null || away == null) return const SizedBox();
 
     // Get scores for each team
-    dynamic homeScore;
-    dynamic awayScore;
+    final homeScore = goalsFor('home');
+    final awayScore = goalsFor('away');
 
-    try {
-      homeScore = fixture.scores
-          .firstWhere((s) => s.participantId == home.id)
-          .score
-          .goals;
-    } catch (e) {
-      homeScore = null;
-    }
+    // dynamic homeScore;
+    // dynamic awayScore;
 
-    try {
-      awayScore = fixture.scores
-          .firstWhere((s) => s.participantId == away.id)
-          .score
-          .goals;
-    } catch (e) {
-      awayScore = null;
-    }
+    // try {
+    //   homeScore = fixture.scores
+    //       .firstWhere((s) => s.participantId == home.id)
+    //       .score
+    //       .goals;
+    // } catch (e) {
+    //   homeScore = null;
+    // }
+
+    // try {
+    //   awayScore = fixture.scores
+    //       .firstWhere((s) => s.participantId == away.id)
+    //       .score
+    //       .goals;
+    // } catch (e) {
+    //   awayScore = null;
+    // }
 
     final matchStart = DateTime.tryParse(fixture.startingAt);
 

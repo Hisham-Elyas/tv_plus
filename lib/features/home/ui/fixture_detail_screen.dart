@@ -485,12 +485,15 @@ class MatchHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final home = fixture.participants[0];
-    final away = fixture.participants[1];
+    final home =
+        fixture.participants.firstWhereOrNull((e) => e.location == 'home');
+    final away =
+        fixture.participants.firstWhereOrNull((e) => e.location == 'away');
+    if (home == null || away == null) return const SizedBox();
 
     // Scores
-    final homeScore = _goalsFor(home.id);
-    final awayScore = _goalsFor(away.id);
+    final homeScore = _goalsFor('home');
+    final awayScore = _goalsFor('away');
 
     // Scorers lists elided for brevity...
 
@@ -616,16 +619,38 @@ class MatchHeader extends StatelessWidget {
     );
   }
 
-  int _goalsFor(int participantId) {
+  int _goalsFor(String participant) {
+    //    final homeScore = fixture.scores
+    //     .firstWhereOrNull(
+    //         (s) => s.typeId == 1525 && s.score.participant == 'home')
+    //     ?.score
+    //     .goals;
+    // final awayScore = fixture.scores
+    //     .firstWhereOrNull(
+    //         (s) => s.typeId == 1525 && s.score.participant == 'away')
+    //     ?.score
+    //     .goals;
     return fixture.scores
-        .firstWhere((s) => s.participantId == participantId,
+        .firstWhere(
+            (s) => s.typeId == 1525 && s.score.participant == participant,
             orElse: () => Score(
+                fixtureId: 0,
+                typeId: 0,
                 id: 0,
                 participantId: 0,
                 score: ScoreDetail(goals: 0, participant: ''),
                 description: ''))
         .score
         .goals;
+    // return fixture.scores
+    //     .firstWhere((s) => s.participantId == participantId,
+    //         orElse: () => Score(
+    //             id: 0,
+    //             participantId: 0,
+    //             score: ScoreDetail(goals: 0, participant: ''),
+    //             description: ''))
+    //     .score
+    //     .goals;
   }
 
   Decoration _headerDecoration() => BoxDecoration(
