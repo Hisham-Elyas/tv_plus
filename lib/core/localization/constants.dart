@@ -12,6 +12,10 @@ const String The_match_hasn_t_started_yet = "The match hasn't started yet.";
 const String Channel_not_found = "Channel not found.";
 
 const String ChannelUnknown = "Channel Unknown";
+
+const String Live = "Live";
+const String End = "End";
+const String Scheduled = "Scheduled";
 const String Upcoming = "Upcoming";
 const String Latest = "Latest";
 const String NoUpcomingMatches = "No upcoming matches";

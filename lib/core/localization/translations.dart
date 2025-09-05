@@ -252,8 +252,14 @@ class MyTranslations extends Translations {
           SubscribeNow: SubscribeNow,
           NoMatchesFoundForSelectedFilters: NoMatchesFoundForSelectedFilters,
           AllPlayersAvailable: AllPlayersAvailable,
+          Live: Live,
+          End: End,
+          Scheduled: Scheduled,
         },
         "ar": {
+          Live: 'مباشر',
+          End: 'انتهت',
+          Scheduled: 'مجدولة',
           AllPlayersAvailable: "كل اللاعبين متاحون",
           NoMatchesFoundForSelectedFilters:
               'لم يتم العثور على مباريات للبطولات المحددة.',

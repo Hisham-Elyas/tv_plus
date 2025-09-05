@@ -41,6 +41,7 @@ class FixtureDetailController extends GetxController {
     'BREAK',
     'EXTRA_TIME_BREAK',
     'PEN_BREAK',
+    'ETB',
   };
 
   void _startAutoRefresh() {

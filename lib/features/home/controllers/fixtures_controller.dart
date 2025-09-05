@@ -9,6 +9,7 @@ import 'package:timezone/timezone.dart' as tz;
 import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/enums.dart';
 import '../../../core/helpers/shared_pref_helper.dart';
+import '../../../core/localization/constants.dart';
 import '../../../core/localization/language_controller.dart';
 import '../data/models/fixtures_model.dart';
 import '../data/repos/fixtures_repo.dart';
@@ -72,6 +73,31 @@ class FixturesController extends GetxController {
     } catch (e) {
       return 'Asia/Riyadh';
     }
+  }
+
+  String getDisplayStatus(String apiState) {
+    // Using a 'Set' is slightly more efficient for checking if an item exists.
+    // We declare it as 'const' because the values will never change.
+    const endStates = {
+      'FT', 'AET', 'FT_PEN', // Match finished normally
+      'CANCELLED', 'WALKOVER', // Match concluded for other reasons
+      'ABANDONED', 'AWARDED', 'DELETED'
+    };
+
+    // 1. Check if the match state is in our set of "End States".
+    if (endStates.contains(apiState)) {
+      return End;
+    }
+
+    // 2. Check if the match has not started yet.
+    if (apiState == 'NS') {
+      return Scheduled;
+    }
+
+    // 3. If it's not an "End State" and it's not "NS",
+    //    then we consider it "Live". This includes states like
+    //    INPLAY_1ST_HALF, HT, DELAYED, POSTPONED, SUSPENDED, etc.
+    return Live;
   }
 
   /// Public method used in UI

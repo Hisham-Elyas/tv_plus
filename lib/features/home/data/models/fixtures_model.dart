@@ -42,11 +42,13 @@ class Fixture {
   final String name;
   final int seasonId;
   final String startingAt;
+  final State state;
   final List<Participant> participants;
   final List<Score> scores;
 
   Fixture({
     required this.id,
+    required this.state,
     required this.channelCommmId,
     required this.name,
     required this.startingAt,
@@ -58,6 +60,7 @@ class Fixture {
   factory Fixture.fromJson(Map<String, dynamic> json) {
     return Fixture(
       id: json['id'],
+      state: State.fromJson(json['state']),
       channelCommmId: json['channel_commm_id'],
       seasonId: json["season_id"],
       name: json['name'],
@@ -68,6 +71,29 @@ class Fixture {
       scores: json['scores'] != null
           ? List<Score>.from(json['scores'].map((x) => Score.fromJson(x)))
           : [],
+    );
+  }
+}
+
+class State {
+  final int id;
+  final String name;
+  final String shortName;
+  final String developerName;
+
+  State({
+    required this.id,
+    required this.name,
+    required this.shortName,
+    required this.developerName,
+  });
+
+  factory State.fromJson(Map<String, dynamic> json) {
+    return State(
+      id: json['id'],
+      name: json['name'],
+      shortName: json['short_name'],
+      developerName: json['developer_name'],
     );
   }
 }
