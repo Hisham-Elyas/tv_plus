@@ -35,7 +35,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthRemotDataImpHttp auth = Get.find<AuthRemotDataImpHttp>();
     return GetBuilder<ThemeController>(
       init: ThemeController(),
       builder: (themeController) => GetBuilder<LanguageController>(
@@ -45,61 +44,50 @@ class MyApp extends StatelessWidget {
           localeOverride: langController.appLocale,
           child: ScreenUtilInit(
             designSize: const Size(390, 844),
-            builder: (context, child) => PopScope(
-              canPop: false,
-              onPopInvoked: (didPop) async {
-                if (didPop) {
-                  return;
-                }
-                final bool? shouldPop = await showExitPopup(context);
-                if (shouldPop == true) {
-                  SystemNavigator.pop();
-                }
-              },
-              child: GetMaterialApp(
-                theme: AppThemes.lightTheme,
-                darkTheme: AppThemes.darkTheme,
-                themeMode: themeController.themeMode,
-                debugShowCheckedModeBanner: false,
-                translations: MyTranslations(),
-                locale: langController.appLocale,
-                title: 'TV-App',
-                // theme: ThemeData(
-                //   fontFamily: 'Cairo',
-                //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                //   useMaterial3: true,
-                // ),
-                home: isOnBordingView
-                    ? auth.isAuthenticated
-                        ? const MainHomeScreen()
-                        : const LoginScreen()
-                    : const IntroScreen(),
-                // home: HomeScreen(),
-                // home: MatchListScreen(),
-                // home: isOnBordingView
-                //     ? firebaseAuth.authStateChanges().listen((User? user) {
-                //         if (user != null) {
-                //         r
-                //         } else {
-                //           log("............... not User is login ");
-                //         }
-                //       })
-                //     : const IntroScreen(),
+            builder: (ctx, child) => GetMaterialApp(
+              theme: AppThemes.lightTheme,
+              darkTheme: AppThemes.darkTheme,
+              themeMode: themeController.themeMode,
+              debugShowCheckedModeBanner: false,
+              translations: MyTranslations(),
+              locale: langController.appLocale,
+              title: 'TV-App',
+              // theme: ThemeData(
+              //   fontFamily: 'Cairo',
+              //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              //   useMaterial3: true,
+              // ),
+              home: const AppContent(),
+              // home: isOnBordingView
+              //     ? auth.isAuthenticated
+              //         ? const MainHomeScreen()
+              //         : const LoginScreen()
+              //     : const IntroScreen(),
+              // home: HomeScreen(),
+              // home: MatchListScreen(),
+              // home: isOnBordingView
+              //     ? firebaseAuth.authStateChanges().listen((User? user) {
+              //         if (user != null) {
+              //         r
+              //         } else {
+              //           log("............... not User is login ");
+              //         }
+              //       })
+              //     : const IntroScreen(),
 
-                // home: HomeScreen2(
-                //     // matches: sampleMatches,
-                //     ),
-                // home: OnboardingScreen(),
-                // home: const SingupScreen(),
-                // home: const LoginScreen(),
-                // home: const OTPScreen(),
-                // home: const ForgetPasswordScreen(),
-                // home: const HomeScreen(),
-                // home: CategoriesScreen(),
-                // home: const VideoPlayerScreen(
-                //   videoUrl: '',
-                // ),
-              ),
+              // home: HomeScreen2(
+              //     // matches: sampleMatches,
+              //     ),
+              // home: OnboardingScreen(),
+              // home: const SingupScreen(),
+              // home: const LoginScreen(),
+              // home: const OTPScreen(),
+              // home: const ForgetPasswordScreen(),
+              // home: const HomeScreen(),
+              // home: CategoriesScreen(),
+              // home: const VideoPlayerScreen(
+              //   videoUrl: '',
+              // ),
             ),
           ),
         ),
@@ -118,7 +106,35 @@ Future<bool?> showExitPopup(BuildContext context) async {
     desc: exitDialogDesc.tr,
     btnCancelText: noButton.tr,
     btnOkText: yesButton.tr,
-    btnCancelOnPress: () => Navigator.of(context).pop(false),
-    btnOkOnPress: () => Navigator.of(context).pop(true),
+    btnCancelOnPress: () => Get.back(result: false),
+    btnOkOnPress: () => Get.back(result: true),
   ).show();
+}
+
+class AppContent extends StatelessWidget {
+  const AppContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // The 'context' here IS A DESCENDANT of GetMaterialApp, so it will work!
+    final AuthRemotDataImpHttp auth = Get.find<AuthRemotDataImpHttp>();
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) {
+          return;
+        }
+        // This 'context' is now valid for showing a Material dialog
+        final bool? shouldPop = await showExitPopup(context);
+        if (shouldPop == true) {
+          SystemNavigator.pop();
+        }
+      },
+      child: isOnBordingView
+          ? auth.isAuthenticated
+              ? const MainHomeScreen()
+              : const LoginScreen()
+          : const IntroScreen(),
+    );
+  }
 }

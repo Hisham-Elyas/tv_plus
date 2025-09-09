@@ -73,7 +73,7 @@ class ProfileController extends GetxController {
           },
           (r) {
             userInf = r;
-            debugPrint("userdata ==>  ${r.toString()}");
+            debugPrint("userdata ==>  ${r.userName}");
             statusReq = StatusRequest.success;
             update();
           },
