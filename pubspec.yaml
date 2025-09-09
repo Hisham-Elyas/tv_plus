@@ -68,6 +68,7 @@ dependencies:
   timezone: ^0.10.1
   device_info_plus: ^11.5.0
   flutter_timezone: ^4.1.1
+  awesome_dialog: ^3.2.1
   crypto: ^3.0.6
   # wakelock: ^0.4.0
   # appinio_video_player: ^1.2.2

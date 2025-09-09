@@ -21,7 +21,7 @@ class MatchCardWidget extends GetView<TodayMatchesController> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        controller.goToMatch(event);
+        // controller.goToMatch(event);
         // showMatchCountdownPopup(context, event);
       },
       child: Card(

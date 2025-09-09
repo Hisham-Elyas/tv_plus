@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fuzzywuzzy/fuzzywuzzy.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -12,16 +9,11 @@ import '../../../core/helpers/constants.dart';
 import '../../../core/helpers/enums.dart';
 import '../../../core/localization/constants.dart';
 import '../../../core/theming/colors.dart';
-import '../../../core/widgets/custom_snackbar.dart';
-import '../data/models/category_model.dart';
 // import '../data/models/channel_category_model.dart';
 import '../data/models/league_model.dart';
 import '../data/models/match_model.dart';
 import '../data/repos/today_matches_repo.dart';
-import '../ui/categories/categories_screen.dart';
-import '../ui/video_player_screen.dart';
 import 'category_controller.dart';
-import 'video_player_conteroller.dart';
 
 class TodayMatchesController extends GetxController {
   late StatusRequest statusReq;
@@ -185,42 +177,42 @@ class TodayMatchesController extends GetxController {
   //   }
   // }
 
-  void goToMatch(MatchModel event) async {
-    MatchStatus matchStatus = getMatchStatusWithColor(event);
+  // void goToMatch(MatchModel event) async {
+  //   MatchStatus matchStatus = getMatchStatusWithColor(event);
 
-    if (matchStatus.statustitel == 'Running') {
-      if (event.channelsAndCommentators.isEmpty) {
-        showCustomSnackBar(
-            message: ChannelUnknown.tr,
-            title: Channel_not_found.tr,
-            isError: true);
-        return;
-      }
-      try {
-        final channel = await findChannelByName(
-            event.channelsAndCommentators.first.channel);
+  //   if (matchStatus.statustitel == 'Running') {
+  //     if (event.channelsAndCommentators.isEmpty) {
+  //       showCustomSnackBar(
+  //           message: ChannelUnknown.tr,
+  //           title: Channel_not_found.tr,
+  //           isError: true);
+  //       return;
+  //     }
+  //     try {
+  //       final channel = await findChannelByName(
+  //           event.channelsAndCommentators.first.channel);
 
-        // Get.to(() => VideoPlayerOptionScreen(
-        //       channel: channel,
-        //     ));
-        Get.to(() => VideoPlayerScreen(
-              channel: channel,
-            ));
-        await Get.find<VideoPlayerConteroller>()
-            .setAllOrientationsToLandscape();
+  //       // Get.to(() => VideoPlayerOptionScreen(
+  //       //       channel: channel,
+  //       //     ));
+  //       Get.to(() => VideoPlayerScreen(
+  //             channel: channel,
+  //           ));
+  //       await Get.find<VideoPlayerConteroller>()
+  //           .setAllOrientationsToLandscape();
 
-        log('Found: ${channel.name}, Video URL: ${channel.url}');
-      } catch (e) {
-        log(e.toString()); // Handle exception
-      }
-    } else if (matchStatus.statustitel != 'Ended') {
-      showCustomSnackBar(
-        message: The_match_hasn_t_started_yet.tr,
-        isError: false,
-        title: Match_Status.tr,
-      );
-    }
-  }
+  //       log('Found: ${channel.name}, Video URL: ${channel.url}');
+  //     } catch (e) {
+  //       log(e.toString()); // Handle exception
+  //     }
+  //   } else if (matchStatus.statustitel != 'Ended') {
+  //     showCustomSnackBar(
+  //       message: The_match_hasn_t_started_yet.tr,
+  //       isError: false,
+  //       title: Match_Status.tr,
+  //     );
+  //   }
+  // }
 
   MatchStatus getMatchStatusWithColor(MatchModel event) {
     String status;
@@ -270,65 +262,6 @@ class TodayMatchesController extends GetxController {
       return MatchStatus(
           status: status, color: color, statustitel: statustitel);
     }
-  }
-
-// timer countdown  countdown match
-
-  Future<Channel> findChannelByName(String channelName) async {
-    const double threshold = 0.85; // Adjusted for better matching
-    final List<CategoryWithChannels> channelCategories =
-        await categoryController.getCategorys;
-    if (channelCategories.isEmpty) {
-      Get.off(() => const CategoriesScreen());
-      showCustomSnackBar(
-        message: "${Channel_not_found.tr}: $channelName",
-        title: ChannelUnknown.tr,
-        isError: true,
-      );
-      throw ChannelNotFoundException(
-        'No sufficiently similar channel found for: $channelName',
-      );
-    }
-    final List<Channel> channels = channelCategories
-        .map((category) => category.channels)
-        .expand((e) => e)
-        .toList();
-
-    Channel? bestMatch;
-    double highestSimilarity = 0.0;
-
-    String normalizedInput = normalizeChannelName(channelName);
-
-    for (var channel in channels) {
-      String normalizedChannel = normalizeChannelName(channel.name);
-
-      // Calculate similarity using Levenshtein Distance
-      double similarity =
-          calculateSimilarity(normalizedInput, normalizedChannel);
-
-      if (similarity > highestSimilarity) {
-        highestSimilarity = similarity;
-        bestMatch = channel;
-      }
-    }
-
-    if (bestMatch != null && highestSimilarity >= threshold) {
-      return bestMatch;
-    } else {
-      showCustomSnackBar(
-        message: "${Channel_not_found.tr}: $channelName",
-        title: ChannelUnknown.tr,
-        isError: true,
-      );
-      Get.off(() => const CategoriesScreen());
-      throw ChannelNotFoundException(
-        'No sufficiently similar channel found for: $channelName',
-      );
-    }
-  }
-
-  double calculateSimilarity(String input, String target) {
-    return tokenSortRatio(input, target) / 100.0; // Normalize to 0 - 1 range
   }
 
   // **Helper function to normalize names**

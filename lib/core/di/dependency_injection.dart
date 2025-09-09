@@ -2,7 +2,6 @@ import 'package:faisal_tv/features/home/controllers/fixtures_controller.dart'
     show FixturesController;
 import 'package:faisal_tv/features/home/data/remote/fixtures_remote_data.dart';
 import 'package:faisal_tv/features/home/data/repos/fixtures_repo.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
 import '../../features/auth/login/controllers/login_controller.dart';
@@ -26,7 +25,6 @@ import '../../features/home/data/remote/today_matches_remote_date.dart';
 import '../../features/home/data/repos/category_repo.dart';
 import '../../features/home/data/repos/today_matches_repo.dart';
 import '../../features/onboarding/controller/onboarding_controller.dart';
-import '../../firebase_options.dart';
 import '../helpers/constants.dart';
 import '../helpers/network_manager.dart';
 import '../helpers/shared_pref_helper.dart';
@@ -35,9 +33,9 @@ import '../networking/api_client.dart';
 import '../theming/theme_controller.dart';
 
 Future init() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   // final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   // firebaseAuth.authStateChanges().listen((User? user) {
