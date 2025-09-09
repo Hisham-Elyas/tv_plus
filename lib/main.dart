@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:feedback/feedback.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthRemotDataImpHttp auth = Get.find<AuthRemotDataImpHttp>();
     return GetBuilder<ThemeController>(
       init: ThemeController(),
       builder: (themeController) => GetBuilder<LanguageController>(
@@ -45,50 +48,70 @@ class MyApp extends StatelessWidget {
           child: ScreenUtilInit(
             designSize: const Size(390, 844),
             builder: (ctx, child) => GetMaterialApp(
-              theme: AppThemes.lightTheme,
-              darkTheme: AppThemes.darkTheme,
-              themeMode: themeController.themeMode,
-              debugShowCheckedModeBanner: false,
-              translations: MyTranslations(),
-              locale: langController.appLocale,
-              title: 'TV-App',
-              // theme: ThemeData(
-              //   fontFamily: 'Cairo',
-              //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              //   useMaterial3: true,
-              // ),
-              home: const AppContent(),
-              // home: isOnBordingView
-              //     ? auth.isAuthenticated
-              //         ? const MainHomeScreen()
-              //         : const LoginScreen()
-              //     : const IntroScreen(),
-              // home: HomeScreen(),
-              // home: MatchListScreen(),
-              // home: isOnBordingView
-              //     ? firebaseAuth.authStateChanges().listen((User? user) {
-              //         if (user != null) {
-              //         r
-              //         } else {
-              //           log("............... not User is login ");
-              //         }
-              //       })
-              //     : const IntroScreen(),
+                theme: AppThemes.lightTheme,
+                darkTheme: AppThemes.darkTheme,
+                themeMode: themeController.themeMode,
+                debugShowCheckedModeBanner: false,
+                translations: MyTranslations(),
+                locale: langController.appLocale,
+                title: 'TV-App',
+                // theme: ThemeData(
+                //   fontFamily: 'Cairo',
+                //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                //   useMaterial3: true,
+                // ),
+                home: Builder(builder: (navigatorContext) {
+                  return PopScope(
+                    canPop: false,
+                    onPopInvokedWithResult: (didPop, result) async {
+                      if (didPop) {
+                        return;
+                      }
+                      final bool? shouldPop =
+                          await showExitPopup(navigatorContext);
+                      print('shouldPop: $shouldPop');
+                      if (shouldPop == true) {
+                        SystemNavigator.pop();
+                      }
+                    },
+                    child: isOnBordingView
+                        ? auth.isAuthenticated
+                            ? const MainHomeScreen()
+                            : const LoginScreen()
+                        : const IntroScreen(),
+                  );
+                })
+                // home: isOnBordingView
+                //     ? auth.isAuthenticated
+                //         ? const MainHomeScreen()
+                //         : const LoginScreen()
+                //     : const IntroScreen(),
+                // home: HomeScreen(),
+                // home: MatchListScreen(),
+                // home: isOnBordingView
+                //     ? firebaseAuth.authStateChanges().listen((User? user) {
+                //         if (user != null) {
+                //         r
+                //         } else {
+                //           log("............... not User is login ");
+                //         }
+                //       })
+                //     : const IntroScreen(),
 
-              // home: HomeScreen2(
-              //     // matches: sampleMatches,
-              //     ),
-              // home: OnboardingScreen(),
-              // home: const SingupScreen(),
-              // home: const LoginScreen(),
-              // home: const OTPScreen(),
-              // home: const ForgetPasswordScreen(),
-              // home: const HomeScreen(),
-              // home: CategoriesScreen(),
-              // home: const VideoPlayerScreen(
-              //   videoUrl: '',
-              // ),
-            ),
+                // home: HomeScreen2(
+                //     // matches: sampleMatches,
+                //     ),
+                // home: OnboardingScreen(),
+                // home: const SingupScreen(),
+                // home: const LoginScreen(),
+                // home: const OTPScreen(),
+                // home: const ForgetPasswordScreen(),
+                // home: const HomeScreen(),
+                // home: CategoriesScreen(),
+                // home: const VideoPlayerScreen(
+                //   videoUrl: '',
+                // ),
+                ),
           ),
         ),
       ),
@@ -96,9 +119,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// دالة عرض الـ Dialog
-Future<bool?> showExitPopup(BuildContext context) async {
-  return await AwesomeDialog(
+/// Returns `true` if the user confirms they want to exit, `false` otherwise.
+Future<bool?> showExitPopup(BuildContext context) {
+  // Use a completer to get a value from the dialog's button callbacks.
+  final completer = Completer<bool?>();
+
+  AwesomeDialog(
     context: context,
     dialogType: DialogType.warning,
     animType: AnimType.scale,
@@ -106,35 +132,23 @@ Future<bool?> showExitPopup(BuildContext context) async {
     desc: exitDialogDesc.tr,
     btnCancelText: noButton.tr,
     btnOkText: yesButton.tr,
-    btnCancelOnPress: () => Get.back(result: false),
-    btnOkOnPress: () => Get.back(result: true),
+    dismissOnBackKeyPress: false,
+    dismissOnTouchOutside: false,
+    // When cancel is pressed, complete the future with false.
+    btnCancelOnPress: () {
+      if (!completer.isCompleted) {
+        completer.complete(false);
+      }
+    },
+    // When OK is pressed, complete the future with true.
+    btnOkOnPress: () {
+      if (!completer.isCompleted) {
+        completer.complete(true);
+      }
+    },
+    // If the dialog is dismissed by other means (e.g., back press), complete with false.
   ).show();
-}
 
-class AppContent extends StatelessWidget {
-  const AppContent({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // The 'context' here IS A DESCENDANT of GetMaterialApp, so it will work!
-    final AuthRemotDataImpHttp auth = Get.find<AuthRemotDataImpHttp>();
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) async {
-        if (didPop) {
-          return;
-        }
-        // This 'context' is now valid for showing a Material dialog
-        final bool? shouldPop = await showExitPopup(context);
-        if (shouldPop == true) {
-          SystemNavigator.pop();
-        }
-      },
-      child: isOnBordingView
-          ? auth.isAuthenticated
-              ? const MainHomeScreen()
-              : const LoginScreen()
-          : const IntroScreen(),
-    );
-  }
+  // Return the completer's future, which will be awaited by the caller.
+  return completer.future;
 }
