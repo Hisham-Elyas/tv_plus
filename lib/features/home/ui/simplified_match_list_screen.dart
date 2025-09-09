@@ -243,9 +243,7 @@ class SimplifiedMatchListScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: 8.w, vertical: 1.h),
                         child: Text(
-                          matchStart != null
-                              ? DateFormat('hh:mm a').format(matchStart)
-                              : "--:--",
+                          DateFormat('hh:mm a').format(matchStart),
                           style:
                               const TextStyle(fontSize: 12, color: Colors.grey),
                         ),
@@ -335,12 +333,12 @@ class MatchStatusBadge extends StatelessWidget {
         break;
       case End:
         bgColor = Colors.green.shade100;
-        textColor = Colors.green.shade800;
+        textColor = Colors.red;
 
         break;
       default: // Live
+        textColor = Colors.green.shade800;
         bgColor = Colors.red.shade100;
-        textColor = Colors.red;
     }
 
     return Card(

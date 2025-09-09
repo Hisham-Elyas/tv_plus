@@ -12,6 +12,10 @@ const String The_match_hasn_t_started_yet = "The match hasn't started yet.";
 const String Channel_not_found = "Channel not found.";
 
 const String ChannelUnknown = "Channel Unknown";
+const String exitDialogTitle = 'Confirm Exit';
+const String exitDialogDesc = 'Are you sure you want to exit?';
+const String yesButton = 'Yes';
+const String noButton = 'No';
 
 const String Live = "Live";
 const String End = "End";
