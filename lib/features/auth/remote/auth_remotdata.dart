@@ -360,7 +360,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       throw HPlatformException(e.code).message;
     } catch (e) {
       print(e.toString());
-      throw "Someting went weong. pleas try agin";
+      throw "Someting went weong. pleas try agin.";
     }
   }
 
