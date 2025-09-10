@@ -333,7 +333,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         throw message;
       }
     } on TimeoutException {
-      throw "Request timed out, please try again";
+      throw "Request timed out, please try again.";
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {
