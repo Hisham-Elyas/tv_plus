@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -93,7 +95,7 @@ class ProfileScreen extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .onSurface
-                                    .withOpacity(0.7),
+                                    .withValues(alpha: 0.7),
                               ),
                             ),
                           ],
@@ -136,7 +138,7 @@ class ProfileScreen extends StatelessWidget {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .primary
-                                      .withOpacity(0.1),
+                                      .withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(8.dm),
                                 ),
                                 child: Icon(
@@ -159,7 +161,7 @@ class ProfileScreen extends StatelessWidget {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onSurface
-                                      .withOpacity(0.7),
+                                      .withValues(alpha: 0.7),
                                 ),
                               ),
                               trailing: Icon(
@@ -185,7 +187,7 @@ class ProfileScreen extends StatelessWidget {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .primary
-                                      .withOpacity(0.1),
+                                      .withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(8.dm),
                                 ),
                                 child: Icon(
@@ -208,7 +210,7 @@ class ProfileScreen extends StatelessWidget {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onSurface
-                                      .withOpacity(0.7),
+                                      .withValues(alpha: 0.7),
                                 ),
                               ),
                               trailing: Icon(
@@ -234,7 +236,7 @@ class ProfileScreen extends StatelessWidget {
                           //         color: Theme.of(context)
                           //             .colorScheme
                           //             .primary
-                          //             .withOpacity(0.1),
+                          //           .withValues(alpha:0.1),
                           //         borderRadius: BorderRadius.circular(8.dm),
                           //       ),
                           //       child: Icon(
@@ -257,7 +259,7 @@ class ProfileScreen extends StatelessWidget {
                           //         color: Theme.of(context)
                           //             .colorScheme
                           //             .onSurface
-                          //             .withOpacity(0.7),
+                          //           .withValues(alpha:0.7),
                           //       ),
                           //     ),
                           //     trailing: Icon(
@@ -283,7 +285,7 @@ class ProfileScreen extends StatelessWidget {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .primary
-                                      .withOpacity(0.1),
+                                      .withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(8.dm),
                                 ),
                                 child: Icon(
@@ -305,7 +307,7 @@ class ProfileScreen extends StatelessWidget {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onSurface
-                                      .withOpacity(0.7),
+                                      .withValues(alpha: 0.7),
                                 ),
                               ),
                               trailing: Icon(
@@ -404,7 +406,7 @@ class ProfileScreen extends StatelessWidget {
                                         color: Theme.of(context)
                                             .colorScheme
                                             .onSurface
-                                            .withOpacity(0.7),
+                                            .withValues(alpha: 0.7),
                                       ),
                                     ),
                                     verticalSpace(10),
@@ -482,7 +484,7 @@ class ProfileScreen extends StatelessWidget {
                                     color: Theme.of(context)
                                         .colorScheme
                                         .onSurface
-                                        .withOpacity(0.5),
+                                        .withValues(alpha: 0.5),
                                   ),
                                   verticalSpace(10),
                                   Text(
@@ -504,13 +506,13 @@ class ProfileScreen extends StatelessWidget {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onSurface
-                                          .withOpacity(0.7),
+                                          .withValues(alpha: 0.7),
                                     ),
                                   ),
                                   verticalSpace(20),
                                   ElevatedButton(
                                     onPressed: () {
-                                      // TODO: Implement subscription flow
+                                      print('SubscribeNow ');
                                     },
                                     child: Text(SubscribeNow.tr),
                                   ),

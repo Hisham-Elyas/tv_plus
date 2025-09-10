@@ -1,4 +1,4 @@
-// ignore_for_file: strict_top_level_inference
+// ignore_for_file: strict_top_level_inference, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

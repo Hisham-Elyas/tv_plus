@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:faisal_tv/core/helpers/enums.dart';
 import 'package:faisal_tv/features/home/data/models/league_fixtures_response_model.dart';
 import 'package:faisal_tv/features/home/data/repos/fixtures_repo.dart';

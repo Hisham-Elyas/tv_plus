@@ -102,7 +102,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor:
-            Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+            Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
         backgroundColor: Theme.of(context).colorScheme.surface,
         elevation: 8,
 

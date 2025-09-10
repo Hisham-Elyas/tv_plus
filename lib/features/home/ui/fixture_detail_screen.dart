@@ -1193,7 +1193,7 @@ class MatchPreviewWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CachedNetworkImage(
-                  imageUrl: s.sideline.player.imagePath ?? '',
+                  imageUrl: s.sideline.player.imagePath,
                   height: 35.h,
                   width: 35.w, // Good practice to set width too
                   fit: BoxFit.cover,
@@ -1214,7 +1214,7 @@ class MatchPreviewWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        s.sideline.player.displayName ?? 'Unknown Player',
+                        s.sideline.player.displayName,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1, // Prevent wrapping to multiple lines
                         style: TextStyle(
