@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use, avoid_print
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -75,7 +77,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   @override
   Future<bool> signUp({required SinupModel sinupModel}) async {
     try {
-      final response = await apiClent.posData(
+      final response = await apiClent.postData(
         uri: ApiConstants.apiBaseUrl + ApiConstants.registerEndpoint,
         body: {
           "username": sinupModel.userName,
@@ -107,6 +109,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         // print(message);
         throw message;
       }
+    } on TimeoutException {
+      throw "Request timed out, please try again";
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {
@@ -121,7 +125,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   @override
   Future<bool> logIn({required LoginModel loginModel}) async {
     try {
-      final response = await apiClent.posData(
+      final response = await apiClent.postData(
         uri: ApiConstants.apiBaseUrl + ApiConstants.loginEndpoint,
         body: {
           "email": loginModel.email,
@@ -150,6 +154,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         print(message);
         throw message;
       }
+    } on TimeoutException {
+      throw "Request timed out, please try again";
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {
@@ -187,6 +193,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         String message = data['error'] ?? 'Failed to update user info.';
         throw message;
       }
+    } on TimeoutException {
+      throw "Request timed out, please try again";
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {
@@ -217,6 +225,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         String message = data['error'] ?? 'Failed to update password.';
         throw message;
       }
+    } on TimeoutException {
+      throw "Request timed out, please try again";
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {
@@ -247,6 +257,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         String message = data['error'] ?? 'Failed to update email.';
         throw message;
       }
+    } on TimeoutException {
+      throw "Request timed out, please try again";
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {
@@ -279,6 +291,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         String message = data['error'] ?? 'Failed to delete account.';
         throw message;
       }
+    } on TimeoutException {
+      throw "Request timed out, please try again";
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {
@@ -318,6 +332,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
         String message = data['error'] ?? 'Failed to fetch user info.';
         throw message;
       }
+    } on TimeoutException {
+      throw "Request timed out, please try again";
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {
@@ -351,7 +367,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
   @override
   Future<bool> forgotPassword({required String email}) async {
     try {
-      final response = await apiClent.posData(
+      final response = await apiClent.postData(
         uri: ApiConstants.apiBaseUrl + ApiConstants.sendResetOtp,
         body: {'email': email},
       );
@@ -366,6 +382,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
             data['error'] ?? 'Failed to send password reset email.';
         throw message;
       }
+    } on TimeoutException {
+      throw "Request timed out, please try again";
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {
@@ -383,7 +401,7 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
       required String otp,
       required String email}) async {
     try {
-      final response = await apiClent.posData(
+      final response = await apiClent.postData(
         uri: ApiConstants.apiBaseUrl + ApiConstants.sendResetOtp,
         body: {"email": email, "otp": otp, "newPassword": newPassword},
       );
@@ -398,6 +416,8 @@ class AuthRemotDataImpHttp extends GetxController implements AuthRemotData {
             data['error'] ?? 'Failed to send password reset email.';
         throw message;
       }
+    } on TimeoutException {
+      throw "Request timed out, please try again";
     } on FormatException catch (_) {
       throw const HFormatException();
     } on PlatformException catch (e) {

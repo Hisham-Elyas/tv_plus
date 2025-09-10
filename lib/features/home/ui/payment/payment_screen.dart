@@ -71,7 +71,7 @@ class PaymentScreen extends StatelessWidget {
                                       : Theme.of(context)
                                           .colorScheme
                                           .onSurface
-                                          .withOpacity(0.7),
+                                          .withValues(alpha: 0.7),
                                 ),
                                 title: Text(
                                   paymentMethod.cardNumber,
@@ -87,7 +87,7 @@ class PaymentScreen extends StatelessWidget {
                                       color: Theme.of(context)
                                           .colorScheme
                                           .onSurface
-                                          .withOpacity(0.7),
+                                          .withValues(alpha: 0.7),
                                     )),
                                 trailing: paymentMethod.isDefault
                                     ? Container(
@@ -137,7 +137,7 @@ class PaymentScreen extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .onSurface
-                                    .withOpacity(0.5),
+                                    .withValues(alpha: 0.5),
                               ),
                               verticalSpace(10),
                               Text(
@@ -156,7 +156,7 @@ class PaymentScreen extends StatelessWidget {
                                   color: Theme.of(context)
                                       .colorScheme
                                       .onSurface
-                                      .withOpacity(0.7),
+                                      .withValues(alpha: 0.7),
                                 ),
                               ),
                               verticalSpace(20),

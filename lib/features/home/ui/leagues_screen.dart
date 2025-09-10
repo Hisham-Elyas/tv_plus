@@ -106,7 +106,8 @@ class _LeagueListTile extends StatelessWidget {
       child: Card(
         shadowColor: ColorsManager.lightSecondary,
         elevation: 3,
-        color: Theme.of(Get.context!).colorScheme.surface.withOpacity(0.7),
+        color:
+            Theme.of(Get.context!).colorScheme.surface.withValues(alpha: 0.7),
         clipBehavior: Clip.hardEdge,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r),
@@ -150,7 +151,7 @@ class _LeagueListTile extends StatelessWidget {
                 //         : Theme.of(context)
                 //             .colorScheme
                 //             .onSurface
-                //             .withOpacity(0.6),
+                //           .withValues(alpha:0.6),
                 //   ),
                 //   onPressed: onFavoriteTap,
                 // ),

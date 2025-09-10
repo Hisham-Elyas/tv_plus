@@ -40,7 +40,7 @@ class OnboardingScreen extends GetView<OnboardingController> {
                       color: Theme.of(context)
                           .colorScheme
                           .secondary
-                          .withOpacity(0.52)),
+                        .withValues(alpha:0.52)),
                   child: Column(
                     children: [
                       SmoothPageIndicator(

@@ -216,19 +216,24 @@ class SimplifiedMatchListScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   if (hasStarted && homeScore != null && awayScore != null)
-                    Card(
-                        elevation: 3,
-                        shadowColor: ColorsManager.lightSecondary,
-                        color: Theme.of(Get.context!).colorScheme.surface,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          child: Text(
-                            "$homeScore - $awayScore",
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                            ),
-                          ),
-                        ))
+                    Column(
+                      children: [
+                        MatchStatusBadge(apiState: fixture.state.developerName),
+                        Card(
+                            elevation: 3,
+                            shadowColor: ColorsManager.lightSecondary,
+                            color: Theme.of(Get.context!).colorScheme.surface,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              child: Text(
+                                "$homeScore - $awayScore",
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                            ))
+                      ],
+                    )
                   else
                     Card(
                       elevation: 3,
@@ -238,9 +243,7 @@ class SimplifiedMatchListScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             horizontal: 8.w, vertical: 1.h),
                         child: Text(
-                          matchStart != null
-                              ? DateFormat('hh:mm a').format(matchStart)
-                              : "--:--",
+                          DateFormat('hh:mm a').format(matchStart),
                           style:
                               const TextStyle(fontSize: 12, color: Colors.grey),
                         ),
@@ -306,6 +309,65 @@ class SimplifiedMatchListScreen extends StatelessWidget {
           ),
         SizedBox(width: 8.w),
       ],
+    );
+  }
+}
+
+class MatchStatusBadge extends StatelessWidget {
+  final String apiState;
+
+  const MatchStatusBadge({super.key, required this.apiState});
+
+  @override
+  Widget build(BuildContext context) {
+    final status = Get.find<FixturesController>().getDisplayStatus(apiState);
+
+    Color bgColor;
+    Color textColor;
+
+    switch (status) {
+      case Scheduled:
+        bgColor = Colors.grey.shade200;
+        textColor = Colors.grey;
+
+        break;
+      case End:
+        bgColor = Colors.green.shade100;
+        textColor = Colors.red;
+
+        break;
+      default: // Live
+        textColor = Colors.green.shade800;
+        bgColor = Colors.red.shade100;
+    }
+
+    return Card(
+      elevation: 3,
+      shadowColor: ColorsManager.lightSecondary,
+      color: bgColor,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              height: 7.h,
+              width: 7.w,
+              decoration:
+                  BoxDecoration(color: textColor, shape: BoxShape.circle),
+            ),
+            SizedBox(width: 3.w),
+            Text(
+              status.tr,
+              style: TextStyle(
+                fontSize: 8.sp,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
